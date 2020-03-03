@@ -220,6 +220,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
 
     private fun vibrate() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+
         if (Build.VERSION.SDK_INT >= 26) {
             vibrator.vibrate(VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
