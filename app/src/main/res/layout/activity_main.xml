@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:background="#00A7BA8D"
+    android:screenOrientation="portrait"
+    tools:context=".MainMenuActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:background="#A7BA8D"
+        android:gravity="center|center_horizontal|top"
+        android:stretchColumns="*"
+        app:layout_anchorGravity="center_horizontal">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal">
+
+            <ImageButton
+                android:id="@+id/imageBtnLogo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="120dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/app_logo"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/brain2" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|fill_horizontal|center_vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center_horizontal|center_vertical">
+
+            <RadioGroup
+                android:id="@+id/radio_grp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="20dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_tapcolor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="30dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:checked="true"
+                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+                    android:fontFamily="casual"
+                    android:gravity="center_horizontal|bottom"
+                    android:soundEffectsEnabled="true"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <RadioButton
+                    android:id="@+id/radio_findpair"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="30dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+                    android:fontFamily="casual"
+                    android:gravity="center_horizontal|bottom"
+                    android:soundEffectsEnabled="true"
+                    android:text=""
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ripple_button"
+                android:contentDescription="@string/button_txt_start"
+                android:drawableEnd="@drawable/ic_play_to_stop"
+                android:fontFamily="casual"
+                android:padding="20dp"
+                android:scaleType="fitXY"
+                android:shadowColor="@color/colorPrimaryDark"
+                android:soundEffectsEnabled="true"
+                android:text="@string/button_txt_start"
+                android:textSize="36sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textViewHighScore"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="casual"
+                    android:maxWidth="100dp"
+                    android:text=""
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="casual"
+                    android:maxWidth="100dp"
+                    android:text=""
+                    android:textSize="18sp" />
+
+            </RelativeLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="casual"
+                android:text=""
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/textViewRank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="casual"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1">
+
+                <com.michaldrabik.tapbarmenulib.TapBarMenu
+                    android:id="@+id/tapBarMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp"
+                    app:tbm_backgroundColor="@color/red"
+                    app:tbm_menuAnchor="bottom">
+
+                    <ImageView
+                        android:id="@+id/barMenuItemLanguage"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/menu_global_big" />
+
+                    <!--                    <ImageView
+                                            android:id="@+id/barMenuItemTheme"
+                                            android:layout_width="0dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginStart="16dp"
+                                            android:layout_marginTop="16dp"
+                                            android:layout_marginEnd="16dp"
+                                            android:layout_marginBottom="16dp"
+                                            android:layout_weight="1"
+                                            android:src="@drawable/menu_gallary_big"
+                                            android:visibility="gone" />-->
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="77dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/barMenuItemLike"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/menu_like_big" />
+
+                    <!--
+                                        <ImageView
+                                            android:id="@+id/barMenuItemAds"
+                                            android:layout_width="0dp"
+                                            android:layout_height="60dp"
+                                            android:layout_marginStart="16dp"
+                                            android:layout_marginTop="16dp"
+                                            android:layout_marginEnd="16dp"
+                                            android:layout_marginBottom="16dp"
+                                            android:layout_weight="1"
+                                            android:src="@drawable/menu_ads_big" />
+                    -->
+
+
+                </com.michaldrabik.tapbarmenulib.TapBarMenu>
+
+            </RelativeLayout>
+
+        </TableRow>
+
+    </TableLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

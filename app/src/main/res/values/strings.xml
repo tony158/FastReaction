@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">FastReaction</string>
+    <string name="action_settings">Settings</string>
+    <string name="app_logo">logo</string>
+    <string name="start_button">start_button</string>
+    <string name="button_txt_start">Start</string>
+    <string name="remove_ads">remove_ads_button</string>
+    <string name="button_txt_remove_ads">Remove ads 0.99Euro</string>
+    <string name="high_score">high_score</string>
+    <string name="score_rank_text">Score rank:</string>
+    <string name="more_app_menu">more_app_menu</string>
+    <string name="game_type">game_type</string>
+
+    <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
+    <string name="ads_unit_id">ca-app-pub-6275033303840302/9739286622</string>
+
+    <!-- main menu text start -->
+    <string name="tap_color_english">Tap Color</string>
+    <string name="find_pair_english">Tap Pair</string>
+    <string name="high_score_english">High score</string>
+    <string name="score_rank_english">Ranking</string>
+
+    <string name="tap_color_german">Farbe tippen</string>
+    <string name="find_pair_german">Paar finden</string>
+    <string name="high_score_german">Highscore</string>
+    <string name="score_rank_german">Rangfolge</string>
+
+    <string name="tap_color_french">appuyez Couleur</string>
+    <string name="find_pair_french">appuyez Pair</string>
+    <string name="high_score_french">score élevé</string>
+    <string name="score_rank_french">classement</string>
+
+    <string name="tap_color_chinese">选颜色</string>
+    <string name="find_pair_chinese">找一对</string>
+    <string name="high_score_chinese">最高分</string>
+    <string name="score_rank_chinese">排名</string>
+
+    <string name="tap_color_japanese">色タップ</string>
+    <string name="find_pair_japanese">ペアタップ</string>
+    <string name="high_score_japanese">最高得点</string>
+    <string name="score_rank_japanese">ランキング</string>
+
+    <string name="tap_color_korean">Tap Color</string>
+    <string name="find_pair_korean">Tap Pair</string>
+    <string name="high_score_korean">최고 점수</string>
+    <string name="score_rank_korean">순위</string>
+    <!-- main menu text end -->
+
+    <string name="return_home">Home</string>
+    <string name="continue_play">Continue</string>
+
+    <string name="img_description">find pair image</string>
+
+    <!-- color text start   -->
+    <string name="color_txt_english_Red">Red</string>
+    <string name="color_txt_english_Green">Green</string>
+    <string name="color_txt_english_Blue">Blue</string>
+    <string name="color_txt_english_Yellow">Yellow</string>
+    <string name="color_txt_english_Black">Black</string>
+    <string name="color_txt_english_Gray">Gray</string>
+
+    <string name="color_txt_german_Red">Rot</string>
+    <string name="color_txt_german_Green">Grün</string>
+    <string name="color_txt_german_Blue">Blau</string>
+    <string name="color_txt_german_Yellow">Gelb</string>
+    <string name="color_txt_german_Black">Schwarz</string>
+    <string name="color_txt_german_Gray">Grau</string>
+
+    <string name="color_txt_french_Red">rouge</string>
+    <string name="color_txt_french_Green">verte</string>
+    <string name="color_txt_french_Blue">bleue</string>
+    <string name="color_txt_french_Yellow">jaune</string>
+    <string name="color_txt_french_Black">noire</string>
+    <string name="color_txt_french_Gray">grise</string>
+
+    <string name="color_txt_chinese_Red">红</string>
+    <string name="color_txt_chinese_Green">绿</string>
+    <string name="color_txt_chinese_Blue">蓝</string>
+    <string name="color_txt_chinese_Yellow">黄</string>
+    <string name="color_txt_chinese_Black">黑</string>
+    <string name="color_txt_chinese_Gray">灰</string>
+
+    <string name="color_txt_japanese_Red">赤い</string>
+    <string name="color_txt_japanese_Green">みどり</string>
+    <string name="color_txt_japanese_Blue">青い</string>
+    <string name="color_txt_japanese_Yellow">きいろ</string>
+    <string name="color_txt_japanese_Black">黒い</string>
+    <string name="color_txt_japanese_Gray">はいいろ</string>
+
+    <string name="color_txt_korean_Red">빨간</string>
+    <string name="color_txt_korean_Green">미도리</string>
+    <string name="color_txt_korean_Blue">푸른</string>
+    <string name="color_txt_korean_Yellow">노란색</string>
+    <string name="color_txt_korean_Black">검은</string>
+    <string name="color_txt_korean_Gray">회색</string>
+
+    <!-- color text end   -->
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
