@@ -10,8 +10,10 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast
@@ -154,13 +156,13 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             append(getHighScore())
         }.toString()
 
-        dialogPopup = MaterialDialog(this).show {
-            icon(R.drawable.brain2)
+        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
+
             cancelable(false)
             cancelOnTouchOutside(false)
-            cornerRadius(12f)
-            title(text = msg)
-            message(text = dialogContentMsg)
+            cornerRadius(8f)
             setOnCancelListener { this.dismiss() }
             positiveButton(text = "Continue") {
                 soundBtnClick?.start()

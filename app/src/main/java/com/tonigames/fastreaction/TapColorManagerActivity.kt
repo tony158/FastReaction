@@ -2,6 +2,7 @@ package com.tonigames.fastreaction
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
 import android.os.Build
@@ -9,13 +10,14 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
-import com.tonigames.fastreaction.popups.GameOverPpFragment
 import com.tonigames.fastreaction.tapcolor.FragmentInteractionListener
 import com.tonigames.fastreaction.tapcolor.TapColorFragmentFour
 import com.tonigames.fastreaction.tapcolor.TapColorFragmentThree
@@ -28,7 +30,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
 
     private var roundCnt: Int = 0
     private var currFragment: Fragment? = null
-    private var dialogPopup: GameOverPpFragment? = null
+    private var dialogPopup: MaterialDialog? = null
 
     private var soundBtnClick: MediaPlayer? = null
     private var soundNegative: MediaPlayer? = null
@@ -72,7 +74,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
 
     override fun onCorrectColorSelected() {
         dialogPopup?.let {
-            if (it.isVisible) {
+            if (it.isShowing) {
                 Log.w("TapColorManagerActivity", "dialog is shown, do not show next Fragment!")
                 return
             }
@@ -140,48 +142,38 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
 
     override fun onFailedToSolve(msg: String) {
         dialogPopup?.let {
-            if (it.isVisible) {
+            if (it.isShowing) {
                 Log.w("TapColorManagerActivity", "dialog is already shown!!!")
                 return
             }
         }
+
         soundNegative?.start()
         vibrate()
 
-        val dialogContentMsg = StringBuilder().apply {
-            append("Score: ")
-            append(roundCnt)
-            append("\n \n")
-            append("Highest score: ")
-            append(getHighScore())
-        }.toString()
+        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
-        /*       dialogPopup = MaterialDialog(this).show {
-                   icon(R.drawable.brain2)
-                   cancelable(false)
-                   cancelOnTouchOutside(false)
-                   cornerRadius(12f)
-                   title(text = msg)
-                   message(text = dialogContentMsg)
-                   setOnCancelListener { this.dismiss() }
-                   positiveButton(text = "Continue") {
-                       soundBtnClick?.start()
+            cancelable(false)
+            cancelOnTouchOutside(false)
+            cornerRadius(8f)
+            setOnCancelListener { this.dismiss() }
+            positiveButton(text = "Continue") {
+                soundBtnClick?.start()
 
-                       roundCnt = 0
-                       onCorrectColorSelected()
-                   }
-                   negativeButton(text = "Home") {
-                       soundBtnClick?.start()
+                roundCnt = 0
+                onCorrectColorSelected()
+            }
+            negativeButton(text = "Home") {
+                soundBtnClick?.start()
 
-                       with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
-                           addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                           startActivity(this)
-                       }
-                   }
-               }*/
-
-        dialogPopup = GameOverPpFragment.newInstance("", "")
-            .apply { show(supportFragmentManager, "") }
+                with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(this)
+                }
+            }
+        }
 
         saveHighScore(max(roundCnt, getHighScore()))
     }

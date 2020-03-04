@@ -8,14 +8,6 @@
     android:screenOrientation="portrait"
     tools:context=".tapcolor.TapColorFragmentFour">
 
-    <!--    <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="22dp"
-            android:layout_gravity="top"
-            android:progressDrawable="@drawable/bg_green_progress" />-->
-
     <SeekBar
         android:id="@+id/progressBar"
         android:layout_width="fill_parent"
@@ -24,6 +16,7 @@
         android:max="100"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
+        android:progressDrawable="@drawable/bg_seek_bar"
         android:scrollbarSize="16dp"
         android:thumb="@drawable/menu_bullet_large" />
 

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_dialog_rounded"
-    android:orientation="vertical"
-    tools:context=".popups.GameOverPpFragment">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
         android:orientation="horizontal"
-        android:padding="10dp">
+        android:paddingTop="0dp"
+        android:paddingBottom="0dp">
 
         <ImageView
             android:id="@+id/imgView"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
-            android:background="@drawable/brain2"
+            android:background="@drawable/menu_sad"
             android:fontFamily="casual"
             android:textSize="18sp" />
 
@@ -27,10 +26,14 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
             android:layout_marginStart="20dp"
             android:fontFamily="casual"
+            android:gravity="center"
             android:text="Time's up!"
-            android:textSize="24sp" />
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,11 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
-            android:text="your score:"
+            android:text="Score:"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/score"
+            android:id="@+id/scoreGameOver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -75,11 +78,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
-            android:text="your score:"
+            android:text="Highest score:"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/highScore"
+            android:id="@+id/highScoreGameOver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -88,42 +91,44 @@
             android:textSize="18sp" />
 
     </LinearLayout>
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:gravity="center|center_horizontal"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:color/transparent"
-        android:gravity="center|center_horizontal"
-        android:orientation="horizontal"
-        android:padding="10dp">
+            <Button
+                android:id="@+id/btnGoHome"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ripple_button"
+                android:drawableStart="@drawable/ic_pause_to_play"
+                android:fontFamily="casual"
+                android:text="Main menu"
+                android:textSize="12sp" />
 
-        <ImageButton
-            android:id="@+id/btnGoHome"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:drawableEnd="@drawable/banana_juice"
-            android:fontFamily="casual"
-            android:scaleType="fitCenter"
-            android:text="@string/return_home"
-            android:textSize="18sp" />
+            <Button
+                android:id="@+id/btnContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ripple_button"
+                android:drawableStart="@drawable/ic_play_to_stop"
+                android:fontFamily="casual"
+                android:text="Continue"
+                android:textSize="12sp" />
 
-        <ImageButton
-            android:id="@+id/btnContinue"
-            android:layout_width="80dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:drawableEnd="@drawable/ic_play_to_stop"
-            android:fontFamily="casual"
-            android:scaleType="fitCenter"
-            android:text="@string/continue_play"
-            android:textSize="18sp" />
-
-    </LinearLayout>
+        </LinearLayout>-->
 
 </LinearLayout>
