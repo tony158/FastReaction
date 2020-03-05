@@ -80,7 +80,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             }
         }
 
-        makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, TOP).show()
+        makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, TOP).show()
 
         soundPositive?.let {
             if (it.isPlaying) soundPositive?.stop()
