@@ -60,7 +60,6 @@ interface IFindPairFragment {
             R.drawable.book,
             R.drawable.bow,
             R.drawable.bowling,
-            R.drawable.brain,
             R.drawable.bug,
             R.drawable.burger,
             R.drawable.butterfly,
