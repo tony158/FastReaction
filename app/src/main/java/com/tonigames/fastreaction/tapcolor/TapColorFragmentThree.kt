@@ -46,7 +46,7 @@ class TapColorFragmentThree : AbstractTapColorFragment(R.layout.fragment_tap_col
         //init ProgressBar with CountDownTimer
         with(
             initCountDownTimer(
-                reduceDuration(1500L, paramRound),
+                reduceDuration(1600L, paramRound),
                 50L,
                 activity,
                 progressBar,
