@@ -148,15 +148,8 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         soundNegative?.start()
         vibrate()
 
-        val dialogContentMsg = StringBuilder().apply {
-            append("Score: ")
-            append(roundCnt)
-            append("\n \n")
-            append("Highest score: ")
-            append(getHighScore())
-        }.toString()
-
         dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 

@@ -152,6 +152,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         vibrate()
 
         dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
