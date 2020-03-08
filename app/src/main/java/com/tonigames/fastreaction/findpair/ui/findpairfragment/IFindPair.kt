@@ -124,7 +124,6 @@ interface IFindPairFragment {
             R.drawable.food_and_bbq,
             R.drawable.food_cart,
             R.drawable.food_restaurant,
-            R.drawable.football,
             R.drawable.footwear,
             R.drawable.forest,
             R.drawable.fox,
