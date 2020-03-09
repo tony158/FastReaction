@@ -49,12 +49,12 @@ dependencies {
     //for showing popups
     implementation 'com.afollestad.material-dialogs:core:3.2.1'
 
-    //for the menu
+    //for the option menu
     implementation 'com.github.michaldrabik:TapBarMenu:1.0.6'
 
-    //for google ads
+    //for google firebase ads
     implementation 'com.google.android.gms:play-services-ads:18.3.0'
 
-    // showing Toast
+    // for Toast
     implementation 'com.github.imjeevandeshmukh:GlideToast:1.0'
 }

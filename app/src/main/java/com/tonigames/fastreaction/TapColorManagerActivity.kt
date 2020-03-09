@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.util.Log
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -80,7 +81,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             }
         }
 
-        makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, TOP).show()
+        makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, TOP).show()
 
         soundPositive?.let {
             if (it.isPlaying) soundPositive?.stop()
@@ -152,27 +153,28 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         vibrate()
 
         dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            cancelable(false)
+            cancelOnTouchOutside(false)
+            cornerRadius(8f)
+
             findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            cornerRadius(8f)
-            setOnCancelListener { this.dismiss() }
-            positiveButton(text = "Continue") {
-                soundBtnClick?.start()
-
-                roundCnt = 0
-                onCorrectColorSelected()
-            }
-            negativeButton(text = "Home") {
+            findViewById<Button>(R.id.btnGoHome).setOnClickListener {
                 soundBtnClick?.start()
 
                 with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
                     addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(this)
                 }
+            }
+            findViewById<Button>(R.id.btnContinue).setOnClickListener {
+                soundBtnClick?.start()
+
+                roundCnt = 0
+                onCorrectColorSelected()
+                this.dismiss()
             }
         }
 
@@ -182,16 +184,16 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     override fun onResume() {
         super.onResume()
 
-        roundCnt = 0;
+        roundCnt = 0
         initMedia()
     }
 
     override fun onStop() {
         super.onStop()
 
-        roundCnt = 0;
+        roundCnt = 0
         releaseMedia()
-        dialogPopup?.let { it.dismiss() }
+        dialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
@@ -211,6 +213,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
     }
 
+    @Suppress("DEPRECATION")
     private fun vibrate() {
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 

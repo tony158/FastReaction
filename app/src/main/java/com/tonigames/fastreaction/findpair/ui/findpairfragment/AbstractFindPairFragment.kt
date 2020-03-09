@@ -109,7 +109,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 if ((img1 != null && img2 != null) && (img1 == img2)) {
                     listener?.onCorrectPairSelected()
                 } else {
-                    listener?.onFailedToSolve("Wrong selection!")
+                    listener?.onFailedToSolve("Wrong selection")
                 }
             } else if (checkedToggles.size > 2) {
                 mCountDownTimer?.cancel()
