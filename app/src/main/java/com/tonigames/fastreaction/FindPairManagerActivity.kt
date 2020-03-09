@@ -1,5 +1,6 @@
 package com.tonigames.fastreaction
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -15,6 +16,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast
@@ -158,20 +161,30 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
             findViewById<Button>(R.id.btnGoHome).setOnClickListener {
-                soundBtnClick?.start()
+                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
+                    DefaultAnimatorListener() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        soundBtnClick?.start()
 
-                with(Intent(this@FindPairManagerActivity, MainMenuActivity::class.java)) {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(this)
-                }
+                        with(Intent(this@FindPairManagerActivity, MainMenuActivity::class.java)) {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(this)
+                        }
+                    }
+                }).playOn(it)
             }
             findViewById<Button>(R.id.btnContinue).setOnClickListener {
-                soundBtnClick?.start()
+                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
+                    DefaultAnimatorListener() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        soundBtnClick?.start()
 
-                roundCnt = 0
-                currFragment?.clearAllToggles()
-                onCorrectPairSelected()
-                this.dismiss()
+                        roundCnt = 0
+                        currFragment?.clearAllToggles()
+                        onCorrectPairSelected()
+                        dismiss()
+                    }
+                }).playOn(it)
             }
         }
 

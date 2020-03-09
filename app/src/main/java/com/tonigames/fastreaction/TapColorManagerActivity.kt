@@ -1,5 +1,6 @@
 package com.tonigames.fastreaction
 
+import android.animation.Animator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
@@ -156,25 +159,36 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             cancelable(false)
             cancelOnTouchOutside(false)
             cornerRadius(8f)
-
             findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener {
-                soundBtnClick?.start()
+                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
+                    DefaultAnimatorListener() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        soundBtnClick?.start()
 
-                with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(this)
-                }
+                        with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            startActivity(this)
+                        }
+                    }
+                }).playOn(it)
             }
-            findViewById<Button>(R.id.btnContinue).setOnClickListener {
-                soundBtnClick?.start()
 
-                roundCnt = 0
-                onCorrectColorSelected()
-                this.dismiss()
+            findViewById<Button>(R.id.btnContinue).setOnClickListener {
+                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
+                    DefaultAnimatorListener() {
+                    override fun onAnimationEnd(animation: Animator?) {
+
+                        soundBtnClick?.start()
+
+                        roundCnt = 0
+                        onCorrectColorSelected()
+                        dismiss()
+                    }
+                }).playOn(it)
             }
         }
 
