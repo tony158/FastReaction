@@ -7,6 +7,7 @@
     <color name="colorPrimaryRed">#FFA07A</color>
     <color name="colorLightGrey">#cccccc</color>
     <color name="colorGrey">#808080</color>
+    <color name="colorDarkGrey">#696969</color>
     <color name="seek_bar_background">#ababab</color>
     <color name="seek_bar_progress">#FF0000</color>
     <color name="seek_bar_secondary_progress">#3399CC</color>
