@@ -50,7 +50,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             tapBarMenu.toggle()
         }
 
-        listOf(barMenuItemLanguage, barMenuItemLike).forEach {
+        listOf(barMenuItemLanguage, barMenuItemLike).forEach { it ->
             it.setOnClickListener {
                 soundBtnClick?.start()
 
@@ -129,11 +129,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun refreshRadioButtonState() {
-        val gameType: Int =
+        with(
             getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
                 .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
-
-        radio_grp?.check(if (gameType == Constants.TAP_COLOR) R.id.radio_tapcolor else R.id.radio_findpair)
+        ) {
+            radio_grp?.check(if (this == Constants.TAP_COLOR) R.id.radio_tapcolor else R.id.radio_findpair)
+        }
     }
 
     override fun onResume() {
@@ -141,12 +142,13 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSounds()
         refreshRadioButtonState()
 
-        val gameType: Int =
+        with(
             getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
                 .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
-
-        score.text =
-            getHighScore(if (gameType == 0) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
+        ) {
+            score.text =
+                getHighScore(if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -183,12 +185,10 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun getHighScore(highScoreType: String = ""): Int {
-        val res = with(getSharedPreferences(highScoreType, Context.MODE_PRIVATE))
+        return with(getSharedPreferences(highScoreType, Context.MODE_PRIVATE))
         {
             getInt(highScoreType, 0)
         }
-        
-        return res
     }
 
     class Constants {
@@ -224,7 +224,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     /** get the current language setting*/
-    fun currentLanguage(): MyLanguageEnum {
+    private fun currentLanguage(): MyLanguageEnum {
         val languageIndex = getSharedPreferences(
             Constants.SELECTED_LANGUAGE,
             Context.MODE_PRIVATE

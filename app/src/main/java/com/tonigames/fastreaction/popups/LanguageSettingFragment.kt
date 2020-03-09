@@ -38,7 +38,7 @@ class LanguageSettingFragment(private val settingListener: ISettingChange) : Dia
     private fun initItemSelectListener(listView: ListView) {
         listView.setOnItemClickListener { _, clickedItem, position, _ ->
 
-            YoYo.with(Techniques.Swing).duration(1600).withListener(object :
+            YoYo.with(Techniques.Swing).duration(1200).withListener(object :
                 DefaultAnimatorListener() {
                 override fun onAnimationStart(animation: Animator?) {
                     (listView.adapter as LanguageSettingAdapter).setSelectedLanguage(position)
