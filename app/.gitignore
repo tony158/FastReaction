@@ -1,5 +1,4 @@
-/build
-#built application files
+# built application files
 *.apk
 *.ap_
 
@@ -9,8 +8,26 @@
 # Java class files
 *.class
 
-# Generated files
+# generated files
 bin/
 gen/
-out/
-app/release/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea/
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
