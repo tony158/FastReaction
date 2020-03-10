@@ -25,31 +25,30 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
     override fun onResume() {
         super.onResume()
 
-        with(setColorsToButtons(mutableListOf(btnColor1, btnColor2))) {
-            textViewColor.text =
-                IColorFragment.Color.translatedName(
-                    context!!.resources,
-                    currentLanguage(),
-                    this.first
-                )
+        setColorsToButtons(mutableListOf(btnColor1, btnColor2))
+            .run {
+                textViewColor.text =
+                    IColorFragment.Color.translatedName(
+                        context!!.resources,
+                        currentLanguage(),
+                        this.first
+                    )
 
-            correctColorButton = this
-        }
+                correctColorButton = this
+            }
 
         bindButtonListeners(listOf<Button>(btnColor1, btnColor2))
 
         //init ProgressBar with CountDownTimer
-        with(
-            initCountDownTimer(
-                reduceDuration(1400L, paramRound),
-                50L,
-                activity,
-                progressBar,
-                listener
-            )
-        ) {
+        initCountDownTimer(
+            reduceDuration(1400L, paramRound),
+            50L,
+            activity,
+            progressBar,
+            listener
+        ).run {
             mCountDownTimer = this
-            start()
+            this.start()
         }
     }
 

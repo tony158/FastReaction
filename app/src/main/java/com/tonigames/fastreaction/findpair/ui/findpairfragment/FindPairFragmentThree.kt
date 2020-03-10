@@ -24,22 +24,22 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
     ): View? {
         val view = inflater.inflate(R.layout.fragment_find_pair_three, container, false)
 
-        var ib1 = view.findViewById(R.id.imageBtn1) as ImageButton
-        var ib2 = view.findViewById(R.id.imageBtn2) as ImageButton
-        var ib3 = view.findViewById(R.id.imageBtn3) as ImageButton
-        var ib4 = view.findViewById(R.id.imageBtn4) as ImageButton
-        var ib5 = view.findViewById(R.id.imageBtn5) as ImageButton
-        var ib6 = view.findViewById(R.id.imageBtn6) as ImageButton
+        val ib1 = view.findViewById(R.id.imageBtn1) as ImageButton
+        val ib2 = view.findViewById(R.id.imageBtn2) as ImageButton
+        val ib3 = view.findViewById(R.id.imageBtn3) as ImageButton
+        val ib4 = view.findViewById(R.id.imageBtn4) as ImageButton
+        val ib5 = view.findViewById(R.id.imageBtn5) as ImageButton
+        val ib6 = view.findViewById(R.id.imageBtn6) as ImageButton
 
-        var layout1 = view.findViewById(R.id.relativeLayout1) as RelativeLayout
-        var layout2 = view.findViewById(R.id.relativeLayout2) as RelativeLayout
-        var layout3 = view.findViewById(R.id.relativeLayout3) as RelativeLayout
-        var layout4 = view.findViewById(R.id.relativeLayout4) as RelativeLayout
-        var layout5 = view.findViewById(R.id.relativeLayout5) as RelativeLayout
-        var layout6 = view.findViewById(R.id.relativeLayout6) as RelativeLayout
+        val layout1 = view.findViewById(R.id.relativeLayout1) as RelativeLayout
+        val layout2 = view.findViewById(R.id.relativeLayout2) as RelativeLayout
+        val layout3 = view.findViewById(R.id.relativeLayout3) as RelativeLayout
+        val layout4 = view.findViewById(R.id.relativeLayout4) as RelativeLayout
+        val layout5 = view.findViewById(R.id.relativeLayout5) as RelativeLayout
+        val layout6 = view.findViewById(R.id.relativeLayout6) as RelativeLayout
 
         if (buttonLayoutMap.isNullOrEmpty()) {
-            buttonLayoutMap = mapOf<Int, Pair<RelativeLayout, ImageButton>>(
+            buttonLayoutMap = mapOf(
                 R.id.toggleBtn1 to Pair(layout1, ib1),
                 R.id.toggleBtn2 to Pair(layout2, ib2),
                 R.id.toggleBtn3 to Pair(layout3, ib3),
@@ -61,17 +61,16 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
             )
         )
 
-        with(
-            initCountDownTimer(
-                reduceDuration(2400L, paramRound),
-                50L,
-                activity,
-                progressBar,
-                listener
-            )
-        ) {
+
+        initCountDownTimer(
+            reduceDuration(2400L, paramRound),
+            50L,
+            activity,
+            progressBar,
+            listener
+        ).run {
             mCountDownTimer = this
-            start()
+            this.start()
         }
     }
 

@@ -24,18 +24,18 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
     ): View? {
         val view = inflater.inflate(R.layout.fragment_find_pair_two, container, false)
 
-        var ib1 = view.findViewById(R.id.imageBtn1) as ImageButton
-        var ib2 = view.findViewById(R.id.imageBtn2) as ImageButton
-        var ib3 = view.findViewById(R.id.imageBtn3) as ImageButton
-        var ib4 = view.findViewById(R.id.imageBtn4) as ImageButton
+        val ib1 = view.findViewById(R.id.imageBtn1) as ImageButton
+        val ib2 = view.findViewById(R.id.imageBtn2) as ImageButton
+        val ib3 = view.findViewById(R.id.imageBtn3) as ImageButton
+        val ib4 = view.findViewById(R.id.imageBtn4) as ImageButton
 
-        var layout1 = view.findViewById(R.id.relativeLayout1) as RelativeLayout
-        var layout2 = view.findViewById(R.id.relativeLayout2) as RelativeLayout
-        var layout3 = view.findViewById(R.id.relativeLayout3) as RelativeLayout
-        var layout4 = view.findViewById(R.id.relativeLayout4) as RelativeLayout
+        val layout1 = view.findViewById(R.id.relativeLayout1) as RelativeLayout
+        val layout2 = view.findViewById(R.id.relativeLayout2) as RelativeLayout
+        val layout3 = view.findViewById(R.id.relativeLayout3) as RelativeLayout
+        val layout4 = view.findViewById(R.id.relativeLayout4) as RelativeLayout
 
         if (buttonLayoutMap.isNullOrEmpty()) {
-            buttonLayoutMap = mapOf<Int, Pair<RelativeLayout, ImageButton>>(
+            buttonLayoutMap = mapOf(
                 R.id.toggleBtn1 to Pair(layout1, ib1),
                 R.id.toggleBtn2 to Pair(layout2, ib2),
                 R.id.toggleBtn3 to Pair(layout3, ib3),
@@ -54,17 +54,15 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
             listOf<ToggleButton>(toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4)
         )
 
-        with(
-            initCountDownTimer(
-                reduceDuration(1800L, paramRound),
-                50L,
-                activity,
-                progressBar,
-                listener
-            )
-        ) {
+        initCountDownTimer(
+            reduceDuration(1800L, paramRound),
+            50L,
+            activity,
+            progressBar,
+            listener
+        ).run {
             mCountDownTimer = this
-            start()
+            this.start()
         }
     }
 
