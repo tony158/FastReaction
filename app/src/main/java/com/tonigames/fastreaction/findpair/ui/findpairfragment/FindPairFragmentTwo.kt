@@ -50,9 +50,7 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
     override fun onResume() {
         super.onResume()
 
-        bindButtonListeners(
-            listOf<ToggleButton>(toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4)
-        )
+        bindButtonListeners(listOf<ToggleButton>(toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4))
 
         initCountDownTimer(
             reduceDuration(1800L, paramRound),

@@ -70,7 +70,6 @@ class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pai
             )
         )
 
-
         initCountDownTimer(
             reduceDuration(3000L, paramRound),
             50L,
