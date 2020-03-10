@@ -55,13 +55,11 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             2
         )
 
-        with(
-            when (imgRowCnt) {
-                4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
-                3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
-                else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
-            }
-        ) {
+        when (imgRowCnt) {
+            4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
+            3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
+            else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
+        }.run {
             currFragment = this
 
             supportFragmentManager
@@ -74,27 +72,24 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     }
 
     private fun getHighScore(): Int {
-        return with(
-            getSharedPreferences(
-                MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-                Context.MODE_PRIVATE
-            )
-        ) {
+        return getSharedPreferences(
+            MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
+            Context.MODE_PRIVATE
+        ).run {
             getInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, 0)
         }
     }
 
     private fun saveHighScore(roundCnt: Int) {
-        with(getHighScore()) {
+        getHighScore().run {
             if (roundCnt > this) {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
                     Context.MODE_PRIVATE
-                ).edit()
-                    .putInt(
-                        MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-                        max(this, max(roundCnt, 0))
-                    ).commit()
+                ).edit().putInt(
+                    MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
+                    max(this, max(roundCnt, 0))
+                ).commit()
             }
         }
     }
@@ -121,14 +116,14 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             2
         )
 
-        with(
-            when (imgRowCnt) {
-                4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
-                3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
-                else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
-            }
-        ) {
+
+        when (imgRowCnt) {
+            4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
+            3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
+            else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
+        }.run {
             currFragment = this
+
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.enter_from_right,
@@ -166,7 +161,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                     override fun onAnimationEnd(animation: Animator?) {
                         soundBtnClick?.start()
 
-                        with(Intent(this@FindPairManagerActivity, MainMenuActivity::class.java)) {
+                        Intent(this@FindPairManagerActivity, MainMenuActivity::class.java).run {
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(this)
                         }

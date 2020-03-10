@@ -129,12 +129,10 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun refreshRadioButtonState() {
-        with(
-            getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
-                .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
-        ) {
-            radio_grp?.check(if (this == Constants.TAP_COLOR) R.id.radio_tapcolor else R.id.radio_findpair)
-        }
+        getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
+            .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR).run {
+                radio_grp?.check(if (this == Constants.TAP_COLOR) R.id.radio_tapcolor else R.id.radio_findpair)
+            }
     }
 
     override fun onResume() {
@@ -142,13 +140,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSounds()
         refreshRadioButtonState()
 
-        with(
-            getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
-                .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
-        ) {
-            score.text =
-                getHighScore(if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
-        }
+
+        getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
+            .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR).run {
+                score.text =
+                    getHighScore(if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -184,8 +181,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun getHighScore(highScoreType: String = ""): Int {
-        return with(getSharedPreferences(highScoreType, Context.MODE_PRIVATE))
-        {
+        return getSharedPreferences(highScoreType, Context.MODE_PRIVATE).run {
             getInt(highScoreType, 0)
         }
     }

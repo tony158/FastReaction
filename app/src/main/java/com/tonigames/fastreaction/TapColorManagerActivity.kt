@@ -58,13 +58,12 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             2
         )
 
-        with(
-            when (colorCnt) {
-                4 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test4")
-                3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
-                else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
-            }
-        ) {
+
+        when (colorCnt) {
+            4 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test4")
+            3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
+            else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
+        }.run {
             currFragment = this
 
             supportFragmentManager
@@ -99,14 +98,14 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             2
         )
 
-        with(
-            when (colorCnt) {
-                4 -> TapColorFragmentFour.newInstance(roundCnt.toString(), "test4")
-                3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
-                else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
-            }
-        ) {
+
+        when (colorCnt) {
+            4 -> TapColorFragmentFour.newInstance(roundCnt.toString(), "test4")
+            3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
+            else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
+        }.run {
             currFragment = this
+
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
                     R.anim.enter_from_right,
@@ -120,18 +119,16 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     private fun getHighScore(): Int {
-        return with(
-            getSharedPreferences(
-                MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR,
-                Context.MODE_PRIVATE
-            )
-        ) {
+        return getSharedPreferences(
+            MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR,
+            Context.MODE_PRIVATE
+        ).run {
             getInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, 0)
         }
     }
 
     private fun saveHighScore(roundCnt: Int) {
-        with(getHighScore()) {
+        getHighScore().run {
             if (roundCnt > this) {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, Context.MODE_PRIVATE
@@ -169,7 +166,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                     override fun onAnimationEnd(animation: Animator?) {
                         soundBtnClick?.start()
 
-                        with(Intent(this@TapColorManagerActivity, MainMenuActivity::class.java)) {
+                        Intent(this@TapColorManagerActivity, MainMenuActivity::class.java).run {
                             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(this)
                         }
@@ -181,7 +178,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                 YoYo.with(Techniques.Pulse).duration(200).withListener(object :
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
-
                         soundBtnClick?.start()
 
                         roundCnt = 0
