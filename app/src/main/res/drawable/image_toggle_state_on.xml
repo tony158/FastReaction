@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <!-- Draw a 6dp width border around shape -->
+            <!-- Draw a 7dp width border around shape -->
             <stroke
                 android:width="7dp"
                 android:color="#FF5733" />
