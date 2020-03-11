@@ -65,7 +65,6 @@ interface IFindPairFragment {
             R.drawable.butterfly,
             R.drawable.cab,
             R.drawable.cake,
-            R.drawable.call,
             R.drawable.camera,
             R.drawable.candy,
             R.drawable.cap,
