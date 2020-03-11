@@ -86,10 +86,9 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
                     Context.MODE_PRIVATE
-                ).edit().putInt(
-                    MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-                    max(this, max(roundCnt, 0))
-                ).commit()
+                ).edit()
+                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, roundCnt)
+                    .commit()
             }
         }
     }

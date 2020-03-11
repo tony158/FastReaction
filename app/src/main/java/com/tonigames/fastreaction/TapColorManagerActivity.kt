@@ -131,10 +131,8 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, Context.MODE_PRIVATE
                 ).edit()
-                    .putInt(
-                        MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR,
-                        max(this, max(roundCnt, 0))
-                    ).commit()
+                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, roundCnt)
+                    .commit()
             }
         }
     }
