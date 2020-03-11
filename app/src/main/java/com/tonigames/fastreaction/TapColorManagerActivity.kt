@@ -58,7 +58,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             2
         )
 
-
         when (colorCnt) {
             4 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test4")
             3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
@@ -97,7 +96,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             if (roundCnt % RoundColorCount.size == 0) 1 else roundCnt % RoundColorCount.size,
             2
         )
-
 
         when (colorCnt) {
             4 -> TapColorFragmentFour.newInstance(roundCnt.toString(), "test4")

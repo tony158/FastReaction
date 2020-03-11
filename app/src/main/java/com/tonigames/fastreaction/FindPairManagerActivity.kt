@@ -116,7 +116,6 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             2
         )
 
-
         when (imgRowCnt) {
             4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
             3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
