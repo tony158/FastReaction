@@ -93,9 +93,6 @@
     <string name="color_txt_korean_Yellow">노란색</string>
     <string name="color_txt_korean_Black">검은</string>
     <string name="color_txt_korean_Gray">회색</string>
-
     <!-- color text end   -->
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
 </resources>
