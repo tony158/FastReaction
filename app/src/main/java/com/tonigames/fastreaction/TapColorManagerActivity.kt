@@ -29,7 +29,6 @@ import com.tonigames.fastreaction.tapcolor.TapColorFragmentTwo
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 import kotlin.math.max
 
-
 class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
 
     private var roundCnt: Int = 0

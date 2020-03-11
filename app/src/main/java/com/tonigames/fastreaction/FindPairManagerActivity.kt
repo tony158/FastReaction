@@ -26,7 +26,6 @@ import com.tonigames.fastreaction.findpair.ui.findpairfragment.*
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 import kotlin.math.max
 
-
 class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
 
     private var roundCnt: Int = 0
