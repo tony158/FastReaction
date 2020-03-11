@@ -150,11 +150,11 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             cancelable(false)
             cancelOnTouchOutside(false)
             cornerRadius(8f)
-
             findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
-            findViewById<Button>(R.id.btnGoHome).setOnClickListener {
+
+            findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(object :
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -165,9 +165,10 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                             startActivity(this)
                         }
                     }
-                }).playOn(it)
+                }).playOn(theButton)
             }
-            findViewById<Button>(R.id.btnContinue).setOnClickListener {
+
+            findViewById<Button>(R.id.btnContinue).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(object :
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -178,7 +179,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                         onCorrectPairSelected()
                         dismiss()
                     }
-                }).playOn(it)
+                }).playOn(theButton)
             }
         }
 

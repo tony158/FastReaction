@@ -158,7 +158,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
-            findViewById<Button>(R.id.btnGoHome).setOnClickListener {
+            findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(object :
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -169,10 +169,10 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                             startActivity(this)
                         }
                     }
-                }).playOn(it)
+                }).playOn(theButton)
             }
 
-            findViewById<Button>(R.id.btnContinue).setOnClickListener {
+            findViewById<Button>(R.id.btnContinue).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(object :
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -182,7 +182,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                         onCorrectColorSelected()
                         dismiss()
                     }
-                }).playOn(it)
+                }).playOn(theButton)
             }
         }
 
@@ -208,7 +208,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         super.onDestroy()
 
         releaseMedia()
-        dialogPopup?.let { it.dismiss() }
+        dialogPopup?.dismiss()
     }
 
     private fun releaseMedia() {
