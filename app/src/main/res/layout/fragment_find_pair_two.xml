@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/svg_repeating_triangles" />
+        app:srcCompat="@drawable/svg_bermuda_square" />
 
     <SeekBar
         android:id="@+id/progressBar"
