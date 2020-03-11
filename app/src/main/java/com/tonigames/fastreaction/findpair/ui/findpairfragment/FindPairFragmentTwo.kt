@@ -1,5 +1,6 @@
 package com.tonigames.fastreaction.findpair.ui.findpairfragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -49,6 +50,10 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
 
     override fun onResume() {
         super.onResume()
+        tvRoundCnt?.run {
+            setTextColor(Color.parseColor("#FFA07A"))
+            text = paramRound.toString()
+        }
 
         bindButtonListeners(listOf<ToggleButton>(toggleBtn1, toggleBtn2, toggleBtn3, toggleBtn4))
 

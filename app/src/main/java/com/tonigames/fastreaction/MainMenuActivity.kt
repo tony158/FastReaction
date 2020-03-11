@@ -241,6 +241,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     override fun onBgImageChanged() {
-        //
+        //to implement later
     }
 }

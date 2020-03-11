@@ -14,17 +14,32 @@
         android:scaleType="fitXY"
         app:srcCompat="@drawable/svg_repeating_triangles" />
 
-    <SeekBar
-        android:id="@+id/progressBar"
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:indeterminate="false"
-        android:max="100"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:progressDrawable="@drawable/bg_seek_bar"
-        android:scrollbarSize="16dp"
-        android:thumb="@drawable/menu_bullet_large" />
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvRoundCnt"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text=""
+            android:textSize="18dp" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:max="100"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progressDrawable="@drawable/bg_seek_bar"
+            android:scrollbarSize="16dp"
+            android:thumb="@drawable/menu_bullet_large" />
+    </RelativeLayout>
 
     <TableLayout
         android:layout_width="match_parent"

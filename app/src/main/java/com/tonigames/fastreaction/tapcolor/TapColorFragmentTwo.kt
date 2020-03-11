@@ -1,5 +1,6 @@
 package com.tonigames.fastreaction.tapcolor
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.LayoutInflater
@@ -24,6 +25,10 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
 
     override fun onResume() {
         super.onResume()
+        tvRoundCnt?.run {
+            setTextColor(Color.parseColor("#00574B"))
+            text = paramRound.toString()
+        }
 
         setColorsToButtons(mutableListOf(btnColor1, btnColor2))
             .run {
