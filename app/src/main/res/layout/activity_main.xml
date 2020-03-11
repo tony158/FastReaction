@@ -5,15 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal|center_vertical"
-    android:background="#00A7BA8D"
     android:screenOrientation="portrait"
     tools:context=".MainMenuActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/svg_repeating_triangles" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:background="#A7BA8D"
+        android:background="@drawable/md_transparent"
         android:gravity="center|center_horizontal|top"
         android:stretchColumns="*"
         app:layout_anchorGravity="center_horizontal">

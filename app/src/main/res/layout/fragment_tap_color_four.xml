@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A7BA8D"
     android:screenOrientation="portrait"
     tools:context=".tapcolor.TapColorFragmentFour">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/svg_repeating_triangles" />
+    
     <SeekBar
         android:id="@+id/progressBar"
         android:layout_width="fill_parent"

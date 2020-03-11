@@ -4,10 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A7BA8D"
     android:screenOrientation="portrait"
     tools:context=".tapcolor.TapColorFragmentTwo">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/svg_repeating_triangles" />
+    
     <SeekBar
         android:id="@+id/progressBar"
         android:layout_width="fill_parent"
@@ -24,12 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center|center_horizontal|center_vertical"
+        android:background="@drawable/md_transparent"
         android:gravity="center">
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center|center_horizontal|center_vertical"
+            android:background="@drawable/md_transparent"
             android:gravity="center_horizontal|center_vertical">
 
             <TextView
@@ -45,7 +53,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/md_transparent">
 
             <Button
                 android:id="@+id/btnColor1"
@@ -65,7 +74,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/md_transparent">
 
             <Button
                 android:id="@+id/btnColor2"
