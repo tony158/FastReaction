@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.SeekBar
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
