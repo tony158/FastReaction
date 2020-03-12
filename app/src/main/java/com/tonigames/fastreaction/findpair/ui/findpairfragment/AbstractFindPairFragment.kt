@@ -54,15 +54,11 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     }
 
     private fun initImages(roundCnt: Int = 0) {
-        val drawables: List<Int> = if (roundCnt % 2 == 0) {
-            allDrawables.take(allDrawables.size / 2).shuffled()
-        } else {
-            allDrawables.takeLast(allDrawables.size / 2).shuffled()
-        }
+        if (allImageButtons.isNullOrEmpty() || allDrawables.isNullOrEmpty()) return
+
+        val drawables: List<Int> = allDrawables.shuffled()
 
         allImageButtons.shuffled().let {
-            if (it.isNullOrEmpty() || drawables.isNullOrEmpty()) return
-
             val selectedDrawables: List<Int> = drawables.takeLast(it.size - 1)
 
             selectedDrawables.forEachIndexed { index, drawable ->
