@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_tap_color_three.btnColor2
 import kotlinx.android.synthetic.main.fragment_tap_color_three.progressBar
 import kotlinx.android.synthetic.main.fragment_tap_color_three.textViewColor
 
+private const val DURATION = 1600L
 class TapColorFragmentThree : AbstractTapColorFragment(R.layout.fragment_tap_color_three) {
 
     override var mCountDownTimer: CountDownTimer? = null
@@ -52,7 +53,7 @@ class TapColorFragmentThree : AbstractTapColorFragment(R.layout.fragment_tap_col
         //init ProgressBar with CountDownTimer
 
         initCountDownTimer(
-            reduceDuration(1600L, paramRound),
+            reduceDuration(DURATION, paramRound),
             50L,
             activity,
             progressBar,

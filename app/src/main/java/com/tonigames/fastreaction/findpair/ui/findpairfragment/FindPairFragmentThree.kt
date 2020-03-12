@@ -13,6 +13,7 @@ import android.widget.ToggleButton
 import com.tonigames.fastreaction.R
 import kotlinx.android.synthetic.main.fragment_find_pair_three.*
 
+private const val DURATION = 2400L
 class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pair_three) {
 
     override var mCountDownTimer: CountDownTimer? = null
@@ -68,7 +69,7 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
         )
 
         initCountDownTimer(
-            reduceDuration(2400L, paramRound),
+            reduceDuration(DURATION, paramRound),
             50L,
             activity,
             progressBar,

@@ -10,6 +10,7 @@ import android.widget.Button
 import com.tonigames.fastreaction.R
 import kotlinx.android.synthetic.main.fragment_tap_color_two.*
 
+private const val DURATION = 1400L
 class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color_two) {
 
     override var mCountDownTimer: CountDownTimer? = null
@@ -46,7 +47,7 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
 
         //init ProgressBar with CountDownTimer
         initCountDownTimer(
-            reduceDuration(1400L, paramRound),
+            reduceDuration(DURATION, paramRound),
             50L,
             activity,
             progressBar,
