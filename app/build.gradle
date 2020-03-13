@@ -57,4 +57,7 @@ dependencies {
 
     // for Toast
     implementation 'com.github.imjeevandeshmukh:GlideToast:1.0'
+
+    // aws
+    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.7.+'
 }
