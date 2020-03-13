@@ -140,7 +140,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSounds()
         refreshRadioButtonState()
 
-
         getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
             .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR).run {
                 score.text =
