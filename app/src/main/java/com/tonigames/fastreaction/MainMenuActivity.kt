@@ -109,10 +109,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                                 soundBtnClick?.start()
 
                                 val valueToPut =
-                                    if (it == radio_tapcolor)
-                                        Constants.TAP_COLOR
-                                    else
-                                        Constants.FIND_PAIR
+                                    if (it == radio_tapcolor) Constants.TAP_COLOR else Constants.FIND_PAIR
 
                                 getSharedPreferences(
                                     Constants.GAME_TYPE,
