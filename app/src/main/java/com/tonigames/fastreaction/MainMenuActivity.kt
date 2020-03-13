@@ -162,21 +162,13 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun openRatingLink() {
-        val appPackage: String = packageName
+        val uri1 = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+        val uri2 = Uri.parse("market://details?id=$packageName")
+
         try {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("market://details?id=$appPackage")
-                )
-            )
+            startActivity(Intent(Intent.ACTION_VIEW, uri1))
         } catch (ex: ActivityNotFoundException) {
-            startActivity(
-                Intent(
-                    Intent.ACTION_VIEW,
-                    Uri.parse("https://play.google.com/store/apps/details?id=$appPackage")
-                )
-            )
+            startActivity(Intent(Intent.ACTION_VIEW, uri2))
         }
     }
 
