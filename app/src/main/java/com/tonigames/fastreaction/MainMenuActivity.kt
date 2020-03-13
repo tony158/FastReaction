@@ -139,8 +139,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
         getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
             .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR).run {
-                score.text =
-                    getHighScore(if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
+                val gameType =
+                    if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
+                score.text = getHighScore(gameType).toString()
             }
     }
 
