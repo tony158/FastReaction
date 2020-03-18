@@ -18,7 +18,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.fastreaction.findpair.ui.findpairfragment.*
@@ -26,6 +28,8 @@ import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 import kotlin.math.max
 
 class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
+
+    private var interstitialAd: InterstitialAd? = null
 
     private var roundCnt: Int = 0
     private var currFragment: AbstractFindPairFragment? = null
@@ -67,6 +71,11 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         }
 
         MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
+
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
     }
 
     private fun getHighScore(): Int {
@@ -172,16 +181,38 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                     override fun onAnimationEnd(animation: Animator?) {
                         soundBtnClick?.start()
 
-                        roundCnt = 0
-                        currFragment?.clearAllToggles()
-                        onCorrectPairSelected()
-                        dismiss()
+                        handleContinueClicked()
                     }
                 }).playOn(theButton)
             }
         }
 
         saveHighScore(max(roundCnt, getHighScore()))
+    }
+
+
+    private fun handleContinueClicked() {
+        interstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                interstitialAd?.loadAd(AdRequest.Builder().build())
+
+                doContinueAction()
+            }
+        }
+
+        val isAdLoaded = interstitialAd?.isLoaded ?: false
+        if (isAdLoaded) {
+            interstitialAd?.show()
+        } else {
+            doContinueAction()
+        }
+    }
+
+    private fun doContinueAction() {
+        roundCnt = 0
+        currFragment?.clearAllToggles()
+        dialogPopup?.dismiss()
+        onCorrectPairSelected()
     }
 
     override fun onResume() {

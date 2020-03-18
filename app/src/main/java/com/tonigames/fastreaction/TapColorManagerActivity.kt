@@ -19,7 +19,9 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.fastreaction.tapcolor.FragmentInteractionListener
@@ -30,6 +32,8 @@ import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 import kotlin.math.max
 
 class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
+
+    private var interstitialAd: InterstitialAd? = null
 
     private var roundCnt: Int = 0
     private var currFragment: Fragment? = null
@@ -71,6 +75,11 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         }
 
         MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
+
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
     }
 
     override fun onCorrectColorSelected() {
@@ -175,15 +184,36 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                     override fun onAnimationEnd(animation: Animator?) {
                         soundBtnClick?.start()
 
-                        roundCnt = 0
-                        onCorrectColorSelected()
-                        dismiss()
+                        handleContinueClicked()
                     }
                 }).playOn(theButton)
             }
         }
 
         saveHighScore(max(roundCnt, getHighScore()))
+    }
+
+    private fun handleContinueClicked() {
+        interstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                interstitialAd?.loadAd(AdRequest.Builder().build())
+
+                doContinueAction()
+            }
+        }
+
+        val isAdLoaded = interstitialAd?.isLoaded ?: false
+        if (isAdLoaded) {
+            interstitialAd?.show()
+        } else {
+            doContinueAction()
+        }
+    }
+
+    private fun doContinueAction() {
+        roundCnt = 0
+        dialogPopup?.dismiss()
+        onCorrectColorSelected()
     }
 
     override fun onResume() {
