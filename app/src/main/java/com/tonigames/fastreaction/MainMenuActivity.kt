@@ -15,6 +15,9 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.tonigames.fastreaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.fastreaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.fastreaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
@@ -24,6 +27,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var soundBtnClick: MediaPlayer? = null
+    private var interstitialAd: InterstitialAd? = null
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +46,11 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         refreshRadioButtonState()
         bindEventHandlerRadioButtons()
         bindEventHandlerStartButton()
+
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
     }
 
     private fun initSettingButton() {
@@ -80,23 +89,40 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                 }
 
                 override fun onAnimationEnd(animation: Animator?) {
-                    val gotoActivity =
-                        if (getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
-                                .getInt(
-                                    Constants.GAME_TYPE,
-                                    Constants.TAP_COLOR
-                                ) == Constants.TAP_COLOR
-                        ) {
-                            TapColorManagerActivity::class.java
-                        } else {
-                            FindPairManagerActivity::class.java
-                        }
-
-                    val intent = Intent(this@MainMenuActivity, gotoActivity)
-                    startActivity(intent)
+                    gotoNextActivity()
                 }
             }).playOn(it)
         })
+    }
+
+
+    private fun gotoNextActivity() {
+        val targetActivity =
+            if (getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
+                    .getInt(
+                        Constants.GAME_TYPE,
+                        Constants.TAP_COLOR
+                    ) == Constants.TAP_COLOR
+            ) {
+                TapColorManagerActivity::class.java
+            } else {
+                FindPairManagerActivity::class.java
+            }
+
+        interstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                val intent = Intent(this@MainMenuActivity, targetActivity)
+                startActivity(intent)
+            }
+        }
+
+        val isAdLoaded = interstitialAd?.isLoaded ?: false
+        if (isAdLoaded) {
+            interstitialAd?.show()
+        } else {
+            val intent = Intent(this@MainMenuActivity, targetActivity)
+            startActivity(intent)
+        }
     }
 
     private fun bindEventHandlerRadioButtons() {

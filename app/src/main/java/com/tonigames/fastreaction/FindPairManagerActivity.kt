@@ -20,7 +20,6 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
-import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.fastreaction.findpair.ui.findpairfragment.*
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
