@@ -94,7 +94,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         })
     }
 
-
     private fun gotoNextActivity() {
         val targetActivity =
             if (getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
@@ -141,8 +140,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                                     Context.MODE_PRIVATE
                                 ).edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
 
-                                score.text =
-                                    getHighScore(if (valueToPut == 0) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR).toString()
+                                with(if (valueToPut == 0) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR) {
+                                    score.text = getHighScore(this).toString()
+                                }
                             }
                         }
                     ).playOn(it)

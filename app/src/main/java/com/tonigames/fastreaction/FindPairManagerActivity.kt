@@ -120,7 +120,8 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         }.run {
             currFragment = this
 
-            supportFragmentManager.beginTransaction()
+            supportFragmentManager
+                .beginTransaction()
                 .setCustomAnimations(
                     R.anim.enter_from_right,
                     R.anim.exit_to_left,
