@@ -113,6 +113,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             override fun onAdClosed() {
                 val intent = Intent(this@MainMenuActivity, targetActivity)
                 startActivity(intent)
+
+                interstitialAd?.loadAd(AdRequest.Builder().build())
             }
         }
 
