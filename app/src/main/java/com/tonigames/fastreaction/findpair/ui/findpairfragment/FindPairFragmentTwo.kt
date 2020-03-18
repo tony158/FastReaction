@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_find_pair_two.*
 import kotlinx.android.synthetic.main.fragment_find_pair_two.progressBar
 
 private const val DURATION = 1800L
+
 class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair_two) {
 
     override var mCountDownTimer: CountDownTimer? = null

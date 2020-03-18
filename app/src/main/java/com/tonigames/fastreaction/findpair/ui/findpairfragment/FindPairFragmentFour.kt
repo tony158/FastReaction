@@ -1,6 +1,5 @@
 package com.tonigames.fastreaction.findpair.ui.findpairfragment
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -15,6 +14,7 @@ import com.tonigames.fastreaction.R
 import kotlinx.android.synthetic.main.fragment_find_pair_four.*
 
 private const val DURATION = 3100L
+
 class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pair_four) {
 
     override var mCountDownTimer: CountDownTimer? = null
