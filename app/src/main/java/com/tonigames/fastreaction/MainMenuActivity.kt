@@ -49,7 +49,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
         }
     }
 
@@ -113,8 +112,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             override fun onAdClosed() {
                 val intent = Intent(this@MainMenuActivity, targetActivity)
                 startActivity(intent)
-
-                interstitialAd?.loadAd(AdRequest.Builder().build())
             }
         }
 
@@ -171,6 +168,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                     if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
                 score.text = getHighScore(gameType).toString()
             }
+
+        interstitialAd?.loadAd(AdRequest.Builder().build())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
