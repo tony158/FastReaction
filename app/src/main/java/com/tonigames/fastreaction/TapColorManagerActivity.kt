@@ -90,7 +90,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             }
         }
 
-        makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, TOP).show()
+        makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, BOTTOM).show()
 
         soundPositive?.let {
             if (it.isPlaying) soundPositive?.stop()
@@ -213,7 +213,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     private fun doContinueAction() {
         roundCnt = 0
         dialogPopup?.dismiss()
-        onCorrectColorSelected()
+        //onCorrectColorSelected()
     }
 
     override fun onResume() {

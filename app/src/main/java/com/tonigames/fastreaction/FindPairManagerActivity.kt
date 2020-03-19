@@ -108,7 +108,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             }
         }
 
-        makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, TOP).show()
+        makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, BOTTOM).show()
 
         soundPositive?.let {
             if (it.isPlaying) soundPositive?.stop()
@@ -212,7 +212,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         roundCnt = 0
         currFragment?.clearAllToggles()
         dialogPopup?.dismiss()
-        onCorrectPairSelected()
+        //onCorrectPairSelected()
     }
 
     override fun onResume() {

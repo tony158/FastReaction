@@ -13,8 +13,9 @@
 
     <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
     <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
+    <!--<string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->   <!--for testing-->
     <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
-    <!--<string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>--> <!--for test-->
+    <!--<string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>--> <!--for testing-->
 
     <!-- main menu text start -->
     <string name="tap_color_english">Tap Color</string>
