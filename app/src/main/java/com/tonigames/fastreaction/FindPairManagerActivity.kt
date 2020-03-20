@@ -192,27 +192,19 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
 
 
     private fun handleContinueClicked() {
-        interstitialAd?.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                interstitialAd?.loadAd(AdRequest.Builder().build())
-
-                doContinueAction()
-            }
-        }
-
-        val isAdLoaded = interstitialAd?.isLoaded ?: false
-        if (isAdLoaded) {
-            interstitialAd?.show()
-        } else {
-            doContinueAction()
-        }
-    }
-
-    private fun doContinueAction() {
         roundCnt = 0
         currFragment?.clearAllToggles()
         dialogPopup?.dismiss()
-        //onCorrectPairSelected()
+        
+        interstitialAd?.let {
+            it.adListener = object : AdListener() {
+                override fun onAdClosed() {
+                    interstitialAd?.loadAd(AdRequest.Builder().build())
+                }
+            }
+
+            if (it.isLoaded) it.show()
+        }
     }
 
     override fun onResume() {

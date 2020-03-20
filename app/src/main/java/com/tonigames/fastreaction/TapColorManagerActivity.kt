@@ -183,7 +183,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                     DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
                         soundBtnClick?.start()
-
                         handleContinueClicked()
                     }
                 }).playOn(theButton)
@@ -194,26 +193,18 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     private fun handleContinueClicked() {
-        interstitialAd?.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                interstitialAd?.loadAd(AdRequest.Builder().build())
-
-                doContinueAction()
-            }
-        }
-
-        val isAdLoaded = interstitialAd?.isLoaded ?: false
-        if (isAdLoaded) {
-            interstitialAd?.show()
-        } else {
-            doContinueAction()
-        }
-    }
-
-    private fun doContinueAction() {
         roundCnt = 0
         dialogPopup?.dismiss()
-        //onCorrectColorSelected()
+
+        interstitialAd?.let {
+            it.adListener = object : AdListener() {
+                override fun onAdClosed() {
+                    interstitialAd?.loadAd(AdRequest.Builder().build())
+                }
+            }
+
+            if (it.isLoaded) it.show()
+        }
     }
 
     override fun onResume() {
