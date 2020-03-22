@@ -12,41 +12,49 @@
     <string name="game_type">game_type</string>
 
     <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
-    <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
-    <!--<string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->   <!--for testing-->
-    <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
-    <!--<string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>--> <!--for testing-->
+    <!--<string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>-->
+    <string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>   <!--for testing-->
+    <!--<string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>-->
+    <string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string> <!--for testing-->
+    <!--<string name="ads_reward_unit_id">ca-app-pub-6275033303840302/2967032123</string>-->
+    <string name="ads_reward_unit_id">ca-app-pub-3940256099942544/5224354917</string><!--for testing-->
 
     <!-- main menu text start -->
     <string name="tap_color_english">Tap Color</string>
     <string name="find_pair_english">Tap Pair</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
+    <string name="score_coin_english">Coin</string>
 
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
+    <string name="score_coin_german">Münze</string>
 
     <string name="tap_color_french">appuyez Couleur</string>
     <string name="find_pair_french">appuyez Pair</string>
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
+    <string name="score_coin_french">coin</string>
 
     <string name="tap_color_chinese">点颜色</string>
     <string name="find_pair_chinese">找一对</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
+    <string name="score_coin_chinese">金币</string>
 
     <string name="tap_color_japanese">色タップ</string>
     <string name="find_pair_japanese">ペアタップ</string>
     <string name="high_score_japanese">最高得点</string>
     <string name="score_rank_japanese">ランキング</string>
+    <string name="score_coin_japanese">コイン</string>
 
     <string name="tap_color_korean">Tap Color</string>
     <string name="find_pair_korean">Tap Pair</string>
     <string name="high_score_korean">최고 점수</string>
     <string name="score_rank_korean">순위</string>
+    <string name="score_coin_korean">동전</string>
     <!-- main menu text end -->
 
     <string name="return_home">Home</string>
