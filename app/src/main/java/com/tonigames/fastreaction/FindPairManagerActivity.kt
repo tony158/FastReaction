@@ -78,6 +78,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         }
     }
 
+    // get the high score from Persistence
     private fun getHighScore(): Int {
         return getSharedPreferences(
             MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
@@ -195,7 +196,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         roundCnt = 0
         currFragment?.clearAllToggles()
         dialogPopup?.dismiss()
-        
+
         interstitialAd?.let {
             it.adListener = object : AdListener() {
                 override fun onAdClosed() {
