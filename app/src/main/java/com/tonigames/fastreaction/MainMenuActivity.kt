@@ -9,6 +9,7 @@ import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.Secure
 import android.view.Menu
 import android.view.View
 import android.widget.RadioButton
@@ -18,23 +19,27 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.firebase.database.*
 import com.tonigames.fastreaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.fastreaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.fastreaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.fastreaction.cloud.FireBaseAccess
 import com.tonigames.fastreaction.popups.LanguageSettingFragment
 import com.tonigames.fastreaction.popups.MyLanguageEnum
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var soundBtnClick: MediaPlayer? = null
     private var interstitialAd: InterstitialAd? = null
+
+    private lateinit var fireBaseAccess: FireBaseAccess
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
 
         imageBtnLogo?.setOnClickListener {
@@ -51,6 +56,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
             loadAd(AdRequest.Builder().build())
         }
+
+        fireBaseAccess = FireBaseAccess(
+            FirebaseDatabase.getInstance(),
+            Secure.getString(contentResolver, Secure.ANDROID_ID),
+            textViewRank
+        )
     }
 
     private fun initSettingButton() {
@@ -146,6 +157,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                                 with(if (valueToPut == 0) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR) {
                                     score.text = getHighScore(this).toString()
                                 }
+
+                                refreshHighestScore()
                             }
                         }
                     ).playOn(it)
@@ -171,6 +184,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                     if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
                 score.text = getHighScore(gameType).toString()
             }
+
+        refreshHighestScore()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -197,9 +212,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun getHighScore(highScoreType: String = ""): Int {
-        return getSharedPreferences(highScoreType, Context.MODE_PRIVATE).run {
-            getInt(highScoreType, 0)
+    private fun getHighScore(gameType: String = ""): Int {
+        return getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
+            getInt(gameType, 0)
         }
     }
 
@@ -243,6 +258,18 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         ).getInt(Constants.SELECTED_LANGUAGE, 0)
 
         return MyLanguageEnum.fromIndex(languageIndex)
+    }
+
+    private fun refreshHighestScore() {
+
+        getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
+            .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
+            .run {
+                val gameType =
+                    if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
+
+                fireBaseAccess.updateScore(this, getHighScore(gameType))
+            }
     }
 
     override fun onLanguageChanged() {
