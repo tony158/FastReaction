@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "944738838877",
+    "firebase_url": "https://fastreaction.firebaseio.com",
+    "project_id": "fastreaction",
+    "storage_bucket": "fastreaction.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944738838877:android:4f88367527839f0042e0b4",
+        "android_client_info": {
+          "package_name": "com.tonigames.fastreaction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944738838877-d7s4s70pmmlltkrsq2hbqr9oq5075qlr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFpEmHhgDYjrSazAjjDvpvGsKJxNkULdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944738838877-d7s4s70pmmlltkrsq2hbqr9oq5075qlr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
