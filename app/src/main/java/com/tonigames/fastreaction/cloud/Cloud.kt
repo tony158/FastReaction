@@ -30,6 +30,8 @@ class FireBaseAccess(
 ) {
 
     fun updateScore(gameType: Int, highestScore: Int) {
+        textView?.text = ""
+
         val refName =
             if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
                 TapColorDTO::class.java.simpleName
