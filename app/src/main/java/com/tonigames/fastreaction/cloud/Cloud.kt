@@ -1,10 +1,8 @@
 package com.tonigames.fastreaction.cloud
 
+import android.bluetooth.BluetoothAdapter
 import android.icu.util.Calendar
-import android.util.Log
 import android.widget.TextView
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.database.*
 import com.tonigames.fastreaction.MainMenuActivity
 import java.util.*
@@ -28,9 +26,11 @@ class FireBaseAccess(
     private val android_id: String,
     private val textView: TextView? = null
 ) {
+    private val deviceName: String =
+        BluetoothAdapter.getDefaultAdapter().name ?: android.os.Build.MODEL
 
     fun updateScore(gameType: Int, highestScore: Int) {
-        textView?.text = ""
+        textView?.text = "......"
 
         val refName =
             if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
@@ -45,19 +45,19 @@ class FireBaseAccess(
         }
     }
 
-    private fun setValueAndRefreshRanking(refName: String, gameType: Int, highestScore: Int) {
+    private fun setValueAndRefreshRanking(refName: String, gameType: Int, score: Int) {
 
         val highScoreDto = if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
-            TapColorDTO(android_id, "toni san", highestScore, Calendar.getInstance().time)
+            TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
         } else {
-            FindPairDTO(android_id, "toni san", highestScore, Calendar.getInstance().time)
+            FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
         }
 
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
                 database.getReference(refName)
                     .orderByChild("score")
-                    .startAt(highestScore.toDouble()).apply {
+                    .startAt(score.toDouble()).apply {
                         this.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onCancelled(p0: DatabaseError) {}
 
