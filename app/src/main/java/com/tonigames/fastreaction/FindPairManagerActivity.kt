@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +24,6 @@ import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.fastreaction.findpair.ui.findpairfragment.*
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
-import kotlin.math.max
 
 class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
 
@@ -88,15 +86,16 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         }
     }
 
-    private fun saveHighScore(roundCnt: Int) {
+    //when score is higher than the current highest score, then save it
+    private fun saveHighScore(score: Int) {
         getHighScore()
-            .takeIf { roundCnt > it }
+            .takeIf { score > it }
             ?.run {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
                     Context.MODE_PRIVATE
                 ).edit()
-                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, roundCnt)
+                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, score)
                     .commit()
             }
     }
@@ -178,7 +177,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             }
         }
 
-        saveHighScore(max(roundCnt, getHighScore()))
+        saveHighScore(roundCnt)
     }
 
 

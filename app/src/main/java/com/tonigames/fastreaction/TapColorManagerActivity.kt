@@ -10,7 +10,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +28,6 @@ import com.tonigames.fastreaction.tapcolor.TapColorFragmentFour
 import com.tonigames.fastreaction.tapcolor.TapColorFragmentThree
 import com.tonigames.fastreaction.tapcolor.TapColorFragmentTwo
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
-import kotlin.math.max
 
 class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
 
@@ -128,14 +126,15 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         }
     }
 
-    private fun saveHighScore(roundCnt: Int) {
+    //when score is higher than the current highest score, then save it
+    private fun saveHighScore(score: Int) {
         getHighScore()
-            .takeIf { roundCnt > it }
+            .takeIf { score > it }
             ?.run {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, Context.MODE_PRIVATE
                 ).edit()
-                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, roundCnt)
+                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, score)
                     .commit()
             }
     }
@@ -179,7 +178,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             }
         }
 
-        saveHighScore(max(roundCnt, getHighScore()))
+        saveHighScore(roundCnt)
     }
 
     private fun handleContinueClicked() {
