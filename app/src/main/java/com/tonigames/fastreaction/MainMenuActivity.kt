@@ -74,34 +74,33 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             it.setOnClickListener {
                 soundBtnClick?.start()
 
-                YoYo.with(Techniques.Pulse).duration(120).withListener(object :
-                    DefaultAnimatorListener() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        tapBarMenu.close()
-                        when (it) {
-                            barMenuItemLanguage -> showLanguageSettingPP()
-                            barMenuItemLike -> openRatingLink()
-                            /*barMenuItemAds -> showLanguageSettingPP()*/
+                YoYo.with(Techniques.Pulse).duration(120).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            tapBarMenu.close()
+                            when (it) {
+                                barMenuItemLanguage -> showLanguageSettingPP()
+                                barMenuItemLike -> openRatingLink()
+                                /*barMenuItemAds -> showLanguageSettingPP()*/
+                            }
                         }
-                    }
-                }).playOn(it)
+                    }).playOn(it)
             }
         }
     }
 
     private fun bindEventHandlerStartButton() {
         btnStart?.setOnClickListener(View.OnClickListener {
-            YoYo.with(Techniques.Pulse).duration(120).withListener(object :
-                DefaultAnimatorListener() {
+            YoYo.with(Techniques.Pulse).duration(120).withListener(
+                object : DefaultAnimatorListener() {
+                    override fun onAnimationStart(animation: Animator?) {
+                        soundBtnClick?.start()
+                    }
 
-                override fun onAnimationStart(animation: Animator?) {
-                    soundBtnClick?.start()
-                }
-
-                override fun onAnimationEnd(animation: Animator?) {
-                    gotoNextActivity()
-                }
-            }).playOn(it)
+                    override fun onAnimationEnd(animation: Animator?) {
+                        gotoNextActivity()
+                    }
+                }).playOn(it)
         })
     }
 

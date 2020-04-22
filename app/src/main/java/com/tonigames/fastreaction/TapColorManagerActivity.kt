@@ -154,27 +154,27 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
-                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
-                    DefaultAnimatorListener() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        soundBtnClick?.start()
+                YoYo.with(Techniques.Pulse).duration(200).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            soundBtnClick?.start()
 
-                        Intent(this@TapColorManagerActivity, MainMenuActivity::class.java).run {
-                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            startActivity(this)
+                            Intent(this@TapColorManagerActivity, MainMenuActivity::class.java).run {
+                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(this)
+                            }
                         }
-                    }
-                }).playOn(theButton)
+                    }).playOn(theButton)
             }
 
             findViewById<Button>(R.id.btnContinue).setOnClickListener { theButton ->
-                YoYo.with(Techniques.Pulse).duration(200).withListener(object :
-                    DefaultAnimatorListener() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        soundBtnClick?.start()
-                        handleContinueClicked()
-                    }
-                }).playOn(theButton)
+                YoYo.with(Techniques.Pulse).duration(200).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            soundBtnClick?.start()
+                            handleContinueClicked()
+                        }
+                    }).playOn(theButton)
             }
         }
 
