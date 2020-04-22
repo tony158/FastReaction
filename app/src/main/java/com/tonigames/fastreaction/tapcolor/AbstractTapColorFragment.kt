@@ -26,7 +26,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     var paramExtra: String? = null
 
     abstract var mCountDownTimer: CountDownTimer?
-    abstract var listener: FragmentInteractionListener?
+    abstract var gameOverListener: FragmentInteractionListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +48,9 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
                                         mCountDownTimer?.cancel()
 
                                         if (theButton == correctColorButton?.second) {
-                                            listener?.onCorrectColorSelected()
+                                            gameOverListener?.onCorrectColorSelected()
                                         } else {
-                                            listener?.onFailedToSolve("Wrong answer")
+                                            gameOverListener?.onFailedToSolve("Wrong answer")
                                         }
                                     }
                                 }
@@ -138,7 +138,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
         super.onAttach(context)
 
         if (context is FragmentInteractionListener) {
-            listener = context
+            gameOverListener = context
         }
     }
 
@@ -146,6 +146,6 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
         super.onDetach()
 
         mCountDownTimer?.cancel()
-        listener = null
+        gameOverListener = null
     }
 }

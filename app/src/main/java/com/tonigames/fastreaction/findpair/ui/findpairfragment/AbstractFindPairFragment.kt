@@ -12,7 +12,6 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.fastreaction.DefaultAnimatorListener
 import com.tonigames.fastreaction.findpair.ui.findpairfragment.IFindPairFragment.Companion.allDrawables
-import java.util.stream.Collectors.toList
 
 abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
     IFindPairFragment {
@@ -29,7 +28,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     private var allImageButtons: List<ImageButton> = listOf()
     private val checkedToggles: MutableList<ToggleButton> = mutableListOf()
 
-    abstract var listener: FindPairInteractionListener?
+    abstract var gameOverListener: FindPairInteractionListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,13 +105,13 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 val img2 = buttonLayoutMap[checkedToggles[1].id]?.second?.tag
 
                 if ((img1 != null && img2 != null) && (img1 == img2)) {
-                    listener?.onCorrectPairSelected()
+                    gameOverListener?.onCorrectPairSelected()
                 } else {
-                    listener?.onFailedToSolve("Wrong selection")
+                    gameOverListener?.onFailedToSolve("Wrong selection")
                 }
             } else if (checkedToggles.size > 2) {
                 mCountDownTimer?.cancel()
-                listener?.onFailedToSolve("Wrong selection!")
+                gameOverListener?.onFailedToSolve("Wrong selection!")
             }
         } else {
             checkedToggles.remove(theToggleButton)
@@ -128,7 +127,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         super.onAttach(context)
 
         if (context is FindPairInteractionListener) {
-            listener = context
+            gameOverListener = context
         }
     }
 
@@ -136,7 +135,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         super.onDetach()
 
         mCountDownTimer?.cancel()
-        listener = null
+        gameOverListener = null
     }
 
     fun initCountDownTimer(

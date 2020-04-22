@@ -19,7 +19,7 @@ private const val DURATION = 1600L
 class TapColorFragmentFour : AbstractTapColorFragment(R.layout.fragment_tap_color_four) {
 
     override var mCountDownTimer: CountDownTimer? = null
-    override var listener: FragmentInteractionListener? = null
+    override var gameOverListener: FragmentInteractionListener? = null
     override var correctColorButton: Pair<IColorFragment.Color?, Button>? = null
 
     override fun onCreateView(
@@ -57,7 +57,7 @@ class TapColorFragmentFour : AbstractTapColorFragment(R.layout.fragment_tap_colo
             50L,
             activity,
             progressBar,
-            listener
+            gameOverListener
         ).run {
             mCountDownTimer = this
             start()

@@ -19,7 +19,7 @@ class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pai
 
     override var mCountDownTimer: CountDownTimer? = null
     override var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>> = mapOf()
-    override var listener: FindPairInteractionListener? = null
+    override var gameOverListener: FindPairInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +81,7 @@ class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pai
             50L,
             activity,
             progressBar,
-            listener
+            gameOverListener
         ).run {
             mCountDownTimer = this
             this.start()
