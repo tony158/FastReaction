@@ -50,10 +50,10 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 buttonLayoutMap.values.stream().map { pair -> pair.second }.collect(toList())
         }
 
-        initImages(paramRound)
+        initImages()
     }
 
-    private fun initImages(roundCnt: Int = 0) {
+    private fun initImages() {
         if (allImageButtons.isNullOrEmpty() || allDrawables.isNullOrEmpty()) return
 
         val drawables: List<Int> = allDrawables.shuffled()

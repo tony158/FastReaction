@@ -47,7 +47,7 @@ class FireBaseAccess(
 
     private fun setValueAndRefreshRanking(refName: String, gameType: Int, score: Int) {
 
-        val highScoreDto = if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
+        val highScoreDto: Any = if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
             TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
         } else {
             FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
