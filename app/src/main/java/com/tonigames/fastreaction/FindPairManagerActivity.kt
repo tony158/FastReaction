@@ -89,8 +89,9 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     }
 
     private fun saveHighScore(roundCnt: Int) {
-        getHighScore().run {
-            if (roundCnt > this) {
+        getHighScore()
+            .takeIf { roundCnt > it }
+            ?.run {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
                     Context.MODE_PRIVATE
@@ -98,16 +99,10 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                     .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, roundCnt)
                     .commit()
             }
-        }
     }
 
     override fun onCorrectPairSelected() {
-        dialogPopup?.let {
-            if (it.isShowing) {
-                Log.w("FindPairManagerActivity", "dialog is shown, do not show next Fragment!")
-                return
-            }
-        }
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectPairSelected }
 
         makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, BOTTOM).show()
 
@@ -144,12 +139,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     }
 
     override fun onFailedToSolve(msg: String) {
-        dialogPopup?.let {
-            if (it.isShowing) {
-                Log.w("TapColorManagerActivity", "dialog is already shown!!!")
-                return
-            }
-        }
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
 
         soundNegative?.start()
         vibrate()

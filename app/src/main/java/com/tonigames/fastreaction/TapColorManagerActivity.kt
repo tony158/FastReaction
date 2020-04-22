@@ -83,12 +83,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     override fun onCorrectColorSelected() {
-        dialogPopup?.let {
-            if (it.isShowing) {
-                Log.w("TapColorManagerActivity", "dialog is shown, do not show next Fragment!")
-                return
-            }
-        }
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
 
         makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, BOTTOM).show()
 
@@ -110,17 +105,17 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
             else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
         }.run {
-            currFragment = this
-
-            supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
-                .replace(R.id.fragment_container, this)
-                .commit()
+            currFragment = this.also {
+                supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(
+                        R.anim.enter_from_right,
+                        R.anim.exit_to_left,
+                        R.anim.enter_from_left,
+                        R.anim.exit_to_right
+                    )
+                    .replace(R.id.fragment_container, it)
+                    .commit()
+            }
         }
     }
 
@@ -134,24 +129,19 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     private fun saveHighScore(roundCnt: Int) {
-        getHighScore().run {
-            if (roundCnt > this) {
+        getHighScore()
+            .takeIf { roundCnt > it }
+            ?.run {
                 getSharedPreferences(
                     MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, Context.MODE_PRIVATE
                 ).edit()
                     .putInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, roundCnt)
                     .commit()
             }
-        }
     }
 
     override fun onFailedToSolve(msg: String) {
-        dialogPopup?.let {
-            if (it.isShowing) {
-                Log.w("TapColorManagerActivity", "dialog is already shown!!!")
-                return
-            }
-        }
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
 
         soundNegative?.start()
         vibrate()
