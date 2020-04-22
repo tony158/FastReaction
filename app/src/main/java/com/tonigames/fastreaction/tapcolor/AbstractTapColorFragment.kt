@@ -100,7 +100,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
                 try {
                     onFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
-                    Log.d("AbstractTapColorFragment", e.message?:"")
+                    Log.d("AbstractTapColorFragment", e.message ?: "exception")
                 }
             }
         }
