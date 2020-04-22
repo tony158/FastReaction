@@ -1,8 +1,8 @@
 package com.tonigames.fastreaction.tapcolor
 
+import android.animation.Animator
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +14,7 @@ private const val DURATION = 1300L
 
 class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color_two) {
 
-    override var mCountDownTimer: CountDownTimer? = null
+    override var seekBarAnimator: Animator? = null
     override var gameOverListener: FragmentInteractionListener? = null
     override var correctColorButton: Pair<IColorFragment.Color?, Button>? = null
 
@@ -46,16 +46,12 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
 
         bindButtonListeners(listOf<Button>(btnColor1, btnColor2))
 
-        //init ProgressBar with CountDownTimer
-        initCountDownTimer(
+        seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, paramRound),
-            50L,
-            activity,
             progressBar,
             gameOverListener
-        ).run {
-            mCountDownTimer = this
-            this.start()
+        ).also {
+            it.start()
         }
     }
 

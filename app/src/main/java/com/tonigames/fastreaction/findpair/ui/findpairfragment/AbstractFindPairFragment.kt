@@ -160,7 +160,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 try {
                     onFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
-                    Log.d("FindPairFragment", "onFinishListener?.onFailedToSolve exception")
+                    Log.d("FindPairFragment", e.message)
                 }
             }
         }

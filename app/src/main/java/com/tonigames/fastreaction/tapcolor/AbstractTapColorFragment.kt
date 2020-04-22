@@ -1,20 +1,21 @@
 package com.tonigames.fastreaction.tapcolor
 
 import android.animation.Animator
-import android.app.Activity
+import android.animation.ValueAnimator
 import android.content.Context
 import android.os.*
 import android.util.Log
 import android.view.View
+import android.view.animation.LinearInterpolator
 import android.widget.Button
 import android.widget.SeekBar
+import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.fastreaction.DefaultAnimatorListener
 import com.tonigames.fastreaction.MainMenuActivity
 import com.tonigames.fastreaction.popups.MyLanguageEnum
-
 
 abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
     IColorFragment {
@@ -25,7 +26,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     var paramRound: Int = 0
     var paramExtra: String? = null
 
-    abstract var mCountDownTimer: CountDownTimer?
+    abstract var seekBarAnimator: Animator?
     abstract var gameOverListener: FragmentInteractionListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,16 +44,12 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
                     object : DefaultAnimatorListener() {
                         override fun onAnimationEnd(animation: Animator?) {
                             try {
-                                activity?.let {
-                                    synchronized(it) {
-                                        mCountDownTimer?.cancel()
+                                seekBarAnimator?.pause()
 
-                                        if (theButton == correctColorButton?.second) {
-                                            gameOverListener?.onCorrectColorSelected()
-                                        } else {
-                                            gameOverListener?.onFailedToSolve("Wrong answer")
-                                        }
-                                    }
+                                if (theButton == correctColorButton?.second) {
+                                    gameOverListener?.onCorrectColorSelected()
+                                } else {
+                                    gameOverListener?.onFailedToSolve("Wrong answer")
                                 }
                             } catch (e: Exception) {
                                 Log.d("onAnimationEnd", e.toString())
@@ -82,43 +79,29 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
         return Pair(selectedColor, selectedButton)
     }
 
-    fun initCountDownTimer(
-        duration: Long,
-        interval: Long,
-        syncLocker: Activity?,
+    fun initSeekBarAnimator(
+        animationTime: Long,
         progressBar: SeekBar? = null,
         onFinishListener: FragmentInteractionListener? = null
-    ): CountDownTimer {
+    ): Animator {
 
         progressBar?.max = 100
         progressBar?.progress = 0
 
-        return object : CountDownTimer(duration, interval) {
-            var i = 0
+        return ValueAnimator.ofInt(0, 100).apply {
+            duration = animationTime
+            interpolator = LinearInterpolator()
 
-            override fun onTick(millisUntilFinished: Long) {
-                syncLocker?.let {
-                    synchronized(it) {
-                        i++
-                        progressBar?.progress = i * 100 / (duration.toInt() / interval.toInt())
-                    }
-                }
+            addUpdateListener { animation ->
+                (animation.animatedValue as Int).also { progressBar?.progress = it }
             }
 
-            override fun onFinish() {
-                syncLocker?.let {
-                    synchronized(it) {
-                        progressBar?.progress = 100
-
-                        try {
-                            onFinishListener?.onFailedToSolve("Time's up")
-                        } catch (e: Exception) {
-                            Log.d(
-                                "AbstractFindPairFragment",
-                                "onFinishListener?.onFailedToSolve exception"
-                            )
-                        }
-                    }
+            doOnEnd {
+                progressBar?.progress = 100
+                try {
+                    onFinishListener?.onFailedToSolve("Time's up")
+                } catch (e: Exception) {
+                    Log.d("AbstractTapColorFragment", e.message)
                 }
             }
         }
@@ -145,7 +128,6 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     override fun onDetach() {
         super.onDetach()
 
-        mCountDownTimer?.cancel()
         gameOverListener = null
     }
 }
