@@ -143,7 +143,6 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         progressBar: SeekBar? = null,
         onFinishListener: FindPairInteractionListener? = null
     ): Animator {
-
         progressBar?.max = 100
         progressBar?.progress = 0
 
@@ -160,7 +159,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 try {
                     onFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
-                    Log.d("FindPairFragment", e.message)
+                    Log.d("FindPairFragment", e.message ?: "")
                 }
             }
         }

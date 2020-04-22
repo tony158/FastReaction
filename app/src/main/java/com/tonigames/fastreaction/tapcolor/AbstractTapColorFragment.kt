@@ -84,7 +84,6 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
         progressBar: SeekBar? = null,
         onFinishListener: FragmentInteractionListener? = null
     ): Animator {
-
         progressBar?.max = 100
         progressBar?.progress = 0
 
@@ -101,7 +100,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
                 try {
                     onFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
-                    Log.d("AbstractTapColorFragment", e.message)
+                    Log.d("AbstractTapColorFragment", e.message?:"")
                 }
             }
         }
