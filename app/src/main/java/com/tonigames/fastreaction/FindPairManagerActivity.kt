@@ -55,16 +55,14 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             2
         )
 
-        when (imgRowCnt) {
+        currFragment = when (imgRowCnt) {
             4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
             3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
             else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
-        }.run {
-            currFragment = this
-
+        }.also {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, this)
+                .replace(R.id.fragment_container, it)
                 .commit()
         }
 
@@ -117,13 +115,11 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             2
         )
 
-        when (imgRowCnt) {
+        currFragment = when (imgRowCnt) {
             4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
             3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
             else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
-        }.run {
-            currFragment = this
-
+        }.also {
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(
@@ -132,7 +128,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                     R.anim.enter_from_left,
                     R.anim.exit_to_right
                 )
-                .replace(R.id.fragment_container, this)
+                .replace(R.id.fragment_container, it)
                 .commit()
         }
     }

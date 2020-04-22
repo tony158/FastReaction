@@ -59,16 +59,14 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             2
         )
 
-        when (colorCnt) {
+        currFragment = when (colorCnt) {
             4 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test4")
             3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
             else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
-        }.run {
-            currFragment = this
-
+        }.also {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, this)
+                .replace(R.id.fragment_container, it)
                 .commit()
         }
 
@@ -98,22 +96,20 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             2
         )
 
-        when (colorCnt) {
+        currFragment = when (colorCnt) {
             4 -> TapColorFragmentFour.newInstance(roundCnt.toString(), "test4")
             3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
             else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
-        }.run {
-            currFragment = this.also {
-                supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.enter_from_right,
-                        R.anim.exit_to_left,
-                        R.anim.enter_from_left,
-                        R.anim.exit_to_right
-                    )
-                    .replace(R.id.fragment_container, it)
-                    .commit()
-            }
+        }.also {
+            supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
+                .replace(R.id.fragment_container, it)
+                .commit()
         }
     }
 
