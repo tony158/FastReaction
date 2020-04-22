@@ -1,12 +1,13 @@
 package com.tonigames.fastreaction.findpair.ui.findpairfragment
 
 import android.animation.Animator
-import android.app.Activity
+import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.util.Log
+import android.view.animation.LinearInterpolator
 import android.widget.*
+import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -22,7 +23,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     var paramRound: Int = 0
     var paramExtra: String? = null
 
-    abstract var mCountDownTimer: CountDownTimer?
+    abstract var seekBarAnimator: Animator?
     abstract var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>>
 
     private var allImageButtons: List<ImageButton> = listOf()
@@ -99,7 +100,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
             checkedToggles.add(theToggleButton)
 
             if (checkedToggles.size == 2) {
-                mCountDownTimer?.cancel()
+                seekBarAnimator?.pause()
 
                 val img1 = buttonLayoutMap[checkedToggles[0].id]?.second?.tag
                 val img2 = buttonLayoutMap[checkedToggles[1].id]?.second?.tag
@@ -110,7 +111,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                     gameOverListener?.onFailedToSolve("Wrong selection")
                 }
             } else if (checkedToggles.size > 2) {
-                mCountDownTimer?.cancel()
+                seekBarAnimator?.cancel()
                 gameOverListener?.onFailedToSolve("Wrong selection!")
             }
         } else {
@@ -134,43 +135,32 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     override fun onDetach() {
         super.onDetach()
 
-        mCountDownTimer?.cancel()
         gameOverListener = null
     }
 
-    fun initCountDownTimer(
-        duration: Long,
-        interval: Long,
-        syncLocker: Activity?,
+    fun initSeekBarAnimator(
+        animationTime: Long,
         progressBar: SeekBar? = null,
         onFinishListener: FindPairInteractionListener? = null
-    ): CountDownTimer {
+    ): Animator {
 
         progressBar?.max = 100
         progressBar?.progress = 0
 
-        return object : CountDownTimer(duration, interval) {
-            var i = 0
+        return ValueAnimator.ofInt(0, 100).apply {
+            duration = animationTime
+            interpolator = LinearInterpolator()
 
-            override fun onTick(millisUntilFinished: Long) {
-                syncLocker?.let {
-                    synchronized(it) {
-                        i++
-                        progressBar?.progress = i * 100 / (duration.toInt() / interval.toInt())
-                    }
-                }
+            addUpdateListener { animation ->
+                (animation.animatedValue as Int).also { progressBar?.progress = it }
             }
 
-            override fun onFinish() {
-                syncLocker?.let {
-                    synchronized(it) {
-                        progressBar?.progress = 100
-                        try {
-                            onFinishListener?.onFailedToSolve("Time's up")
-                        } catch (e: Exception) {
-                            Log.d("FindPairFragment", "onFinishListener?.onFailedToSolve exception")
-                        }
-                    }
+            doOnEnd {
+                progressBar?.progress = 100
+                try {
+                    onFinishListener?.onFailedToSolve("Time's up")
+                } catch (e: Exception) {
+                    Log.d("FindPairFragment", "onFinishListener?.onFailedToSolve exception")
                 }
             }
         }

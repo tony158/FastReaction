@@ -1,8 +1,8 @@
 package com.tonigames.fastreaction.findpair.ui.findpairfragment
 
+import android.animation.Animator
 import android.graphics.Color
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +16,7 @@ private const val DURATION = 2400L
 
 class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pair_three) {
 
-    override var mCountDownTimer: CountDownTimer? = null
+    override var seekBarAnimator: Animator? = null
     override var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>> = mapOf()
     override var gameOverListener: FindPairInteractionListener? = null
 
@@ -68,15 +68,12 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
             )
         )
 
-        initCountDownTimer(
+        seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, paramRound),
-            50L,
-            activity,
             progressBar,
             gameOverListener
-        ).run {
-            mCountDownTimer = this
-            this.start()
+        ).also {
+            it.start()
         }
     }
 
