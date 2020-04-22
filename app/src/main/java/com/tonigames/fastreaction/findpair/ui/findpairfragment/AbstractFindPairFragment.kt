@@ -45,10 +45,11 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         checkedToggles.forEach { if (it.isChecked) it.isChecked = false }   //uncheck all
         checkedToggles.clear()
 
-        if (allImageButtons.isNullOrEmpty()) {
-            allImageButtons =
-                buttonLayoutMap.values.stream().map { pair -> pair.second }.collect(toList())
-        }
+        allImageButtons
+            .takeIf { it.isNullOrEmpty() }
+            ?.run {
+                allImageButtons = buttonLayoutMap.values.map { pair -> pair.second }
+            }
 
         initImages()
     }
@@ -58,19 +59,21 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
 
         val drawables: List<Int> = allDrawables.shuffled()
 
-        allImageButtons.shuffled().let {
-            val selectedDrawables: List<Int> = drawables.takeLast(it.size - 1)
+        allImageButtons
+            .shuffled()
+            .let { imgButtons ->
+                val selectedDrawables: List<Int> = drawables.takeLast(imgButtons.size - 1)
 
-            selectedDrawables.forEachIndexed { index, drawable ->
-                it[index].setImageResource(drawable)
-                it[index].tag = drawable
-            }
+                selectedDrawables.forEachIndexed { index, drawable ->
+                    imgButtons[index].setImageResource(drawable)
+                    imgButtons[index].tag = drawable
+                }
 
-            with(selectedDrawables.random()) {
-                it.last().setImageResource(this ?: 0)
-                it.last().tag = this ?: 0
+                with(selectedDrawables.random()) {
+                    imgButtons.last().setImageResource(this ?: 0)
+                    imgButtons.last().tag = this ?: 0
+                }
             }
-        }
     }
 
     fun bindButtonListeners(toggleButtons: List<ToggleButton>) {
@@ -116,9 +119,9 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         }
     }
 
-    fun clearAllToggles() {
-        checkedToggles.forEach { it.isChecked = false }
-        checkedToggles.clear()
+    fun clearAllToggles() = checkedToggles.run {
+        this.forEach { it.isChecked = false }
+        this.clear()
     }
 
     override fun onAttach(context: Context) {
