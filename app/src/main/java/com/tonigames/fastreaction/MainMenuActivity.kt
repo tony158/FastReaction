@@ -46,6 +46,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             YoYo.with(Techniques.RubberBand).duration(800).playOn(it)
         }
 
+        // test submit
         onLanguageChanged()
         initSettingButton()
         refreshRadioButtonState()
