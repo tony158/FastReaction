@@ -272,10 +272,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         val tapColor = translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColor)
         val findPair = translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPair)
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
+        val ranking = translatedMenuText(resources, currLanguage, MainMenuCataEnum.Ranking)
 
         radio_tapcolor.text = tapColor
         radio_findpair.text = findPair
         textViewHighScore.text = highScore
+        textViewRanking.text = ranking
     }
 
     override fun onBgImageChanged() {
