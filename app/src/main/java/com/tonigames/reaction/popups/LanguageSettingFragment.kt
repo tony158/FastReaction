@@ -21,13 +21,13 @@ class LanguageSettingFragment(private val settingListener: ISettingChange) : Dia
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog?.setCanceledOnTouchOutside(true);
+        dialog?.setCanceledOnTouchOutside(true)
 
-        var view = inflater.inflate(R.layout.language_setting_popup, container, false)
+        val view = inflater.inflate(R.layout.language_setting_popup, container, false)
 
         view.findViewById<ListView>(R.id.listViewLanguage).apply {
-            this.choiceMode = CHOICE_MODE_SINGLE
-            this.adapter = LanguageSettingAdapter(this.context!!, R.layout.language_setting_popup)
+            choiceMode = CHOICE_MODE_SINGLE
+            adapter = LanguageSettingAdapter(this.context!!, R.layout.language_setting_popup)
 
             initItemSelectListener(this)
         }
