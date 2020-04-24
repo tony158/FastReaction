@@ -60,8 +60,8 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
         fun newInstance(param1: String, param2: String) =
             TapColorFragmentTwo().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_ROUND, param1)
-                    putString(ARG_EXTRA, param2)
+                    putString(roundArgument, param1)
+                    putString(extraArgument, param2)
                 }
             }
     }

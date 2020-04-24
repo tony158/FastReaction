@@ -72,8 +72,8 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
         @JvmStatic
         fun newInstance(param1: String, param2: String) = FindPairFragmentTwo().apply {
             arguments = Bundle().apply {
-                putString(ARG_ROUND, param1)
-                putString(ARG_EXTRA, param2)
+                putString(roundArgument, param1)
+                putString(extraArgument, param2)
             }
         }
     }

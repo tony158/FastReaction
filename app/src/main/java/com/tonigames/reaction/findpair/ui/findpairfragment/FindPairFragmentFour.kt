@@ -90,8 +90,8 @@ class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pai
         fun newInstance(param1: String, param2: String) =
             FindPairFragmentFour().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_ROUND, param1)
-                    putString(ARG_EXTRA, param2)
+                    putString(roundArgument, param1)
+                    putString(extraArgument, param2)
                 }
             }
     }

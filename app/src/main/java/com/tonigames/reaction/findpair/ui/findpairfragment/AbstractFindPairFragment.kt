@@ -17,8 +17,8 @@ import com.tonigames.reaction.findpair.ui.findpairfragment.IFindPairFragment.Com
 abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
     IFindPairFragment {
 
-    protected val ARG_ROUND: String = "Round"
-    protected val ARG_EXTRA: String = "Extra"
+    protected val roundArgument: String = "Round"
+    protected val extraArgument: String = "Extra"
 
     var paramRound: Int = 0
     var paramExtra: String? = null
@@ -34,8 +34,8 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            paramRound = it.getString(ARG_ROUND)?.toInt() ?: 0
-            paramExtra = it.getString(ARG_EXTRA)
+            paramRound = it.getString(roundArgument)?.toInt() ?: 0
+            paramExtra = it.getString(extraArgument)
         }
     }
 

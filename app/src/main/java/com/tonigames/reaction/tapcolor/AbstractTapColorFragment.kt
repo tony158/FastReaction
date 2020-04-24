@@ -20,8 +20,8 @@ import com.tonigames.reaction.popups.MyLanguageEnum
 abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
     IColorFragment {
 
-    protected val ARG_ROUND = "Round"
-    protected val ARG_EXTRA = "Extra"
+    protected val roundArgument = "Round"
+    protected val extraArgument = "Extra"
 
     var paramRound: Int = 0
     var paramExtra: String? = null
@@ -32,8 +32,8 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            paramRound = it.getString(ARG_ROUND)?.toInt() ?: 0
-            paramExtra = it.getString(ARG_EXTRA)
+            paramRound = it.getString(roundArgument)?.toInt() ?: 0
+            paramExtra = it.getString(extraArgument)
         }
     }
 
