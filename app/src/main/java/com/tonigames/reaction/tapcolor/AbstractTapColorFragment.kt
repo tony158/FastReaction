@@ -64,13 +64,10 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     fun setColorsToButtons(buttonList: MutableList<Button>): Pair<IColorFragment.Color, Button> {
         buttonList.shuffle()
 
-        val colorList = generateColor(buttonList.size).toMutableList()
-        colorList.shuffle()
-
+        val colorList = generateColor(buttonList.size).toMutableList().also { it.shuffle() }
         val selectedColor: IColorFragment.Color = colorList.removeAt(colorList.size - 1)
-
-        val selectedButton = buttonList.removeAt(buttonList.size - 1)
-        selectedButton.setBackgroundColor(selectedColor.cc)
+        val selectedButton =
+            buttonList.removeAt(buttonList.size - 1).apply { setBackgroundColor(selectedColor.cc) }
 
         for ((index, button) in buttonList.withIndex()) {
             button.setBackgroundColor(colorList[index].cc)
