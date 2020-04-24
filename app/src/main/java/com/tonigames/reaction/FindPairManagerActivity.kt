@@ -103,10 +103,8 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
 
         makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, BOTTOM).show()
 
-        soundPositive?.let {
-            if (it.isPlaying) soundPositive?.stop()
-            it.start()
-        }
+        soundPositive?.takeIf { it.isPlaying }?.stop()
+        soundPositive?.start()
 
         ++roundCnt
 
