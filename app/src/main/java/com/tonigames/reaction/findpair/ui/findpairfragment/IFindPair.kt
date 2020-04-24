@@ -16,16 +16,13 @@ interface IFindPairFragment {
     fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
     fun reduceDuration(duration: Long, roundCnt: Int?): Long {
-        var newDuration = duration
-        roundCnt?.let {
-            newDuration = when {
-                it > 20 -> (duration * 0.9).toLong()
-                it > 40 -> (duration * 0.85).toLong()
+        return (roundCnt ?: 0).run {
+            when {
+                this > 20 -> (duration * 0.9).toLong()
+                this > 40 -> (duration * 0.85).toLong()
                 else -> duration
             }
         }
-
-        return newDuration
     }
 
     companion object {

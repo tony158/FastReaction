@@ -20,15 +20,12 @@ class BgImageSettingFragment(private val settingListener: ISettingChange) : Dial
     ): View? {
         dialog?.setCanceledOnTouchOutside(true)
 
-        var view = inflater.inflate(R.layout.bg_image_setting_popup, container, false)
-
-        view.findViewById<ListView>(R.id.listViewBgImage).apply {
-            this.choiceMode = AbsListView.CHOICE_MODE_SINGLE
-            this.adapter = BgImageSettingAdapter(this.context!!, R.layout.bg_image_setting_popup)
-            //initItemSelectListener(this)
-        }
-
-        return view
+        return inflater.inflate(R.layout.bg_image_setting_popup, container, false)
+            .findViewById<ListView>(R.id.listViewBgImage)
+            ?.apply {
+                choiceMode = AbsListView.CHOICE_MODE_SINGLE
+                adapter = BgImageSettingAdapter(this.context!!, R.layout.bg_image_setting_popup)
+            }
     }
 
 

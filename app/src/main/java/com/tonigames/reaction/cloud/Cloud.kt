@@ -22,10 +22,10 @@ data class FindPairDTO(
 )
 
 class FireBaseAccess(
-    private val database: FirebaseDatabase,
     private val android_id: String,
     private val textView: TextView? = null
 ) {
+    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val deviceName: String =
         BluetoothAdapter.getDefaultAdapter().name ?: android.os.Build.MODEL
 

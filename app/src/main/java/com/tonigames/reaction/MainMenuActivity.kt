@@ -58,11 +58,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             loadAd(AdRequest.Builder().build())
         }
 
-        fireBaseAccess = FireBaseAccess(
-            FirebaseDatabase.getInstance(),
-            Secure.getString(contentResolver, Secure.ANDROID_ID),
-            textViewRank
-        )
+        fireBaseAccess =
+            FireBaseAccess(Secure.getString(contentResolver, Secure.ANDROID_ID), textViewRank)
     }
 
     private fun initSettingButton() {
@@ -91,7 +88,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun bindEventHandlerStartButton() {
-        btnStart?.setOnClickListener(View.OnClickListener {
+        btnStart?.setOnClickListener {
             YoYo.with(Techniques.Pulse).duration(120).withListener(
                 object : DefaultAnimatorListener() {
                     override fun onAnimationStart(animation: Animator?) {
@@ -102,7 +99,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                         gotoNextActivity()
                     }
                 }).playOn(it)
-        })
+        }
     }
 
     private fun gotoNextActivity() {
@@ -151,7 +148,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                                 getSharedPreferences(
                                     Constants.GAME_TYPE,
                                     Context.MODE_PRIVATE
-                                ).edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
+                                ).apply {
+                                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
+                                }
 
                                 with(if (valueToPut == 0) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR) {
                                     score.text = getHighScore(this).toString()

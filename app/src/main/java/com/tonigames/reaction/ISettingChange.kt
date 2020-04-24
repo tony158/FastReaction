@@ -68,12 +68,10 @@ interface ISettingChange {
             language: MyLanguageEnum = MyLanguageEnum.English,
             cata: MainMenuCataEnum
         ): String {
-            return with(
-                theMap.getOrDefault(language, englishMap)
-                    .getOrDefault(cata, 0)
-            ) {
-                res.getString(this)
-            }
+            return theMap.getOrDefault(language, englishMap).getOrDefault(cata, 0)
+                .run {
+                    res.getString(this)
+                }
         }
     }
 

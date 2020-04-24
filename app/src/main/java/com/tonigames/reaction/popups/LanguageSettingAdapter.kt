@@ -10,15 +10,13 @@ import android.widget.TextView
 import androidx.annotation.LayoutRes
 import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.R
-import java.lang.Math.max
-import java.lang.Math.min
+
+private const val MAX_LANGUAGE_COUNT = 5
 
 class LanguageSettingAdapter(
     context: Context, @LayoutRes private val layoutResource: Int,
     private val languageDataList: MutableList<LanguageSettingModel> = mutableListOf()
 ) : ArrayAdapter<LanguageSettingModel>(context, layoutResource, languageDataList) {
-
-    private val maxLanguageIndex = 5
 
     init {
         languageDataList.addAll(initDataList())
@@ -78,21 +76,22 @@ class LanguageSettingAdapter(
         var selectedIndex = context.getSharedPreferences(
             MainMenuActivity.Constants.SELECTED_LANGUAGE,
             Context.MODE_PRIVATE
-        ).getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
+        )
+            .getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
+            .run {
+                this.coerceAtMost(MAX_LANGUAGE_COUNT).coerceAtLeast(0)
+            }
 
-        selectedIndex = max(min(selectedIndex, maxLanguageIndex), 0)
+        return mutableListOf<LanguageSettingModel>()
+            .apply {
+                add(LanguageSettingModel(MyLanguageEnum.English.name, R.drawable.menu_uk, 0))
+                add(LanguageSettingModel(MyLanguageEnum.German.name, R.drawable.menu_germany, 0))
+                add(LanguageSettingModel(MyLanguageEnum.French.name, R.drawable.menu_france, 0))
+                add(LanguageSettingModel(MyLanguageEnum.Chinese.name, R.drawable.menu_china, 0))
+                add(LanguageSettingModel(MyLanguageEnum.Japanese.name, R.drawable.menu_japan, 0))
+                add(LanguageSettingModel(MyLanguageEnum.Korean.name, R.drawable.menu_korea, 0))
 
-        val list = mutableListOf<LanguageSettingModel>()
-
-        list.add(LanguageSettingModel(MyLanguageEnum.English.name, R.drawable.menu_uk, 0))
-        list.add(LanguageSettingModel(MyLanguageEnum.German.name, R.drawable.menu_germany, 0))
-        list.add(LanguageSettingModel(MyLanguageEnum.French.name, R.drawable.menu_france, 0))
-        list.add(LanguageSettingModel(MyLanguageEnum.Chinese.name, R.drawable.menu_china, 0))
-        list.add(LanguageSettingModel(MyLanguageEnum.Japanese.name, R.drawable.menu_japan, 0))
-        list.add(LanguageSettingModel(MyLanguageEnum.Korean.name, R.drawable.menu_south_korea, 0))
-
-        list[selectedIndex].checkedImage = R.drawable.menu_correct
-
-        return list
+                this[selectedIndex].checkedImage = R.drawable.menu_correct
+            }
     }
 }

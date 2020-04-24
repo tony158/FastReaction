@@ -11,7 +11,7 @@ import com.tonigames.reaction.R
 
 class BgImageSettingAdapter(
     context: Context, @LayoutRes private val layoutResource: Int,
-    private val dataList: MutableList<BgImageModel> = mutableListOf()
+    dataList: MutableList<BgImageModel> = mutableListOf()
 ) : ArrayAdapter<BgImageModel>(context, layoutResource, dataList) {
 
     init {
@@ -32,12 +32,7 @@ class BgImageSettingAdapter(
             holder.countryFlag = convertView.findViewById(R.id.imgView1) as ImageView
 
             convertView.tag = holder
-        } else {
-            // the getTag returns the viewHolder object set as a tag to the view
-            //holder = convertView.tag as ViewHolder
         }
-
-        //holder.countryFlag?.setImageResource(languageDataList[position].countryFlag)
 
         return convertView!!
     }
@@ -46,20 +41,7 @@ class BgImageSettingAdapter(
         var countryFlag: ImageView? = null
     }
 
-
     private fun initDataList(): MutableList<BgImageModel> {
-
-        /*        var selectedIndex = context.getSharedPreferences(
-                    MainMenuActivity.Constants.SELECTED_LANGUAGE,
-                    Context.MODE_PRIVATE
-                ).getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)*/
-
-        //selectedIndex = max(min(selectedIndex, 3), 0)
-
-        val list = mutableListOf<BgImageModel>()
-
-        list.add(BgImageModel(R.drawable.menu_uk))
-
-        return list
+        return mutableListOf<BgImageModel>().apply { add(BgImageModel(R.drawable.menu_uk)) }
     }
 }
