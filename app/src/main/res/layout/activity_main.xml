@@ -234,17 +234,6 @@
                         android:layout_weight="1"
                         android:src="@drawable/menu_global_big" />
 
-                    <!--                    <ImageView
-                                            android:id="@+id/barMenuItemTheme"
-                                            android:layout_width="0dp"
-                                            android:layout_height="60dp"
-                                            android:layout_marginStart="16dp"
-                                            android:layout_marginTop="16dp"
-                                            android:layout_marginEnd="16dp"
-                                            android:layout_marginBottom="16dp"
-                                            android:layout_weight="1"
-                                            android:src="@drawable/menu_gallary_big"
-                                            android:visibility="gone" />-->
                     <Space
                         android:layout_width="0dp"
                         android:layout_height="77dp"
@@ -260,20 +249,6 @@
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
                         android:src="@drawable/menu_like_big" />
-
-                    <!--
-                                        <ImageView
-                                            android:id="@+id/barMenuItemAds"
-                                            android:layout_width="0dp"
-                                            android:layout_height="60dp"
-                                            android:layout_marginStart="16dp"
-                                            android:layout_marginTop="16dp"
-                                            android:layout_marginEnd="16dp"
-                                            android:layout_marginBottom="16dp"
-                                            android:layout_weight="1"
-                                            android:src="@drawable/menu_ads_big" />
-                    -->
-
 
                 </com.michaldrabik.tapbarmenulib.TapBarMenu>
 
