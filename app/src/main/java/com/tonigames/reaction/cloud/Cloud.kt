@@ -22,21 +22,22 @@ data class FindPairDTO(
     val visit_at: Date? = null
 )
 
+private const val DEFAULT_TEXT = "......"
+
 class RefreshRankingTask(
     private var android_id: String,
     private val view: TextView?
 ) : AsyncTask<DataSnapshot, Void, String>() {
 
-    private val defaultText = "......"
 
     override fun onPreExecute() {
         super.onPreExecute()
-        view?.text = defaultText
+        view?.text = DEFAULT_TEXT
     }
 
     override fun onCancelled() {
         super.onCancelled()
-        view?.text = defaultText
+        view?.text = DEFAULT_TEXT
     }
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
@@ -70,7 +71,7 @@ class FireBaseAccess(
         BluetoothAdapter.getDefaultAdapter().name ?: android.os.Build.MODEL
 
     fun updateScore(gameType: Int, highestScore: Int) {
-        textView?.text = "......"
+        textView?.text = DEFAULT_TEXT
 
         val refName =
             if (gameType == MainMenuActivity.Constants.TAP_COLOR) {
