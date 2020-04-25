@@ -2,6 +2,7 @@ package com.tonigames.reaction.cloud
 
 import android.bluetooth.BluetoothAdapter
 import android.icu.util.Calendar
+import android.os.AsyncTask
 import android.widget.TextView
 import com.google.firebase.database.*
 import com.tonigames.reaction.MainMenuActivity
@@ -20,6 +21,45 @@ data class FindPairDTO(
     val score: Int,
     val visit_at: Date? = null
 )
+
+class RefreshRankingTask(
+    private var android_id: String,
+    private val view: TextView?
+) : AsyncTask<DataSnapshot, Void, String>() {
+
+    private val defaultText = "......"
+
+    override fun onPreExecute() {
+        super.onPreExecute()
+        view?.text = defaultText
+    }
+
+    override fun onCancelled() {
+        super.onCancelled()
+        view?.text = defaultText
+    }
+
+    override fun doInBackground(vararg params: DataSnapshot?): String {
+        if (params.isEmpty()) return "param is null"
+        val listData = params[0]!!.children.toMutableList()
+        if (listData.isEmpty()) return "param is null"
+
+        val sortedList = listData.sortedByDescending { it.child("score").value.toString().toInt() }
+
+        var ranking = 1
+        for (dataSnapshot in sortedList) {
+            if (android_id == dataSnapshot.key) break
+            ranking++
+        }
+
+        return "$ranking / ${sortedList.size}"
+    }
+
+    override fun onPostExecute(result: String) {
+        super.onPostExecute(result)
+        view?.text = result
+    }
+}
 
 class FireBaseAccess(
     private val android_id: String,
@@ -56,29 +96,13 @@ class FireBaseAccess(
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
                 database.getReference(refName)
-                    /*                    .orderByChild("score")
-                                        .startAt(score.toDouble())*/
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
 
-                        override fun onDataChange(p0: DataSnapshot) {
-                            val result = resolveResultText(p0.children.toMutableList())
-
-                            textView?.text = result
+                        override fun onDataChange(data: DataSnapshot) {
+                            RefreshRankingTask(android_id, textView).execute(data)
                         }
                     })
             }
-    }
-
-    private fun resolveResultText(list: List<DataSnapshot>): String {
-        val sortedList = list.sortedByDescending { it.child("score").value.toString().toInt() }
-
-        var ranking = 1
-        for (ds in sortedList) {
-            if (android_id == ds.key) break
-            ranking++
-        }
-
-        return "$ranking / ${sortedList.size}"
     }
 }
