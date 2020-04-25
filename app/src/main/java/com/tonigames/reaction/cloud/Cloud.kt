@@ -93,7 +93,7 @@ class FireBaseAccess(
 
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
-                database.getReference(refName).orderByChild("score")
+                database.getReference(refName).orderByChild("score") // sorted here
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
 
