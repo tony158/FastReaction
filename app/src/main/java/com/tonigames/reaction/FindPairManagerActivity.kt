@@ -22,10 +22,11 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
-import com.tonigames.reaction.findpair.ui.findpairfragment.*
+import com.tonigames.reaction.findpair.*
 import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 
-class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
+class FindPairManagerActivity : AppCompatActivity(),
+    FindPairInteractionListener {
 
     private var interstitialAd: InterstitialAd? = null
 
