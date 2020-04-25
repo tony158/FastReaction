@@ -29,7 +29,6 @@ class RefreshRankingTask(
     private val view: TextView?
 ) : AsyncTask<DataSnapshot, Void, String>() {
 
-
     override fun onPreExecute() {
         super.onPreExecute()
         view?.text = DEFAULT_TEXT
