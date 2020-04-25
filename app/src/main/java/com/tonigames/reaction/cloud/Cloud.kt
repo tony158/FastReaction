@@ -56,16 +56,29 @@ class FireBaseAccess(
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
                 database.getReference(refName)
-                    .orderByChild("score")
-                    .startAt(score.toDouble()).apply {
-                        this.addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onCancelled(p0: DatabaseError) {}
+                    /*                    .orderByChild("score")
+                                        .startAt(score.toDouble())*/
+                    .addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onCancelled(p0: DatabaseError) {}
 
-                            override fun onDataChange(p0: DataSnapshot) {
-                                textView?.text = p0.childrenCount.toString()
-                            }
-                        })
-                    }
+                        override fun onDataChange(p0: DataSnapshot) {
+                            val result = resolveResultText(p0.children.toMutableList())
+
+                            textView?.text = result
+                        }
+                    })
             }
+    }
+
+    private fun resolveResultText(list: List<DataSnapshot>): String {
+        val sortedList = list.sortedByDescending { it.child("score").value.toString().toInt() }
+
+        var ranking = 1
+        for (ds in sortedList) {
+            if (android_id == ds.key) break
+            ranking++
+        }
+
+        return "$ranking / ${sortedList.size}"
     }
 }
