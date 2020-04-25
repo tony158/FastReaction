@@ -41,10 +41,8 @@ class RefreshRankingTask(
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
         if (params.isEmpty()) return "param is null"
-        val listData = params[0]!!.children.toMutableList()
-        if (listData.isEmpty()) return "param is null"
-
-        val sortedList = listData.sortedByDescending { it.child("score").value.toString().toInt() }
+        val sortedList = params[0]!!.children.toMutableList().also { it.reverse() }
+        if (sortedList.isEmpty()) return "param is null"
 
         var ranking = 1
         for (dataSnapshot in sortedList) {
@@ -95,7 +93,7 @@ class FireBaseAccess(
 
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
-                database.getReference(refName)
+                database.getReference(refName).orderByChild("score")
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
 
