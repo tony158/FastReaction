@@ -41,16 +41,16 @@ class RefreshRankingTask(
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
         if (params.isEmpty()) return "param is null"
-        val sortedList = params[0]!!.children.toMutableList().also { it.reverse() }
+        val sortedList = params[0]!!.children.toMutableList()
         if (sortedList.isEmpty()) return "param is null"
 
-        var ranking = 1
+        var ranking = 0
         for (dataSnapshot in sortedList) {
             if (android_id == dataSnapshot.key) break
             ranking++
         }
 
-        return "$ranking / ${sortedList.size}"
+        return "${sortedList.size - ranking} / ${sortedList.size}"
     }
 
     override fun onPostExecute(result: String) {
