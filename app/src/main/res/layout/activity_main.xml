@@ -12,8 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/svg_zig_zag" />
+        android:contentDescription=""
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/svg_bermuda_square" />
 
     <TableLayout
         android:layout_width="match_parent"
