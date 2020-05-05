@@ -68,7 +68,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             tapBarMenu.toggle()
         }
 
-        listOf(barMenuItemLanguage, barMenuItemLike).forEach { it ->
+        listOf(barMenuItemLanguage, barMenuItemRanking, barMenuItemLike).forEach { it ->
             it.setOnClickListener {
                 soundBtnClick?.start()
 
@@ -78,6 +78,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                             tapBarMenu.close()
                             when (it) {
                                 barMenuItemLanguage -> showLanguageSettingPP()
+                                barMenuItemLanguage -> showLeaderBoardPP()
                                 barMenuItemLike -> openRatingLink()
                                 /*barMenuItemAds -> showLanguageSettingPP()*/
                             }
@@ -193,6 +194,10 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
     private fun showLanguageSettingPP() {
         LanguageSettingFragment(this).show(supportFragmentManager, "test11")
+    }
+
+    private fun showLeaderBoardPP() {
+
     }
 
     private fun openRatingLink() {

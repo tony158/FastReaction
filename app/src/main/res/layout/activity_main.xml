@@ -203,7 +203,7 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:gravity="center">
 
             <RelativeLayout
@@ -218,8 +218,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_gravity="bottom"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginEnd="80dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     app:tbm_backgroundColor="@color/red"
                     app:tbm_menuAnchor="bottom">
 
@@ -234,9 +234,20 @@
                         android:layout_weight="1"
                         android:src="@drawable/menu_global_big" />
 
+                    <ImageView
+                        android:id="@+id/barMenuItemRanking"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/menu_leader_board" />
+
                     <Space
                         android:layout_width="0dp"
-                        android:layout_height="77dp"
+                        android:layout_height="60dp"
                         android:layout_weight="1" />
 
                     <ImageView
@@ -249,6 +260,17 @@
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
                         android:src="@drawable/menu_like_big" />
+
+                    <ImageView
+                        android:id="@+id/barMenuItemSetting"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/menu_settings" />
 
                 </com.michaldrabik.tapbarmenulib.TapBarMenu>
 
