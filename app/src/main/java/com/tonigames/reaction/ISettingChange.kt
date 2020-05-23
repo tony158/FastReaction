@@ -9,6 +9,7 @@ interface ISettingChange {
         private val englishMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_english,
             MainMenuCataEnum.FindPair to R.string.find_pair_english,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_english,
             MainMenuCataEnum.HighScore to R.string.high_score_english,
             MainMenuCataEnum.Ranking to R.string.score_rank_english,
             MainMenuCataEnum.Coin to R.string.score_coin_english
@@ -83,6 +84,7 @@ interface ISettingChange {
 enum class MainMenuCataEnum {
     TapColor,
     FindPair,
+    LeftOrRight,
     HighScore,
     Ranking,
     Coin
