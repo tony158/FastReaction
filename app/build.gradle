@@ -59,4 +59,8 @@ dependencies {
 
     // for Toast
     implementation 'com.github.imjeevandeshmukh:GlideToast:1.0'
+
+    // toggle button group
+    implementation 'nl.bryanderidder:themed-toggle-button-group:1.3.0'
+    implementation 'com.google.android:flexbox:2.0.1'
 }

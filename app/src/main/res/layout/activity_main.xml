@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginStart="120dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="120dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"
@@ -53,49 +53,87 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|fill_horizontal|center_vertical"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:gravity="center_horizontal|center_vertical">
 
-            <RadioGroup
+            <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
                 android:id="@+id/radio_grp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="20dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                app:justifyContent="center">
 
-                <RadioButton
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                     android:id="@+id/radio_tapcolor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:checked="true"
-                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
-                    android:fontFamily="casual"
-                    android:gravity="center_horizontal|bottom"
-                    android:soundEffectsEnabled="true"
-                    android:text=""
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    app:toggle_text="Tap Color" />
 
-                <RadioButton
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                     android:id="@+id/radio_findpair"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="30dp"
-                    android:layout_weight="1"
-                    android:button="@null"
-                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
-                    android:fontFamily="casual"
-                    android:gravity="center_horizontal|bottom"
-                    android:soundEffectsEnabled="true"
-                    android:text=""
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </RadioGroup>
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    app:toggle_text="Find Pair" />
+
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/radio_leftright"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    app:toggle_text="Left Right" />
+
+            </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+            <!--            <RadioGroup-->
+            <!--                android:id="@+id/radio_grp"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_gravity="center_horizontal"-->
+            <!--                android:layout_marginEnd="20dp"-->
+            <!--                android:gravity="center_horizontal"-->
+            <!--                android:orientation="horizontal">-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/radio_tapcolor"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:button="@null"-->
+            <!--                    android:checked="true"-->
+            <!--                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
+            <!--                    android:fontFamily="casual"-->
+            <!--                    android:gravity="center_horizontal|bottom"-->
+            <!--                    android:soundEffectsEnabled="true"-->
+            <!--                    android:text=""-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    android:textStyle="bold" />-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/radio_findpair"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:button="@null"-->
+            <!--                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
+            <!--                    android:fontFamily="casual"-->
+            <!--                    android:gravity="center_horizontal|bottom"-->
+            <!--                    android:soundEffectsEnabled="true"-->
+            <!--                    android:text=""-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    android:textStyle="bold" />-->
+
+            <!--                <RadioButton-->
+            <!--                    android:id="@+id/radio_leftorright"-->
+            <!--                    android:layout_width="wrap_content"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:layout_weight="1"-->
+            <!--                    android:button="@null"-->
+            <!--                    android:drawableBottom="?android:attr/listChoiceIndicatorSingle"-->
+            <!--                    android:fontFamily="casual"-->
+            <!--                    android:gravity="center_horizontal|bottom"-->
+            <!--                    android:soundEffectsEnabled="true"-->
+            <!--                    android:text=""-->
+            <!--                    android:textSize="18sp"-->
+            <!--                    android:textStyle="bold" />-->
+            <!--            </RadioGroup>-->
 
         </TableRow>
 
