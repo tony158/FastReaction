@@ -18,6 +18,7 @@ interface ISettingChange {
         private val germanMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_german,
             MainMenuCataEnum.FindPair to R.string.find_pair_german,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_german,
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
             MainMenuCataEnum.Coin to R.string.score_coin_german
@@ -26,6 +27,7 @@ interface ISettingChange {
         private val frenchMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_french,
             MainMenuCataEnum.FindPair to R.string.find_pair_french,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_french,
             MainMenuCataEnum.HighScore to R.string.high_score_french,
             MainMenuCataEnum.Ranking to R.string.score_rank_french,
             MainMenuCataEnum.Coin to R.string.score_coin_french
@@ -34,6 +36,7 @@ interface ISettingChange {
         private val chineseMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_chinese,
             MainMenuCataEnum.FindPair to R.string.find_pair_chinese,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_chinese,
             MainMenuCataEnum.HighScore to R.string.high_score_chinese,
             MainMenuCataEnum.Ranking to R.string.score_rank_chinese,
             MainMenuCataEnum.Coin to R.string.score_coin_chinese
@@ -42,6 +45,7 @@ interface ISettingChange {
         private val japaneseMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_japanese,
             MainMenuCataEnum.FindPair to R.string.find_pair_japanese,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_japanese,
             MainMenuCataEnum.HighScore to R.string.high_score_japanese,
             MainMenuCataEnum.Ranking to R.string.score_rank_japanese,
             MainMenuCataEnum.Coin to R.string.score_coin_japanese
@@ -50,6 +54,7 @@ interface ISettingChange {
         private val koreanMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_korean,
             MainMenuCataEnum.FindPair to R.string.find_pair_korean,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_korean,
             MainMenuCataEnum.HighScore to R.string.high_score_korean,
             MainMenuCataEnum.Ranking to R.string.score_rank_korean,
             MainMenuCataEnum.Coin to R.string.score_coin_korean

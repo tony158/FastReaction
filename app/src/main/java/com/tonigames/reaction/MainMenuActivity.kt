@@ -305,8 +305,11 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
             .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
             .run {
-                val gameType =
-                    if (this == Constants.TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
+                val gameType = when (this) {
+                    Constants.TAP_COLOR -> HIGH_SCORE_TAP_COLOR
+                    Constants.FIND_PAIR -> HIGH_SCORE_FIND_PAIR
+                    else -> HIGH_SCORE_LEFT_RIGHT
+                }
 
                 fireBaseAccess.updateScore(this, getHighScore(gameType))
             }
