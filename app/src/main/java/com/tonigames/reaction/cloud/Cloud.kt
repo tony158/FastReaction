@@ -93,12 +93,11 @@ class FireBaseAccess(
 
     private fun setValueAndRefreshRanking(refName: String, gameType: Int, score: Int) {
 
-        val highScoreDto: Any =
-            when (gameType) {
-                TAP_COLOR -> TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
-                FIND_PAIR -> FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
-                else -> LeftRightDTO(android_id, deviceName, score, Calendar.getInstance().time)
-            }
+        val highScoreDto: Any = when (gameType) {
+            TAP_COLOR -> TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
+            FIND_PAIR -> FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
+            else -> LeftRightDTO(android_id, deviceName, score, Calendar.getInstance().time)
+        }
 
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
