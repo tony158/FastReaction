@@ -5,7 +5,6 @@ import android.icu.util.Calendar
 import android.os.AsyncTask
 import android.widget.TextView
 import com.google.firebase.database.*
-import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import java.util.*
