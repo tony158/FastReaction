@@ -49,7 +49,7 @@ class RefreshRankingTask(
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
         if (params.isEmpty()) return "param is null"
-        val sortedList = params[0]!!.children.toMutableList()
+        val sortedList = params[0]?.children?.toMutableList() ?: listOf()
         if (sortedList.isEmpty()) return "param is null"
 
         var ranking = 0
