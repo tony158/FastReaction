@@ -39,7 +39,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        radio_grp.selectAnimation = SelectAnimation.HORIZONTAL_WINDOW
+        radio_grp.selectAnimation = SelectAnimation.VERTICAL_SLIDE
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
@@ -52,7 +52,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         onLanguageChanged()
         initSettingButton()
         refreshRadioButtonState()
-//        bindEventHandlerRadioButtons()
+        bindEventHandlerRadioButtons()
         bindEventHandlerStartButton()
 
         interstitialAd = InterstitialAd(this).apply {
@@ -131,42 +131,72 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun bindEventHandlerRadioButtons() {
-        listOf(radio_tapcolor, radio_findpair, radio_leftright)
-            .forEach {
-                it.setOnClickListener(fun(it: View) {
-                    YoYo.with(Techniques.Pulse).duration(300).withListener(
-                        object : DefaultAnimatorListener() {
-                            override fun onAnimationStart(animation: Animator?) {
-                                soundBtnClick?.start()
+        listOf(radio_tapcolor, radio_findpair, radio_leftright).forEach {
+            it.setOnClickListener {
+                soundBtnClick?.start()
 
-                                val valueToPut = when (it) {
-                                    radio_tapcolor -> Constants.TAP_COLOR
-                                    radio_findpair -> Constants.FIND_PAIR
-                                    else -> Constants.Left_Right
-                                }
+                val valueToPut = when (it) {
+                    radio_tapcolor -> Constants.TAP_COLOR
+                    radio_findpair -> Constants.FIND_PAIR
+                    else -> Constants.Left_Right
+                }
 
-                                getSharedPreferences(
-                                    Constants.GAME_TYPE,
-                                    Context.MODE_PRIVATE
-                                ).apply {
-                                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
-                                }
+                getSharedPreferences(
+                    Constants.GAME_TYPE,
+                    Context.MODE_PRIVATE
+                ).apply {
+                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
+                }
 
-                                when (valueToPut) {
-                                    Constants.TAP_COLOR -> score.text =
-                                        getHighScore(HIGH_SCORE_TAP_COLOR).toString()
-                                    Constants.FIND_PAIR -> score.text =
-                                        getHighScore(HIGH_SCORE_FIND_PAIR).toString()
-                                    else -> score.text =
-                                        getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
-                                }
+                when (valueToPut) {
+                    Constants.TAP_COLOR -> score.text =
+                        getHighScore(HIGH_SCORE_TAP_COLOR).toString()
+                    Constants.FIND_PAIR -> score.text =
+                        getHighScore(HIGH_SCORE_FIND_PAIR).toString()
+                    else -> score.text =
+                        getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
+                }
 
-                                refreshHighestScore()
-                            }
-                        }
-                    ).playOn(it)
-                })
+                refreshHighestScore()
             }
+        }
+
+//        listOf(radio_tapcolor, radio_findpair, radio_leftright)
+//            .forEach {
+//                it.setOnClickListener(fun(it: View) {
+//                    YoYo.with(Techniques.Pulse).duration(300).withListener(
+//                        object : DefaultAnimatorListener() {
+//                            override fun onAnimationStart(animation: Animator?) {
+//                                soundBtnClick?.start()
+//
+//                                val valueToPut = when (it) {
+//                                    radio_tapcolor -> Constants.TAP_COLOR
+//                                    radio_findpair -> Constants.FIND_PAIR
+//                                    else -> Constants.Left_Right
+//                                }
+//
+//                                getSharedPreferences(
+//                                    Constants.GAME_TYPE,
+//                                    Context.MODE_PRIVATE
+//                                ).apply {
+//                                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
+//                                }
+//
+//                                when (valueToPut) {
+//                                    Constants.TAP_COLOR -> score.text =
+//                                        getHighScore(HIGH_SCORE_TAP_COLOR).toString()
+//                                    Constants.FIND_PAIR -> score.text =
+//                                        getHighScore(HIGH_SCORE_FIND_PAIR).toString()
+//                                    else -> score.text =
+//                                        getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
+//                                }
+//
+//                                refreshHighestScore()
+//                            }
+//                        }
+//                    ).playOn(it)
+//                })
+//            }
     }
 
     private fun refreshRadioButtonState() {
