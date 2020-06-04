@@ -4,7 +4,9 @@ import com.tonigames.reaction.R
 
 interface ILeftOrRight {
 
-    
+    fun randomImage(): Int {
+        return allDrawables.shuffled().take(1)[0]
+    }
 
     companion object {
         val allDrawables: List<Int> = listOf(
