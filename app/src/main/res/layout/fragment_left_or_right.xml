@@ -1,13 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center|center_horizontal|center_vertical"
-    android:screenOrientation="portrait">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:screenOrientation="portrait"
+    tools:context=".leftorright.LeftOrRightFragment">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/svg_repeating_triangles" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvRoundCnt"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:text=""
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/progressBar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:max="100"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:progressDrawable="@drawable/bg_seek_bar"
+            android:scrollbarSize="16dp"
+            android:thumb="@drawable/menu_bullet_large" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/imageContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal">
 
         <ImageButton
             android:id="@+id/imageBtn"

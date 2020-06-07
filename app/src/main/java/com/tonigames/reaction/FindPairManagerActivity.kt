@@ -87,16 +87,14 @@ class FindPairManagerActivity : AppCompatActivity(),
 
     //when score is higher than the current highest score, then save it
     private fun saveHighScore(score: Int) {
-        getHighScore()
-            .takeIf { score > it }
-            ?.run {
-                getSharedPreferences(
-                    MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-                    Context.MODE_PRIVATE
-                ).edit()
-                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, score)
-                    .commit()
-            }
+        getHighScore().takeIf { score > it }?.run {
+            getSharedPreferences(
+                MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
+                Context.MODE_PRIVATE
+            ).edit()
+                .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, score)
+                .commit()
+        }
     }
 
     override fun onCorrectPairSelected() {

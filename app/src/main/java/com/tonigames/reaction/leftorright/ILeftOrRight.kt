@@ -1,11 +1,13 @@
 package com.tonigames.reaction.leftorright
 
 import com.tonigames.reaction.R
+import java.util.*
 
 interface ILeftOrRight {
+    fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
     fun randomImage(): Int {
-        return allDrawables.shuffled().take(1)[0]
+        return allDrawables.random() ?: allDrawables[0]
     }
 
     companion object {
