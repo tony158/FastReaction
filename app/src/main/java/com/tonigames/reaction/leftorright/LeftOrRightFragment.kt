@@ -1,6 +1,5 @@
 package com.tonigames.reaction.leftorright
 
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
