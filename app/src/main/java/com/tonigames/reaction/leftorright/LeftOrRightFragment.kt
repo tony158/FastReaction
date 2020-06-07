@@ -1,11 +1,8 @@
 package com.tonigames.reaction.leftorright
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.DisplayMetrics
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
@@ -24,8 +21,8 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             imageBtn.tag = this
         }
 
-        val height = DisplayMetrics().heightPixels
-        imageContainer.animate().y(height.toFloat() / 2).setDuration(1000L).start()
+        //move view
+        imageContainer.animate().y(1000F).setDuration(1000L).start()
     }
 
     companion object {
