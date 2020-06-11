@@ -41,12 +41,12 @@ class LeftOrRightActivity : AppCompatActivity() {
                 .commit()
         }
 
-        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
+//        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
 
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
-        }
+//        interstitialAd = InterstitialAd(this).apply {
+//            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+//            loadAd(AdRequest.Builder().build())
+//        }
     }
 
     // get the high score from Persistence
@@ -75,15 +75,15 @@ class LeftOrRightActivity : AppCompatActivity() {
         roundCnt = 0
         dialogPopup?.dismiss()
 
-        interstitialAd?.let { ads ->
-            ads.adListener = object : AdListener() {
-                override fun onAdClosed() {
-                    ads.loadAd(AdRequest.Builder().build())
-                }
-            }
-
-            ads.takeIf { it.isLoaded }?.show()
-        }
+//        interstitialAd?.let { ads ->
+//            ads.adListener = object : AdListener() {
+//                override fun onAdClosed() {
+//                    ads.loadAd(AdRequest.Builder().build())
+//                }
+//            }
+//
+//            ads.takeIf { it.isLoaded }?.show()
+//        }
     }
 
     override fun onResume() {

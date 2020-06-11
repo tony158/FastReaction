@@ -1,27 +1,28 @@
 package com.tonigames.reaction.leftorright
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 
-
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
 
-    protected val roundArgument: String = "Round"
-    protected val extraArgument: String = "Extra"
+    private val roundArgument: String = "Round"
+    private val extraArgument: String = "Extra"
 
     override fun onResume() {
         super.onResume()
 
-        with(randomImage()) {
+        randomImage().run {
             imageBtn.setImageResource(this)
             imageBtn.tag = this
         }
 
-        //move view
-        imageContainer.animate().y(1000F).setDuration(1000L).start()
+        resources.displayMetrics?.heightPixels?.also {
+            imageContainer.animate().y((it / 2).toFloat()).setDuration(400L).start()
+        }
+
+        tvRoundCnt.text = "test"
     }
 
     companion object {

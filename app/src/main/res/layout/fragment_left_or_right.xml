@@ -47,7 +47,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:clickable="false"
         android:gravity="center_horizontal">
+
+        <ToggleButton
+            android:id="@+id/toggleBtn"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/image_toggle_selector"
+            android:checked="false"
+            android:textOff=""
+            android:textOn="" />
 
         <ImageButton
             android:id="@+id/imageBtn"
@@ -56,6 +66,7 @@
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:clickable="false"
+            android:focusable="false"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:scaleType="fitCenter"
             android:text="" />

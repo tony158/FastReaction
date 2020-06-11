@@ -19,9 +19,12 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import com.tonigames.reaction.popups.MyLanguageEnum
@@ -107,10 +110,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
     private fun gotoNextActivity() {
         val targetActivity =
-            when (getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
-                .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)) {
-                Constants.TAP_COLOR -> TapColorManagerActivity::class.java
-                Constants.FIND_PAIR -> FindPairManagerActivity::class.java
+            when (getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(
+                GAME_TYPE,
+                TAP_COLOR
+            )) {
+                TAP_COLOR -> TapColorManagerActivity::class.java
+                FIND_PAIR -> FindPairManagerActivity::class.java
                 else -> LeftOrRightActivity::class.java
             }
 
