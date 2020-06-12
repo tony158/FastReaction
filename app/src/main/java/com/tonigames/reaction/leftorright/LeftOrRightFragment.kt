@@ -1,17 +1,16 @@
 package com.tonigames.reaction.leftorright
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.RelativeLayout
+import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
-
+    private var toggleButton: ToggleButton? = null
     private val roundArgument: String = "Round"
     private val extraArgument: String = "Extra"
 
@@ -20,25 +19,50 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_left_or_right, container, false).also {
-            it.setOnTouchListener { v, event ->
-                if (event.action == MotionEvent.ACTION_DOWN) {
-                    toggleBtn.isChecked = true
-                } else if (event.action == MotionEvent.ACTION_UP) {
-                    toggleBtn.isChecked = false
-                }
+            toggleButton = it.findViewById<ToggleButton>(R.id.toggleBtn)
+            val imgContainer = it.findViewById<RelativeLayout>(R.id.imageContainer)
+            val detector = GestureDetector(context!!, MyGestureListener(imgContainer))
 
-                true
-            }
+            it.setOnTouchListener(object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    return detector.onTouchEvent(event)
+                }
+            })
+        }
+    }
+
+
+    private inner class MyGestureListener(private val imgContainer: RelativeLayout) :
+        GestureDetector.SimpleOnGestureListener() {
+
+        override fun onScroll(
+            e1: MotionEvent?,
+            e2: MotionEvent?,
+            distanceX: Float,
+            distanceY: Float
+        ): Boolean {
+            imgContainer.translationX -= distanceX
+            return true
+        }
+
+        override fun onFling(
+            e1: MotionEvent?,
+            e2: MotionEvent?,
+            velocityX: Float,
+            velocityY: Float
+        ): Boolean {
+            return super.onFling(e1, e2, velocityX, velocityY)
+        }
+
+        override fun onDown(e: MotionEvent?): Boolean {
+            return true
         }
     }
 
     override fun onResume() {
         super.onResume()
 
-        randomImage().run {
-            imageBtn.setImageResource(this)
-            imageBtn.tag = this
-        }
+        randomImage().also { imageBtn.setImageResource(it); imageBtn.tag = it }
 
         resources.displayMetrics?.heightPixels?.also {
             imageContainer.animate().y((it / 2).toFloat()).setDuration(500L).start()
