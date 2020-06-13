@@ -5,12 +5,14 @@ import android.view.*
 import android.widget.RelativeLayout
 import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
-    private var toggleButton: ToggleButton? = null
+    private var mToggleButton: ToggleButton? = null
     private val roundArgument: String = "Round"
     private val extraArgument: String = "Extra"
 
@@ -19,20 +21,19 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_left_or_right, container, false).also {
-            toggleButton = it.findViewById<ToggleButton>(R.id.toggleBtn)
+            mToggleButton = it.findViewById<ToggleButton>(R.id.toggleBtn)
             val imgContainer = it.findViewById<RelativeLayout>(R.id.imageContainer)
-            val detector = GestureDetector(context!!, MyGestureListener(imgContainer))
 
-            it.setOnTouchListener(object : View.OnTouchListener {
-                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-                    return detector.onTouchEvent(event)
+            GestureDetector(context!!, FragmentGestureListener(imgContainer)).also { detector ->
+                it.setOnTouchListener { _, event ->
+                    detector.onTouchEvent(event)
                 }
-            })
+            }
         }
     }
 
 
-    private inner class MyGestureListener(private val imgContainer: RelativeLayout) :
+    private inner class FragmentGestureListener(private val imgContainer: RelativeLayout) :
         GestureDetector.SimpleOnGestureListener() {
 
         override fun onScroll(
@@ -51,7 +52,13 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            return super.onFling(e1, e2, velocityX, velocityY)
+            if (velocityX > 0) {
+                YoYo.with(Techniques.SlideOutRight).duration(500L).playOn(imgContainer)
+            } else {
+                YoYo.with(Techniques.SlideOutLeft).duration(500L).playOn(imgContainer)
+            }
+
+            return true
         }
 
         override fun onDown(e: MotionEvent?): Boolean {
@@ -64,13 +71,18 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
         randomImage().also { imageBtn.setImageResource(it); imageBtn.tag = it }
 
-        resources.displayMetrics?.heightPixels?.also {
-            imageContainer.animate().y((it / 2).toFloat()).setDuration(500L).start()
-        }
+//        listOf(Techniques.FadeInUp, Techniques.FadeInDown).random().also {
+//            YoYo.with(it).duration(1000L).playOn(imageContainer)
+//        }
+
+//        Render(context!!).apply {
+//            setAnimation(Slide().InDown(imageContainer))
+//            start()
+//        }
+
 
         tvRoundCnt.text = "test"
     }
-
 
     companion object {
         @JvmStatic
