@@ -16,7 +16,7 @@ import com.google.android.gms.ads.MobileAds
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import kotlinx.android.synthetic.main.activity_left_or_right.*
 
-class LeftOrRightActivity : AppCompatActivity() {
+class LeftOrRightManagerActivity : AppCompatActivity() {
     private var interstitialAd: InterstitialAd? = null
 
     private var roundCnt: Int = 0

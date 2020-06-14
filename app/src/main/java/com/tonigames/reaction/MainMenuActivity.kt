@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings.Secure
 import android.view.Menu
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -116,7 +115,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             )) {
                 TAP_COLOR -> TapColorManagerActivity::class.java
                 FIND_PAIR -> FindPairManagerActivity::class.java
-                else -> LeftOrRightActivity::class.java
+                else -> LeftOrRightManagerActivity::class.java
             }
 
         interstitialAd?.adListener = object : AdListener() {
