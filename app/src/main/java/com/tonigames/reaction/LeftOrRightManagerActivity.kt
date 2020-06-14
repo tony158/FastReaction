@@ -16,7 +16,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -138,18 +137,22 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         }
     }
 
-    private var lastState: ViewOutState? = null
+    private var mLastState: ViewOutState? = null
 
     override fun onResult(state: ViewOutState) {
-        if (lastState == null || lastState != state) {
-            onFailure("Wrong direction!")
-        } else if (lastState == state) {
+        if (mLastState == null || mLastState == state) {
             onSuccess()
+            mLastState = state
+
+        } else if (mLastState != state) {
+            onFailure("Wrong direction!")
+            mLastState = null
         }
     }
 
     override fun onTimeUp() {
         onFailure("Time's up!")
+        mLastState = null
     }
 
     private fun onFailure(msg: String = "") {

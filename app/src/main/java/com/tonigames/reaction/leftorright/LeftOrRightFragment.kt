@@ -11,13 +11,11 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
 import android.widget.SeekBar
-import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
-import com.tonigames.reaction.findpair.FindPairInteractionListener
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 import kotlinx.android.synthetic.main.fragment_left_or_right.progressBar
 import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
@@ -98,8 +96,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 }
             }
 
-            val xMoveBy = if (mDirectionX > 0) screenWidth / 2
-            else -screenWidth / 2
+            val xMoveBy = if (mDirectionX > 0) screenWidth / 2 else -screenWidth / 2
 
             imgContainer.animate()
                 .translationX((xMoveBy).toFloat())
@@ -185,8 +182,8 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 override fun onAnimationStart(animation: Animator) {}
 
                 override fun onAnimationEnd(animation: Animator) {
-                    progressBar?.progress = 100
                     try {
+                        progressBar?.progress = 100
                         resultListener?.onTimeUp()
                     } catch (e: Exception) {
                         Log.d("FindPairFragment", e.message ?: "exception")
