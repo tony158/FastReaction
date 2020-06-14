@@ -3,6 +3,18 @@ package com.tonigames.reaction.leftorright
 import com.tonigames.reaction.R
 import java.util.*
 
+enum class ViewOutState {
+    LeftOut,
+    Inside,
+    RightOut
+}
+
+interface LeftRightResultListener {
+    fun onResult(state: ViewOutState)
+
+    fun onTimeUp()
+}
+
 interface ILeftOrRight {
     fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 

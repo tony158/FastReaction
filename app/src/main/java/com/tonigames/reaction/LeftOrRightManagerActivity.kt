@@ -1,6 +1,8 @@
 package com.tonigames.reaction
 
+import android.animation.Animator
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
 import android.os.Build
@@ -8,15 +10,23 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.widget.Button
+import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
+import com.tonigames.reaction.leftorright.LeftRightResultListener
+import com.tonigames.reaction.leftorright.ViewOutState
 import kotlinx.android.synthetic.main.activity_left_or_right.*
 
-class LeftOrRightManagerActivity : AppCompatActivity() {
+class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
     private var interstitialAd: InterstitialAd? = null
 
     private var roundCnt: Int = 0
@@ -41,12 +51,12 @@ class LeftOrRightManagerActivity : AppCompatActivity() {
                 .commit()
         }
 
-//        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
+        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
 
-//        interstitialAd = InterstitialAd(this).apply {
-//            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-//            loadAd(AdRequest.Builder().build())
-//        }
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
     }
 
     // get the high score from Persistence
@@ -125,6 +135,90 @@ class LeftOrRightManagerActivity : AppCompatActivity() {
             vibrator.vibrate(VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE))
         } else {
             vibrator.vibrate(120)
+        }
+    }
+
+    private var lastState: ViewOutState? = null
+
+    override fun onResult(state: ViewOutState) {
+        if (lastState == null || lastState != state) {
+            onFailure("Wrong direction!")
+        } else if (lastState == state) {
+            onSuccess()
+        }
+    }
+
+    override fun onTimeUp() {
+        onFailure("Time's up!")
+    }
+
+    private fun onFailure(msg: String = "") {
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailure }
+
+        soundNegative?.start()
+        vibrate()
+
+        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+            cancelable(false)
+            cancelOnTouchOutside(false)
+            cornerRadius(8f)
+            findViewById<TextView>(R.id.title).text = msg
+            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
+
+            findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
+                YoYo.with(Techniques.Pulse).duration(200).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            soundBtnClick?.start()
+
+                            Intent(
+                                this@LeftOrRightManagerActivity,
+                                MainMenuActivity::class.java
+                            ).run {
+                                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                startActivity(this)
+                            }
+                        }
+                    }).playOn(theButton)
+            }
+
+            findViewById<Button>(R.id.btnContinue).setOnClickListener { theButton ->
+                YoYo.with(Techniques.Pulse).duration(200).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            soundBtnClick?.start()
+
+                            handleContinueClicked()
+                        }
+                    }).playOn(theButton)
+            }
+        }
+
+        saveHighScore(roundCnt)
+    }
+
+    private fun onSuccess() {
+        dialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
+
+        GlideToast.makeToast(
+            this,
+            "Correct!!",
+            GlideToast.LENGTHMEDIUM,
+            GlideToast.SUCCESSTOAST,
+            GlideToast.BOTTOM
+        ).show()
+
+        soundPositive?.takeIf { it.isPlaying }?.stop()
+        soundPositive?.start()
+
+        ++roundCnt
+
+        currFragment = LeftOrRightFragment.newInstance(roundCnt.toString(), "").also {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, it)
+                .commit()
         }
     }
 }

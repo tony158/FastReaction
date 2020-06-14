@@ -1,24 +1,37 @@
 package com.tonigames.reaction.leftorright
 
 import android.animation.Animator
+import android.animation.ValueAnimator
+import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.MotionEvent.ACTION_UP
+import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
+import android.widget.SeekBar
+import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
+import com.tonigames.reaction.findpair.FindPairInteractionListener
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
+import kotlinx.android.synthetic.main.fragment_left_or_right.progressBar
+import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
 
+private const val DURATION = 3000L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private val roundArgument: String = "Round"
     private val extraArgument: String = "Extra"
     private var screenWidth = 0
     private var mLastState = ViewOutState.Inside
+
+    private var seekBarAnimator: Animator? = null
+    private var leftRightResultListener: LeftRightResultListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -99,9 +112,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             val state = outScreenState(imgContainer)
 
 
-
-
-
             return false
         }
 
@@ -121,16 +131,15 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     ViewOutState.Inside
                 }
             }
-            //            return viewPos.right <= mScreen.left || viewPos.left >= mScreen.right
         }
-
-
     }
 
-    enum class ViewOutState {
-        LeftOut,
-        Inside,
-        RightOut
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is LeftRightResultListener) {
+            leftRightResultListener = context
+        }
     }
 
     override fun onResume() {
@@ -144,7 +153,49 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         tvRoundCnt.text = "test"
+
+        seekBarAnimator = initSeekBarAnimator(
+            DURATION,
+            progressBar,
+            leftRightResultListener
+        ).also {
+            it.start()
+        }
     }
+
+    private fun initSeekBarAnimator(
+        animationTime: Long,
+        progressBar: SeekBar? = null,
+        resultListener: LeftRightResultListener? = null
+    ): Animator {
+        progressBar?.max = 100
+        progressBar?.progress = 0
+
+        return ValueAnimator.ofInt(0, 100).apply {
+            duration = animationTime
+            interpolator = LinearInterpolator()
+
+            addUpdateListener { animation ->
+                (animation.animatedValue as Int).also { progressBar?.progress = it }
+            }
+
+            addListener(object : Animator.AnimatorListener {
+                override fun onAnimationRepeat(animation: Animator) {}
+                override fun onAnimationCancel(animation: Animator) {}
+                override fun onAnimationStart(animation: Animator) {}
+
+                override fun onAnimationEnd(animation: Animator) {
+                    progressBar?.progress = 100
+                    try {
+                        resultListener?.onTimeUp()
+                    } catch (e: Exception) {
+                        Log.d("FindPairFragment", e.message ?: "exception")
+                    }
+                }
+            })
+        }
+    }
+
 
     companion object {
         @JvmStatic
