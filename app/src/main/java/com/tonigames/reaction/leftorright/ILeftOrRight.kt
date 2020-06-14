@@ -3,14 +3,15 @@ package com.tonigames.reaction.leftorright
 import com.tonigames.reaction.R
 import java.util.*
 
-enum class ViewOutState {
-    LeftOut,
-    Inside,
-    RightOut
+enum class ViewOutState(val state: Int) {
+    Invalid(0),
+    LeftOut(1),
+    Inside(2),
+    RightOut(3)
 }
 
 interface LeftRightResultListener {
-    fun onResult(state: ViewOutState)
+    fun onResult(image: Int, state: ViewOutState)
 
     fun onTimeUp()
 }

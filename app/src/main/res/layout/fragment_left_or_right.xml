@@ -15,9 +15,11 @@
         app:srcCompat="@drawable/svg_repeating_triangles" />
 
     <RelativeLayout
+        android:id="@+id/seekBarContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/tvRoundCnt"

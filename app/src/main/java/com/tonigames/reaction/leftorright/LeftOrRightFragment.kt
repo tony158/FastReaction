@@ -11,6 +11,7 @@ import android.view.MotionEvent.ACTION_UP
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -24,24 +25,30 @@ private const val DURATION = 2000L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private val roundArgument: String = "-1"
-    private val extraArgument: String = "Extra"
+    private val lastImgAugument: String = "Extra"
+    private val lastOutStateAugument: String = ""
 
-    var paramRound: Int = -1
-    var paramExtra: String? = null
+    private var mCurrImage: Int = Int.MIN_VALUE
+    private var mRoundCnt: Int = Int.MIN_VALUE
+    private var mLastImage: Int = Int.MIN_VALUE
+    private var mLastViewOutState: ViewOutState? = null
 
     private var mFragmentListener: FragmentGestureListener? = null
 
     private var screenWidth = 0
 
-    private var seekBarAnimator: Animator? = null
+    private var mSeekBarAnimator: Animator? = null
     private var mLeftRightResultListener: LeftRightResultListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         arguments?.let {
-            paramRound = it.getString(roundArgument)?.toInt() ?: -1
-            paramExtra = it.getString(extraArgument)
+            mRoundCnt = it.getString(roundArgument)?.toInt() ?: Int.MIN_VALUE
+            mLastImage = it.getString(lastImgAugument)?.toInt() ?: Int.MIN_VALUE
+            mLastViewOutState = ViewOutState.valueOf(it.getString(lastOutStateAugument)!!)
+
+            Log.wtf("", mLastViewOutState.toString())
         }
     }
 
@@ -117,9 +124,10 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 .start()
         }
 
-        private fun publishResult(): Boolean {
-            outScreenState(imgContainer).also { mLeftRightResultListener?.onResult(it) }
-            return false
+        private fun publishResult() {
+            outScreenState(imgContainer).also {
+                mLeftRightResultListener?.onResult(mCurrImage, it)
+            }
         }
 
         fun outScreenState(view: View): ViewOutState {
@@ -152,10 +160,14 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
     override fun onResume() {
         super.onResume()
-        tvRoundCnt.text = paramRound.toString()
+        tvRoundCnt.text = mRoundCnt.toString()
         screenWidth = resources.displayMetrics.widthPixels
 
-        randomImage().also { imageBtn.setImageResource(it); imageBtn.tag = it }
+        randomImage().also {
+            imageBtn.setImageResource(it);
+            imageBtn.tag = it
+            mCurrImage = it
+        }
 
         listOf(
             Techniques.RotateInUpRight,
@@ -163,7 +175,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             Techniques.RotateInDownRight,
             Techniques.RotateInDownLeft
         ).random().also {
-            if (paramRound >= 0) {
+            if (mRoundCnt >= 0) {
                 YoYo.with(it).duration(800L).playOn(imageContainer)
             } else {
                 val endListener = object : DefaultAnimatorListener() {
@@ -176,14 +188,14 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             }
         }
 
-        if (paramRound >= 0) {
-            seekBarAnimator = initSeekBarAnimator(
+        if (mRoundCnt >= 0) {
+            seekBarContainer.isVisible = true
+
+            mSeekBarAnimator = initSeekBarAnimator(
                 DURATION,
                 progressBar,
                 mLeftRightResultListener
-            ).also {
-                it.start()
-            }
+            ).also { it.start() }
         }
     }
 
@@ -219,11 +231,12 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(param1: String, param2: String, param3: String) =
             LeftOrRightFragment().apply {
                 arguments = Bundle().apply {
                     putString(roundArgument, param1)
-                    putString(extraArgument, param2)
+                    putString(lastImgAugument, param2)
+                    putString(lastOutStateAugument, param3)
                 }
             }
     }

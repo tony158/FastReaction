@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
@@ -43,7 +44,11 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
 
         initMedia()
 
-        currFragment = LeftOrRightFragment.newInstance(roundCnt.toString(), "").also {
+        currFragment = LeftOrRightFragment.newInstance(
+            roundCnt.toString(),
+            Int.MIN_VALUE.toString(),
+            ViewOutState.Invalid.toString()
+        ).also {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, it)
@@ -84,15 +89,27 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         roundCnt = -1
         dialogPopup?.dismiss()
 
-//        interstitialAd?.let { ads ->
-//            ads.adListener = object : AdListener() {
-//                override fun onAdClosed() {
-//                    ads.loadAd(AdRequest.Builder().build())
-//                }
-//            }
-//
-//            ads.takeIf { it.isLoaded }?.show()
-//        }
+        currFragment = LeftOrRightFragment.newInstance(
+            roundCnt.toString(),
+            Int.MIN_VALUE.toString(),
+            ViewOutState.Invalid.toString()
+        ).also {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, it)
+                .commit()
+        }
+    }
+
+    private fun tryLoadAds() {
+        interstitialAd?.let { ads ->
+            ads.adListener = object : AdListener() {
+                override fun onAdClosed() {
+                    ads.loadAd(AdRequest.Builder().build())
+                }
+            }
+            ads.takeIf { it.isLoaded }?.show()
+        }
     }
 
     override fun onResume() {
@@ -139,9 +156,10 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
 
     private var mLastState: ViewOutState? = null
 
-    override fun onResult(state: ViewOutState) {
+    override fun onResult(lastImg: Int, state: ViewOutState) {
+
         if (mLastState == null || mLastState == state) {
-            onSuccess()
+            onSuccess(lastImg, state)
             mLastState = state
 
         } else if (mLastState != state) {
@@ -201,7 +219,7 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         saveHighScore(roundCnt)
     }
 
-    private fun onSuccess() {
+    private fun onSuccess(lastImage: Int, lastState: ViewOutState) {
         dialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
 
         GlideToast.makeToast(
@@ -217,7 +235,11 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
 
         ++roundCnt
 
-        currFragment = LeftOrRightFragment.newInstance(roundCnt.toString(), "").also {
+        currFragment = LeftOrRightFragment.newInstance(
+            roundCnt.toString(),
+            lastImage.toString(),
+            lastState.toString()
+        ).also {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, it)
