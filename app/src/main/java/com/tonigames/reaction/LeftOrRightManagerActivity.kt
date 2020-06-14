@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.activity_left_or_right.*
 class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
     private var interstitialAd: InterstitialAd? = null
 
-    private var roundCnt: Int = 0
+    private var roundCnt: Int = -1
     private var currFragment: LeftOrRightFragment? = null
     private var dialogPopup: MaterialDialog? = null
 
@@ -81,7 +81,7 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     }
 
     private fun handleContinueClicked() {
-        roundCnt = 0
+        roundCnt = -1
         dialogPopup?.dismiss()
 
 //        interstitialAd?.let { ads ->
@@ -98,14 +98,14 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     override fun onResume() {
         super.onResume()
 
-        roundCnt = 0
+        roundCnt = -1
         initMedia()
     }
 
     override fun onStop() {
         super.onStop()
 
-        roundCnt = 0
+        roundCnt = -1
         releaseMedia()
         dialogPopup?.dismiss()
     }

@@ -20,16 +20,30 @@ import kotlinx.android.synthetic.main.fragment_left_or_right.*
 import kotlinx.android.synthetic.main.fragment_left_or_right.progressBar
 import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
 
-private const val DURATION = 3000L
+private const val DURATION = 2000L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
-    private val roundArgument: String = "Round"
+    private val roundArgument: String = "-1"
     private val extraArgument: String = "Extra"
+
+    var paramRound: Int = -1
+    var paramExtra: String? = null
+
+    private var mFragmentListener: FragmentGestureListener? = null
+
     private var screenWidth = 0
-    private var mLastState = ViewOutState.Inside
 
     private var seekBarAnimator: Animator? = null
-    private var leftRightResultListener: LeftRightResultListener? = null
+    private var mLeftRightResultListener: LeftRightResultListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let {
+            paramRound = it.getString(roundArgument)?.toInt() ?: -1
+            paramExtra = it.getString(extraArgument)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,20 +52,18 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         return inflater.inflate(R.layout.fragment_left_or_right, container, false).also {
             val imgContainer = it.findViewById<RelativeLayout>(R.id.imageContainer)
 
-            val listener = FragmentGestureListener(imgContainer)
+            mFragmentListener = FragmentGestureListener(imgContainer)
 
-            GestureDetector(context!!, listener).also { detector ->
-                it.setOnTouchListener(object : View.OnTouchListener {
-                    override fun onTouch(view: View, event: MotionEvent): Boolean {
-                        detector.onTouchEvent(event)
+            GestureDetector(context!!, mFragmentListener).also { detector ->
+                it.setOnTouchListener { view, event ->
+                    detector.onTouchEvent(event)
 
-                        if (event.action == ACTION_UP) {
-                            listener.handleActionUp(view)
-                        }
-
-                        return true
+                    if (event.action == ACTION_UP) {
+                        mFragmentListener?.handleActionUp(view)
                     }
-                })
+
+                    true
+                }
             }
         }
     }
@@ -106,9 +118,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         private fun publishResult(): Boolean {
-            val state = outScreenState(imgContainer)
-
-
+            outScreenState(imgContainer).also { mLeftRightResultListener?.onResult(it) }
             return false
         }
 
@@ -117,6 +127,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             if (!view.isShown) return ViewOutState.Inside
 
             val viewPos = Rect().apply { view.getGlobalVisibleRect(this) }
+
             return when {
                 viewPos.left == mScreen.left -> {
                     ViewOutState.LeftOut
@@ -135,28 +146,44 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         super.onAttach(context)
 
         if (context is LeftRightResultListener) {
-            leftRightResultListener = context
+            mLeftRightResultListener = context
         }
     }
 
     override fun onResume() {
         super.onResume()
-
+        tvRoundCnt.text = paramRound.toString()
         screenWidth = resources.displayMetrics.widthPixels
+
         randomImage().also { imageBtn.setImageResource(it); imageBtn.tag = it }
 
-        listOf(Techniques.RotateInUpRight, Techniques.RotateInUpLeft).random().also {
-            YoYo.with(it).duration(800L).playOn(imageContainer)
+        listOf(
+            Techniques.RotateInUpRight,
+            Techniques.RotateInUpLeft,
+            Techniques.RotateInDownRight,
+            Techniques.RotateInDownLeft
+        ).random().also {
+            if (paramRound >= 0) {
+                YoYo.with(it).duration(800L).playOn(imageContainer)
+            } else {
+                val endListener = object : DefaultAnimatorListener() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        mFragmentListener?.handleActionUp(imageContainer)
+                    }
+                }
+
+                YoYo.with(it).duration(800L).withListener(endListener).playOn(imageContainer)
+            }
         }
 
-        tvRoundCnt.text = "test"
-
-        seekBarAnimator = initSeekBarAnimator(
-            DURATION,
-            progressBar,
-            leftRightResultListener
-        ).also {
-            it.start()
+        if (paramRound >= 0) {
+            seekBarAnimator = initSeekBarAnimator(
+                DURATION,
+                progressBar,
+                mLeftRightResultListener
+            ).also {
+                it.start()
+            }
         }
     }
 
@@ -176,17 +203,13 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 (animation.animatedValue as Int).also { progressBar?.progress = it }
             }
 
-            addListener(object : Animator.AnimatorListener {
-                override fun onAnimationRepeat(animation: Animator) {}
-                override fun onAnimationCancel(animation: Animator) {}
-                override fun onAnimationStart(animation: Animator) {}
-
-                override fun onAnimationEnd(animation: Animator) {
+            addListener(object : DefaultAnimatorListener() {
+                override fun onAnimationEnd(animation: Animator?) {
                     try {
                         progressBar?.progress = 100
                         resultListener?.onTimeUp()
                     } catch (e: Exception) {
-                        Log.d("FindPairFragment", e.message ?: "exception")
+                        Log.wtf("LeftOrRightFragment", e.message ?: "exception")
                     }
                 }
             })
