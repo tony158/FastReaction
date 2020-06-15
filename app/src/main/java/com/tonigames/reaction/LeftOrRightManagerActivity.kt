@@ -222,16 +222,18 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     private fun onSuccess(lastImage: Int, lastState: ViewOutState) {
         dialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
 
-        GlideToast.makeToast(
-            this,
-            "Correct!!",
-            GlideToast.LENGTHMEDIUM,
-            GlideToast.SUCCESSTOAST,
-            GlideToast.BOTTOM
-        ).show()
+        if (roundCnt >= 0) {
+            GlideToast.makeToast(
+                this,
+                "Correct!!",
+                GlideToast.LENGTHMEDIUM,
+                GlideToast.SUCCESSTOAST,
+                GlideToast.BOTTOM
+            ).show()
 
-        soundPositive?.takeIf { it.isPlaying }?.stop()
-        soundPositive?.start()
+            soundPositive?.takeIf { it.isPlaying }?.stop()
+            soundPositive?.start()
+        }
 
         ++roundCnt
 

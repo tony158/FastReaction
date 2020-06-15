@@ -9,27 +9,6 @@ import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import java.util.*
 
-data class TapColorDTO(
-    val user_id: String,
-    val user_name: String,
-    val score: Int,
-    val visit_at: Date? = null
-)
-
-data class FindPairDTO(
-    val user_id: String,
-    val user_name: String,
-    val score: Int,
-    val visit_at: Date? = null
-)
-
-data class LeftRightDTO(
-    val user_id: String,
-    val user_name: String,
-    val score: Int,
-    val visit_at: Date? = null
-)
-
 private const val DEFAULT_TEXT = "......"
 
 class RefreshRankingTask(

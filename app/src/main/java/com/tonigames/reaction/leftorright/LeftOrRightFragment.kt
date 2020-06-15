@@ -25,8 +25,8 @@ private const val DURATION = 2000L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private val roundArgument: String = "-1"
-    private val lastImgAugument: String = "Extra"
-    private val lastOutStateAugument: String = ""
+    private val lastImgArgument: String = "Extra"
+    private val lastOutStateArgument: String = ""
 
     private var mCurrImage: Int = Int.MIN_VALUE
     private var mRoundCnt: Int = Int.MIN_VALUE
@@ -45,8 +45,8 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
         arguments?.let {
             mRoundCnt = it.getString(roundArgument)?.toInt() ?: Int.MIN_VALUE
-            mLastImage = it.getString(lastImgAugument)?.toInt() ?: Int.MIN_VALUE
-            mLastViewOutState = ViewOutState.valueOf(it.getString(lastOutStateAugument)!!)
+            mLastImage = it.getString(lastImgArgument)?.toInt() ?: Int.MIN_VALUE
+            mLastViewOutState = ViewOutState.valueOf(it.getString(lastOutStateArgument)!!)
 
             Log.wtf("", mLastViewOutState.toString())
         }
@@ -131,7 +131,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         fun outScreenState(view: View): ViewOutState {
-            if (view == null) return ViewOutState.Inside
             if (!view.isShown) return ViewOutState.Inside
 
             val viewPos = Rect().apply { view.getGlobalVisibleRect(this) }
@@ -164,7 +163,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         screenWidth = resources.displayMetrics.widthPixels
 
         randomImage().also {
-            imageBtn.setImageResource(it);
+            imageBtn.setImageResource(it)
             imageBtn.tag = it
             mCurrImage = it
         }
@@ -235,8 +234,8 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             LeftOrRightFragment().apply {
                 arguments = Bundle().apply {
                     putString(roundArgument, param1)
-                    putString(lastImgAugument, param2)
-                    putString(lastOutStateAugument, param3)
+                    putString(lastImgArgument, param2)
+                    putString(lastOutStateArgument, param3)
                 }
             }
     }

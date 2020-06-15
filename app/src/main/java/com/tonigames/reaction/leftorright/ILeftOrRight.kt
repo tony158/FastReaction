@@ -11,7 +11,7 @@ enum class ViewOutState(val state: Int) {
 }
 
 interface LeftRightResultListener {
-    fun onResult(image: Int, state: ViewOutState)
+    fun onResult(lastImg: Int, state: ViewOutState)
 
     fun onTimeUp()
 }
