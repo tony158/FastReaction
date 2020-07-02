@@ -24,14 +24,9 @@ import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
 private const val DURATION = 2000L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
-    private val roundArgument: String = "-1"
-    private val lastImgArgument: String = "Extra"
-    private val lastOutStateArgument: String = ""
-
-    private var mCurrImage: Int = Int.MIN_VALUE
     private var mRoundCnt: Int = Int.MIN_VALUE
-    private var mLastImage: Int = Int.MIN_VALUE
-    private var mLastViewOutState: ViewOutState? = null
+    private var mCurrImage: Int = Int.MIN_VALUE
+    private var mLastImg: Int = Int.MIN_VALUE
 
     private var mFragmentListener: FragmentGestureListener? = null
 
@@ -40,36 +35,23 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     private var mSeekBarAnimator: Animator? = null
     private var mLeftRightResultListener: LeftRightResultListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            mRoundCnt = it.getString(roundArgument)?.toInt() ?: Int.MIN_VALUE
-            mLastImage = it.getString(lastImgArgument)?.toInt() ?: Int.MIN_VALUE
-            mLastViewOutState = ViewOutState.valueOf(it.getString(lastOutStateArgument)!!)
-
-            Log.wtf("", mLastViewOutState.toString())
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_left_or_right, container, false).also {
-            val imgContainer = it.findViewById<RelativeLayout>(R.id.imageContainer)
+        return inflater.inflate(R.layout.fragment_left_or_right, container, false).also { frag ->
+            val imgContainer = frag.findViewById<RelativeLayout>(R.id.imageContainer)
 
             mFragmentListener = FragmentGestureListener(imgContainer)
 
             GestureDetector(context!!, mFragmentListener).also { detector ->
-                it.setOnTouchListener { view, event ->
-                    detector.onTouchEvent(event)
+                if (mRoundCnt >= 0) {
+                    frag.setOnTouchListener { view, event ->
+                        detector.onTouchEvent(event)
+                        if (event.action == ACTION_UP) mFragmentListener?.handleActionUp(view)
 
-                    if (event.action == ACTION_UP) {
-                        mFragmentListener?.handleActionUp(view)
+                        true
                     }
-
-                    true
                 }
             }
         }
@@ -96,6 +78,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             val state = outScreenState(imgContainer)
             if (state != ViewOutState.Inside) {
+                mSeekBarAnimator?.pause()
                 publishResult()
             }
 
@@ -111,6 +94,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         fun handleActionUp(view: View) {
             val listener = object : DefaultAnimatorListener() {
                 override fun onAnimationEnd(animation: Animator?) {
+                    mSeekBarAnimator?.pause()
                     publishResult()
                 }
             }
@@ -119,7 +103,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             imgContainer.animate()
                 .translationX((xMoveBy).toFloat())
-                .setDuration(200L)
+                .setDuration(160L)
                 .setListener(listener)
                 .start()
         }
@@ -136,15 +120,9 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             val viewPos = Rect().apply { view.getGlobalVisibleRect(this) }
 
             return when {
-                viewPos.left == mScreen.left -> {
-                    ViewOutState.LeftOut
-                }
-                viewPos.right == mScreen.right -> {
-                    ViewOutState.RightOut
-                }
-                else -> {
-                    ViewOutState.Inside
-                }
+                viewPos.left == mScreen.left -> ViewOutState.LeftOut
+                viewPos.right == mScreen.right -> ViewOutState.RightOut
+                else -> ViewOutState.Inside
             }
         }
     }
@@ -162,9 +140,16 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         tvRoundCnt.text = mRoundCnt.toString()
         screenWidth = resources.displayMetrics.widthPixels
 
-        randomImage().also {
+        val image = if (mLastImg > 0) {
+            listOf(randomImage(), mLastImg).shuffled()[0]
+        } else {
+            randomImage()
+        }
+
+        image.also {
             imageBtn.setImageResource(it)
             imageBtn.tag = it
+
             mCurrImage = it
         }
 
@@ -175,7 +160,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             Techniques.RotateInDownLeft
         ).random().also {
             if (mRoundCnt >= 0) {
-                YoYo.with(it).duration(800L).playOn(imageContainer)
+                YoYo.with(it).duration(500L).playOn(imageContainer)
             } else {
                 val endListener = object : DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -183,7 +168,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     }
                 }
 
-                YoYo.with(it).duration(800L).withListener(endListener).playOn(imageContainer)
+                YoYo.with(it).duration(500L).withListener(endListener).playOn(imageContainer)
             }
         }
 
@@ -191,7 +176,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             seekBarContainer.isVisible = true
 
             mSeekBarAnimator = initSeekBarAnimator(
-                DURATION,
+                reduceDuration(DURATION, mRoundCnt),
                 progressBar,
                 mLeftRightResultListener
             ).also { it.start() }
@@ -227,15 +212,13 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
     }
 
-
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String, param3: String) =
+        fun newInstance(param1: String, param2: String) =
             LeftOrRightFragment().apply {
                 arguments = Bundle().apply {
-                    putString(roundArgument, param1)
-                    putString(lastImgArgument, param2)
-                    putString(lastOutStateArgument, param3)
+                    mRoundCnt = param1.toInt()
+                    mLastImg = param2.toInt()
                 }
             }
     }

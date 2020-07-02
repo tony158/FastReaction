@@ -29,13 +29,16 @@ import kotlinx.android.synthetic.main.activity_left_or_right.*
 class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
     private var interstitialAd: InterstitialAd? = null
 
-    private var roundCnt: Int = -1
-    private var currFragment: LeftOrRightFragment? = null
-    private var dialogPopup: MaterialDialog? = null
+    private var mCurrFragment: LeftOrRightFragment? = null
+    private var mDialogPopup: MaterialDialog? = null
 
     private var soundBtnClick: MediaPlayer? = null
     private var soundNegative: MediaPlayer? = null
     private var soundPositive: MediaPlayer? = null
+
+    private var mRoundCnt: Int = -1
+    private var mLastState: ViewOutState = ViewOutState.Invalid
+    private var mLastImg: Int = Int.MIN_VALUE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,16 +47,13 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
 
         initMedia()
 
-        currFragment = LeftOrRightFragment.newInstance(
-            roundCnt.toString(),
-            Int.MIN_VALUE.toString(),
-            ViewOutState.Invalid.toString()
-        ).also {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, it)
-                .commit()
-        }
+        mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
+            .also {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, it)
+                    .commit()
+            }
 
         MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
 
@@ -86,19 +86,19 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     }
 
     private fun handleContinueClicked() {
-        roundCnt = -1
-        dialogPopup?.dismiss()
+        mRoundCnt = -1
+        mLastImg = Int.MIN_VALUE
+        mLastState = ViewOutState.Invalid
 
-        currFragment = LeftOrRightFragment.newInstance(
-            roundCnt.toString(),
-            Int.MIN_VALUE.toString(),
-            ViewOutState.Invalid.toString()
-        ).also {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, it)
-                .commit()
-        }
+        mDialogPopup?.dismiss()
+
+        mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
+            .also {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, it)
+                    .commit()
+            }
     }
 
     private fun tryLoadAds() {
@@ -115,23 +115,30 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     override fun onResume() {
         super.onResume()
 
-        roundCnt = -1
+        mRoundCnt = -1
         initMedia()
     }
 
     override fun onStop() {
         super.onStop()
 
-        roundCnt = -1
+        mRoundCnt = -1
+        mLastImg = Int.MIN_VALUE
+        mLastState = ViewOutState.Invalid
+
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
+        mRoundCnt = -1
+        mLastImg = Int.MIN_VALUE
+        mLastState = ViewOutState.Invalid
+
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     private fun releaseMedia() {
@@ -154,37 +161,40 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         }
     }
 
-    private var mLastState: ViewOutState? = null
 
-    override fun onResult(lastImg: Int, state: ViewOutState) {
+    override fun onResult(currImg: Int, currState: ViewOutState) {
 
-        if (mLastState == null || mLastState == state) {
-            onSuccess(lastImg, state)
-            mLastState = state
+        if ((currImg == mLastImg && currState == mLastState) ||
+            (currImg != mLastImg && currState != mLastState)
+        ) {
+            mLastState = currState
+            mLastImg = currImg
 
-        } else if (mLastState != state) {
+            onSuccess()
+        } else {
+            mLastState = ViewOutState.Invalid
+
             onFailure("Wrong direction!")
-            mLastState = null
         }
     }
 
     override fun onTimeUp() {
         onFailure("Time's up!")
-        mLastState = null
+        mLastState = ViewOutState.Invalid
     }
 
     private fun onFailure(msg: String = "") {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailure }
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onFailure }
 
         soundNegative?.start()
         vibrate()
 
-        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+        mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
             cancelable(false)
             cancelOnTouchOutside(false)
             cornerRadius(8f)
             findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
@@ -216,17 +226,17 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
             }
         }
 
-        saveHighScore(roundCnt)
+        saveHighScore(mRoundCnt)
     }
 
-    private fun onSuccess(lastImage: Int, lastState: ViewOutState) {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
+    private fun onSuccess() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
 
-        if (roundCnt >= 0) {
+        if (mRoundCnt >= 0) {
             GlideToast.makeToast(
                 this,
-                "Correct!!",
-                GlideToast.LENGTHMEDIUM,
+                "Right!!",
+                GlideToast.LENGTHSHORT,
                 GlideToast.SUCCESSTOAST,
                 GlideToast.BOTTOM
             ).show()
@@ -235,17 +245,14 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
             soundPositive?.start()
         }
 
-        ++roundCnt
+        ++mRoundCnt
 
-        currFragment = LeftOrRightFragment.newInstance(
-            roundCnt.toString(),
-            lastImage.toString(),
-            lastState.toString()
-        ).also {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, it)
-                .commit()
-        }
+        mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
+            .also {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, it)
+                    .commit()
+            }
     }
 }

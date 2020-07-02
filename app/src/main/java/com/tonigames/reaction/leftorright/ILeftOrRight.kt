@@ -23,6 +23,16 @@ interface ILeftOrRight {
         return allDrawables.random() ?: allDrawables[0]
     }
 
+    fun reduceDuration(duration: Long, roundCnt: Int?): Long {
+        return (roundCnt ?: 0).run {
+            when {
+                this > 20 -> (duration * 0.9).toLong()
+                this > 40 -> (duration * 0.85).toLong()
+                else -> duration
+            }
+        }
+    }
+
     companion object {
         val allDrawables: List<Int> = listOf(
             R.drawable.acorn,
