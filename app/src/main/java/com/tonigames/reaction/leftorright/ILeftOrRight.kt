@@ -35,14 +35,12 @@ interface ILeftOrRight {
 
     companion object {
         val allDrawables: List<Int> = listOf(
-            R.drawable.acorn,
-            R.drawable.aircraft,
-            R.drawable.allterrain,
-            R.drawable.amazon,
-            R.drawable.ameracan_football,
-            R.drawable.american_football,
-            R.drawable.android,
-            R.drawable.ant
+            R.drawable.leftright_circle,
+            R.drawable.leftright_diamond,
+            R.drawable.leftright_heart,
+            R.drawable.leftright_star,
+            R.drawable.leftright_triangle,
+            R.drawable.leftright_square
         )
     }
 }
