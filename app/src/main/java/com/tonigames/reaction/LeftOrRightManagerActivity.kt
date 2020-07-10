@@ -24,7 +24,6 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import com.tonigames.reaction.leftorright.LeftRightResultListener
 import com.tonigames.reaction.leftorright.ViewOutState
-import kotlinx.android.synthetic.main.activity_left_or_right.*
 
 class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
     private var interstitialAd: InterstitialAd? = null
@@ -43,7 +42,7 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_left_or_right)
+        setContentView(R.layout.activity_left_or_right_manager)
 
         initMedia()
 
@@ -54,8 +53,6 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
                     .replace(R.id.fragment_container, it)
                     .commit()
             }
-
-        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
 
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
@@ -161,7 +158,6 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         }
     }
 
-
     override fun onResult(currImg: Int, currState: ViewOutState) {
 
         if ((currImg == mLastImg && currState == mLastState) ||
@@ -231,6 +227,7 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
 
     private fun onSuccess() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
+
 
         if (mRoundCnt >= 0) {
             GlideToast.makeToast(

@@ -66,8 +66,6 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
                 .commit()
         }
 
-        MobileAds.initialize(this) { adView.loadAd(AdRequest.Builder().build()) }
-
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
             loadAd(AdRequest.Builder().build())

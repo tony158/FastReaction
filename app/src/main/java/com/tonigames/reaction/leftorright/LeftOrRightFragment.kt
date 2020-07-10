@@ -57,12 +57,15 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
     }
 
+    private fun enableTouch(enabled: Boolean) {
+        view?.isEnabled = enabled
+    }
+
     private inner class FragmentGestureListener(private val imgContainer: RelativeLayout) :
         GestureDetector.SimpleOnGestureListener() {
 
         private val mScreen: Rect = Rect(
-            0, 0, resources.displayMetrics.widthPixels,
-            resources.displayMetrics.heightPixels
+            0, 0, resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
         )
 
         private var mDirectionX: Float = 0F
@@ -103,13 +106,14 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             imgContainer.animate()
                 .translationX((xMoveBy).toFloat())
-                .setDuration(160L)
+                .setDuration(150L)
                 .setListener(listener)
                 .start()
         }
 
         private fun publishResult() {
             outScreenState(imgContainer).also {
+                enableTouch(false)
                 mLeftRightResultListener?.onResult(mCurrImage, it)
             }
         }
@@ -160,7 +164,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             Techniques.RotateInDownLeft
         ).random().also {
             if (mRoundCnt >= 0) {
-                YoYo.with(it).duration(500L).playOn(imageContainer)
+                YoYo.with(it).duration(400L).playOn(imageContainer)
             } else {
                 val endListener = object : DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -168,7 +172,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     }
                 }
 
-                YoYo.with(it).duration(500L).withListener(endListener).playOn(imageContainer)
+                YoYo.with(it).duration(400L).withListener(endListener).playOn(imageContainer)
             }
         }
 
