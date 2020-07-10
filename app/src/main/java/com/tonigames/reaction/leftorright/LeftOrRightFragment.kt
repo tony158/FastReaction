@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_left_or_right.*
 import kotlinx.android.synthetic.main.fragment_left_or_right.progressBar
 import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
 
-private const val DURATION = 1800L
+private const val DURATION = 1600L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private var mRoundCnt: Int = Int.MIN_VALUE
