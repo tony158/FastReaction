@@ -20,18 +20,16 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.reaction.findpair.*
-import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 
 class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
 
     private var interstitialAd: InterstitialAd? = null
 
-    private var roundCnt: Int = 0
-    private var currFragment: AbstractFindPairFragment? = null
-    private var dialogPopup: MaterialDialog? = null
+    private var mRoundCnt: Int = 0
+    private var mCurrFragment: AbstractFindPairFragment? = null
+    private var mDialogPopup: MaterialDialog? = null
 
     private var soundBtnClick: MediaPlayer? = null
     private var soundNegative: MediaPlayer? = null
@@ -51,14 +49,14 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         initMedia()
 
         val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (roundCnt % RoundImgRowCount.size == 0) 1 else roundCnt % RoundImgRowCount.size,
+            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
             2
         )
 
-        currFragment = when (imgRowCnt) {
-            4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
-            3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
-            else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
+        mCurrFragment = when (imgRowCnt) {
+            4 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "")
+            3 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "")
+            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -95,24 +93,24 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     }
 
     override fun onCorrectPairSelected() {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectPairSelected }
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectPairSelected }
 
         makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, BOTTOM).show()
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
 
-        ++roundCnt
+        ++mRoundCnt
 
         val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (roundCnt % RoundImgRowCount.size == 0) 1 else roundCnt % RoundImgRowCount.size,
+            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
             2
         )
 
-        currFragment = when (imgRowCnt) {
-            4 -> FindPairFragmentFour.newInstance(roundCnt.toString(), "")
-            3 -> FindPairFragmentThree.newInstance(roundCnt.toString(), "")
-            else -> FindPairFragmentTwo.newInstance(roundCnt.toString(), "")
+        mCurrFragment = when (imgRowCnt) {
+            4 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "")
+            3 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "")
+            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -128,17 +126,17 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     }
 
     override fun onFailedToSolve(msg: String) {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
 
         soundNegative?.start()
         vibrate()
 
-        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+        mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
             cancelable(false)
             cancelOnTouchOutside(false)
             cornerRadius(8f)
             findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
@@ -167,14 +165,14 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             }
         }
 
-        saveHighScore(roundCnt)
+        saveHighScore(mRoundCnt)
     }
 
 
     private fun handleContinueClicked() {
-        roundCnt = 0
-        currFragment?.clearAllToggles()
-        dialogPopup?.dismiss()
+        mRoundCnt = 0
+        mCurrFragment?.clearAllToggles()
+        mDialogPopup?.dismiss()
 
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
@@ -190,23 +188,23 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     override fun onResume() {
         super.onResume()
 
-        roundCnt = 0
+        mRoundCnt = 0
         initMedia()
     }
 
     override fun onStop() {
         super.onStop()
 
-        roundCnt = 0
+        mRoundCnt = 0
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     private fun releaseMedia() {

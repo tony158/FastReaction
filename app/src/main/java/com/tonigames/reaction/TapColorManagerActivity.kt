@@ -21,21 +21,19 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.MobileAds
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.reaction.tapcolor.FragmentInteractionListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
-import kotlinx.android.synthetic.main.activity_tap_color_manager.*
 
 class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
 
     private var interstitialAd: InterstitialAd? = null
 
-    private var roundCnt: Int = 0
-    private var currFragment: Fragment? = null
-    private var dialogPopup: MaterialDialog? = null
+    private var mRoundCnt: Int = 0
+    private var mCurrFragment: Fragment? = null
+    private var mDialogPopup: MaterialDialog? = null
 
     private var soundBtnClick: MediaPlayer? = null
     private var soundNegative: MediaPlayer? = null
@@ -55,14 +53,14 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         initMedia()
 
         val colorCnt = RoundColorCount.getOrDefault(
-            if (roundCnt % RoundColorCount.size == 0) 1 else roundCnt % RoundColorCount.size,
+            if (mRoundCnt % RoundColorCount.size == 0) 1 else mRoundCnt % RoundColorCount.size,
             2
         )
 
-        currFragment = when (colorCnt) {
-            4 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test4")
-            3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
-            else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
+        mCurrFragment = when (colorCnt) {
+            4 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test4")
+            3 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test3")
+            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "test2")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -77,25 +75,25 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     override fun onCorrectColorSelected() {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
 
         makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, BOTTOM).show()
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
 
-        ++roundCnt
+        ++mRoundCnt
 
         //determine how many color buttons the next fragment has
         val colorCnt = RoundColorCount.getOrDefault(
-            if (roundCnt % RoundColorCount.size == 0) 1 else roundCnt % RoundColorCount.size,
+            if (mRoundCnt % RoundColorCount.size == 0) 1 else mRoundCnt % RoundColorCount.size,
             2
         )
 
-        currFragment = when (colorCnt) {
-            4 -> TapColorFragmentFour.newInstance(roundCnt.toString(), "test4")
-            3 -> TapColorFragmentThree.newInstance(roundCnt.toString(), "test3")
-            else -> TapColorFragmentTwo.newInstance(roundCnt.toString(), "test2")
+        mCurrFragment = when (colorCnt) {
+            4 -> TapColorFragmentFour.newInstance(mRoundCnt.toString(), "test4")
+            3 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test3")
+            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "test2")
         }.also {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(
@@ -132,17 +130,17 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     }
 
     override fun onFailedToSolve(msg: String) {
-        dialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
 
         soundNegative?.start()
         vibrate()
 
-        dialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
+        mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
             cancelable(false)
             cancelOnTouchOutside(false)
             cornerRadius(8f)
             findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = roundCnt.toString()
+            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
             findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
@@ -170,12 +168,12 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             }
         }
 
-        saveHighScore(roundCnt)
+        saveHighScore(mRoundCnt)
     }
 
     private fun handleContinueClicked() {
-        roundCnt = 0
-        dialogPopup?.dismiss()
+        mRoundCnt = 0
+        mDialogPopup?.dismiss()
 
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
@@ -191,23 +189,23 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     override fun onResume() {
         super.onResume()
 
-        roundCnt = 0
+        mRoundCnt = 0
         initMedia()
     }
 
     override fun onStop() {
         super.onStop()
 
-        roundCnt = 0
+        mRoundCnt = 0
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
 
         releaseMedia()
-        dialogPopup?.dismiss()
+        mDialogPopup?.dismiss()
     }
 
     private fun releaseMedia() {
