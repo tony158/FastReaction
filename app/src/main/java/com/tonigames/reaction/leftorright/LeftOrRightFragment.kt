@@ -142,8 +142,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             resources.displayMetrics.heightPixels
         )
 
-        private var mDirectionX: Float = 0F
-
         override fun onSwipeLeft() {
             super.onSwipeLeft()
             moveHorizontal(true)
@@ -155,7 +153,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         override fun scroll(distanceX: Float) {
-            mDirectionX -= distanceX
             imgContainer.translationX -= distanceX
 
             val state = outScreenState(imgContainer)
