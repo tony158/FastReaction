@@ -28,12 +28,12 @@ import com.tonigames.reaction.leftorright.ViewOutState
 class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
     private var interstitialAd: InterstitialAd? = null
 
-    private var mCurrFragment: LeftOrRightFragment? = null
-    private var mDialogPopup: MaterialDialog? = null
-
     private var soundBtnClick: MediaPlayer? = null
     private var soundNegative: MediaPlayer? = null
     private var soundPositive: MediaPlayer? = null
+
+    private var mCurrFragment: LeftOrRightFragment? = null
+    private var mDialogPopup: MaterialDialog? = null
 
     private var mRoundCnt: Int = -1
     private var mLastState: ViewOutState = ViewOutState.Invalid
