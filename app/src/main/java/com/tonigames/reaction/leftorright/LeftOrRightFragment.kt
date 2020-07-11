@@ -165,6 +165,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             }
         }
 
+        private var mAnimator: ViewPropertyAnimator? = null
         fun moveHorizontal(isToLeft: Boolean) {
             val listener = object : DefaultAnimatorListener() {
                 override fun onAnimationEnd(animation: Animator?) {
@@ -175,11 +176,12 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             val xMoveBy = if (isToLeft) -screenWidth / 2 else screenWidth / 2
 
-            imgContainer.animate()
-                .translationX((xMoveBy).toFloat())
-                .setDuration(150L)
-                .setListener(listener)
-                .start()
+            mAnimator = imgContainer.animate().also {
+                it.translationX((xMoveBy).toFloat())
+                it.duration = 150L
+                it.setListener(listener)
+                it.start()
+            }
         }
 
         private fun publishResult() {
