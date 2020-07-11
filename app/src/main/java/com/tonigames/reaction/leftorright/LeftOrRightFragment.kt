@@ -7,7 +7,6 @@ import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.view.MotionEvent.ACTION_UP
 import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
 import android.widget.SeekBar
@@ -18,8 +17,6 @@ import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
-import kotlinx.android.synthetic.main.fragment_left_or_right.progressBar
-import kotlinx.android.synthetic.main.fragment_left_or_right.tvRoundCnt
 
 private const val DURATION = 1600L
 
@@ -28,12 +25,11 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     private var mCurrImage: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
 
-    private var mFragmentListener: FragmentGestureListener? = null
-
     private var screenWidth = 0
 
     private var mSeekBarAnimator: Animator? = null
     private var mLeftRightResultListener: LeftRightResultListener? = null
+    private var mSwipeListener: SwipeListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,93 +38,13 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         return inflater.inflate(R.layout.fragment_left_or_right, container, false).also { frag ->
             val imgContainer = frag.findViewById<RelativeLayout>(R.id.imageContainer)
 
-            mFragmentListener = FragmentGestureListener(imgContainer)
-
-            GestureDetector(context!!, mFragmentListener).also { detector ->
-                if (mRoundCnt >= 0) {
-                    frag.setOnTouchListener { view, event ->
-                        detector.onTouchEvent(event)
-                        if (event.action == ACTION_UP) mFragmentListener?.handleActionUp(view)
-
-                        true
-                    }
-                }
-            }
+            mSwipeListener = SwipeListener(context!!, imgContainer)
+            frag.setOnTouchListener(mSwipeListener)
         }
     }
 
     private fun enableTouch(enabled: Boolean) {
         view?.isEnabled = enabled
-    }
-
-    private inner class FragmentGestureListener(private val imgContainer: RelativeLayout) :
-        GestureDetector.SimpleOnGestureListener() {
-
-        private val mScreen: Rect = Rect(
-            0, 0, resources.displayMetrics.widthPixels, resources.displayMetrics.heightPixels
-        )
-
-        private var mDirectionX: Float = 0F
-
-        override fun onScroll(
-            e1: MotionEvent?,
-            e2: MotionEvent?,
-            distanceX: Float,
-            distanceY: Float
-        ): Boolean {
-            mDirectionX -= distanceX
-            imgContainer.translationX -= distanceX
-
-            val state = outScreenState(imgContainer)
-            if (state != ViewOutState.Inside) {
-                mSeekBarAnimator?.pause()
-                publishResult()
-            }
-
-            return true
-        }
-
-        override fun onDown(e: MotionEvent?): Boolean {
-            mDirectionX = 0F
-            return true
-        }
-
-        //move the view to left or right side until out of screen
-        fun handleActionUp(view: View) {
-            val listener = object : DefaultAnimatorListener() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    mSeekBarAnimator?.pause()
-                    publishResult()
-                }
-            }
-
-            val xMoveBy = if (mDirectionX > 0) screenWidth / 2 else -screenWidth / 2
-
-            imgContainer.animate()
-                .translationX((xMoveBy).toFloat())
-                .setDuration(150L)
-                .setListener(listener)
-                .start()
-        }
-
-        private fun publishResult() {
-            outScreenState(imgContainer).also {
-                enableTouch(false)
-                mLeftRightResultListener?.onResult(mCurrImage, it)
-            }
-        }
-
-        fun outScreenState(view: View): ViewOutState {
-            if (!view.isShown) return ViewOutState.Inside
-
-            val viewPos = Rect().apply { view.getGlobalVisibleRect(this) }
-
-            return when {
-                viewPos.left == mScreen.left -> ViewOutState.LeftOut
-                viewPos.right == mScreen.right -> ViewOutState.RightOut
-                else -> ViewOutState.Inside
-            }
-        }
     }
 
     override fun onAttach(context: Context) {
@@ -168,7 +84,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             } else {
                 val endListener = object : DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
-                        mFragmentListener?.handleActionUp(imageContainer)
+                        mSwipeListener?.moveHorizontal(true)
                     }
                 }
 
@@ -213,6 +129,76 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     }
                 }
             })
+        }
+    }
+
+    private inner class SwipeListener(context: Context, val imgContainer: View) :
+        OnSwipeTouchListener(context) {
+
+        private val mScreen: Rect = Rect(
+            0,
+            0,
+            resources.displayMetrics.widthPixels,
+            resources.displayMetrics.heightPixels
+        )
+
+        private var mDirectionX: Float = 0F
+
+        override fun onSwipeLeft() {
+            super.onSwipeLeft()
+            moveHorizontal(true)
+        }
+
+        override fun onSwipeRight() {
+            super.onSwipeRight()
+            moveHorizontal(false)
+        }
+
+        override fun scroll(distanceX: Float) {
+            mDirectionX -= distanceX
+            imgContainer.translationX -= distanceX
+
+            val state = outScreenState(imgContainer)
+            if (state != ViewOutState.Inside) {
+                mSeekBarAnimator?.pause()
+                publishResult()
+            }
+        }
+
+        fun moveHorizontal(isToLeft: Boolean) {
+            val listener = object : DefaultAnimatorListener() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    mSeekBarAnimator?.pause()
+                    publishResult()
+                }
+            }
+
+            val xMoveBy = if (isToLeft) -screenWidth / 2 else screenWidth / 2
+
+            imgContainer.animate()
+                .translationX((xMoveBy).toFloat())
+                .setDuration(150L)
+                .setListener(listener)
+                .start()
+        }
+
+        private fun publishResult() {
+            outScreenState(imgContainer).also {
+                enableTouch(false)
+                mLeftRightResultListener?.onResult(mCurrImage, it)
+            }
+        }
+
+        fun outScreenState(view: View): ViewOutState {
+            if (!view.isShown) return ViewOutState.Inside
+
+            val viewPos = Rect().apply { view.getGlobalVisibleRect(this) }
+
+            return when {
+                viewPos.left == mScreen.left -> ViewOutState.LeftOut
+                viewPos.right == mScreen.right -> ViewOutState.RightOut
+                else -> ViewOutState.Inside
+            }
         }
     }
 
