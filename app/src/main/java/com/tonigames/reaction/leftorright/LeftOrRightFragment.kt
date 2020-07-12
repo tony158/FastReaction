@@ -174,6 +174,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         private var mAnimator: ViewPropertyAnimator? = null
+
         fun moveHorizontal(isToLeft: Boolean) {
             val listener = object : DefaultAnimatorListener() {
                 override fun onAnimationEnd(animation: Animator?) {
