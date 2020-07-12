@@ -25,8 +25,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     private var mCurrImage: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
 
-    private var screenWidth = 0
-
     private var mSeekBarAnimator: Animator? = null
     private var mLeftRightResultListener: LeftRightResultListener? = null
     private var mSwipeListener: SwipeListener? = null
@@ -58,7 +56,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     override fun onResume() {
         super.onResume()
         tvRoundCnt.text = mRoundCnt.toString()
-        screenWidth = resources.displayMetrics.widthPixels
 
         val image = if (mLastImg > 0) {
             listOf(randomImage(), mLastImg).shuffled()[0]
@@ -186,7 +183,9 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 }
             }
 
-            val xMoveBy = if (isToLeft) -screenWidth / 2 else screenWidth / 2
+            val xMoveBy = with(resources.displayMetrics.widthPixels) {
+                if (isToLeft) -this / 2 else this / 2
+            }
 
             mAnimator = imgContainer.animate().also {
                 it.translationX((xMoveBy).toFloat())
