@@ -18,7 +18,7 @@ import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 
-private const val DURATION = 5600L
+private const val DURATION = 1600L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private var mRoundCnt: Int = Int.MIN_VALUE
