@@ -63,6 +63,14 @@
                 app:justifyContent="center">
 
                 <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+                    android:id="@+id/radio_leftright"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    app:toggle_backgroundColor="@color/colorLightGrey"
+                    app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
+                    app:toggle_text="Left Right" />
+
+                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
                     android:id="@+id/radio_tapcolor"
                     android:layout_width="100dp"
                     android:layout_height="40dp"
@@ -78,13 +86,6 @@
                     app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
                     app:toggle_text="Find Pair" />
 
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/radio_leftright"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    app:toggle_backgroundColor="@color/colorLightGrey"
-                    app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
-                    app:toggle_text="Left Right" />
 
             </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
         </TableRow>
@@ -217,7 +218,7 @@
                     <ImageView
                         android:id="@+id/barMenuItemLanguage"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
@@ -225,26 +226,28 @@
                         android:layout_weight="1"
                         android:src="@drawable/menu_global_big" />
 
-                    <ImageView
-                        android:id="@+id/barMenuItemRanking"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/menu_leader_board" />
+                    <!--
+                                        <ImageView
+                                            android:id="@+id/barMenuItemRanking"
+                                            android:layout_width="0dp"
+                                            android:layout_height="50dp"
+                                            android:layout_marginStart="16dp"
+                                            android:layout_marginTop="16dp"
+                                            android:layout_marginEnd="16dp"
+                                            android:layout_marginBottom="16dp"
+                                            android:layout_weight="1"
+                                            android:src="@drawable/menu_leader_board" />
+                    -->
 
                     <Space
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/barMenuItemLike"
                         android:layout_width="0dp"
-                        android:layout_height="60dp"
+                        android:layout_height="50dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
@@ -252,16 +255,18 @@
                         android:layout_weight="1"
                         android:src="@drawable/menu_like_big" />
 
-                    <ImageView
-                        android:id="@+id/barMenuItemSetting"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/menu_settings" />
+                    <!--
+                                        <ImageView
+                                            android:id="@+id/barMenuItemSetting"
+                                            android:layout_width="0dp"
+                                            android:layout_height="50dp"
+                                            android:layout_marginStart="16dp"
+                                            android:layout_marginTop="16dp"
+                                            android:layout_marginEnd="16dp"
+                                            android:layout_marginBottom="16dp"
+                                            android:layout_weight="1"
+                                            android:src="@drawable/menu_settings" />
+                    -->
 
                 </com.michaldrabik.tapbarmenulib.TapBarMenu>
 

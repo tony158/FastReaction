@@ -72,7 +72,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             tapBarMenu.toggle()
         }
 
-        listOf(barMenuItemLanguage, barMenuItemRanking, barMenuItemLike).forEach { it ->
+        listOf(barMenuItemLanguage, barMenuItemLike).forEach { it ->
             it.setOnClickListener {
                 soundBtnClick?.start()
 
