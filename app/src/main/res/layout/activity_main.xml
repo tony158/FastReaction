@@ -131,12 +131,12 @@
 
                 <TextView
                     android:id="@+id/textViewHighScore"
-                    android:layout_width="100dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="casual"
-                    android:maxWidth="100dp"
+                    android:maxWidth="200dp"
                     android:text=""
                     android:textSize="18sp" />
 
@@ -144,7 +144,7 @@
                     android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="120dp"
+                    android:layout_marginStart="220dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="casual"
                     android:maxWidth="100dp"
@@ -169,12 +169,12 @@
 
                 <TextView
                     android:id="@+id/textViewRanking"
-                    android:layout_width="100dp"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="casual"
-                    android:maxWidth="100dp"
+                    android:maxWidth="200dp"
                     android:text="Ranking"
                     android:textSize="18sp" />
 
@@ -182,7 +182,7 @@
                     android:id="@+id/textViewRank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="120dp"
+                    android:layout_marginStart="220dp"
                     android:layout_marginTop="10dp"
                     android:fontFamily="casual"
                     android:maxWidth="100dp"
