@@ -42,22 +42,22 @@ interface ISettingChange {
             MainMenuCataEnum.Coin to R.string.score_coin_chinese
         )
 
-        private val japaneseMap = mapOf(
-            MainMenuCataEnum.TapColor to R.string.tap_color_japanese,
-            MainMenuCataEnum.FindPair to R.string.find_pair_japanese,
-            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_japanese,
-            MainMenuCataEnum.HighScore to R.string.high_score_japanese,
-            MainMenuCataEnum.Ranking to R.string.score_rank_japanese,
-            MainMenuCataEnum.Coin to R.string.score_coin_japanese
+        private val spanishMap = mapOf(
+            MainMenuCataEnum.TapColor to R.string.tap_color_spanish,
+            MainMenuCataEnum.FindPair to R.string.find_pair_spanish,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_spanish,
+            MainMenuCataEnum.HighScore to R.string.high_score_spanish,
+            MainMenuCataEnum.Ranking to R.string.score_rank_spanish,
+            MainMenuCataEnum.Coin to R.string.score_coin_spanish
         )
 
         private val koreanMap = mapOf(
-            MainMenuCataEnum.TapColor to R.string.tap_color_korean,
-            MainMenuCataEnum.FindPair to R.string.find_pair_korean,
-            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_korean,
-            MainMenuCataEnum.HighScore to R.string.high_score_korean,
-            MainMenuCataEnum.Ranking to R.string.score_rank_korean,
-            MainMenuCataEnum.Coin to R.string.score_coin_korean
+            MainMenuCataEnum.TapColor to R.string.tap_color_portu,
+            MainMenuCataEnum.FindPair to R.string.find_pair_portu,
+            MainMenuCataEnum.LeftOrRight to R.string.left_or_right_portu,
+            MainMenuCataEnum.HighScore to R.string.high_score_portu,
+            MainMenuCataEnum.Ranking to R.string.score_rank_portu,
+            MainMenuCataEnum.Coin to R.string.score_coin_portu
         )
 
         private val theMap = mapOf(
@@ -65,8 +65,8 @@ interface ISettingChange {
             MyLanguageEnum.German to germanMap,
             MyLanguageEnum.French to frenchMap,
             MyLanguageEnum.Chinese to chineseMap,
-            MyLanguageEnum.Japanese to japaneseMap,
-            MyLanguageEnum.Korean to koreanMap
+            MyLanguageEnum.Spanish to spanishMap,
+            MyLanguageEnum.Portuguese to koreanMap
         )
 
         fun translatedMenuText(

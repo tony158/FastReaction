@@ -48,19 +48,19 @@
     <string name="score_rank_chinese">排名</string>
     <string name="score_coin_chinese">金币</string>
 
-    <string name="tap_color_japanese">色タップ</string>
-    <string name="find_pair_japanese">ペアタップ</string>
-    <string name="left_or_right_japanese">左か右</string>
-    <string name="high_score_japanese">最高得点</string>
-    <string name="score_rank_japanese">ランキング</string>
-    <string name="score_coin_japanese">コイン</string>
+    <string name="tap_color_spanish">Toque color</string>
+    <string name="find_pair_spanish">Encontrar pareja</string>
+    <string name="left_or_right_spanish">Izquierda derecha</string>
+    <string name="high_score_spanish">Puntuación más alta</string>
+    <string name="score_rank_spanish">Ranking</string>
+    <string name="score_coin_spanish">Moneda</string>
 
-    <string name="tap_color_korean">Tap Color</string>
-    <string name="find_pair_korean">Tap Pair</string>
-    <string name="left_or_right_korean">왼쪽 오른쪽</string>
-    <string name="high_score_korean">최고 점수</string>
-    <string name="score_rank_korean">순위</string>
-    <string name="score_coin_korean">동전</string>
+    <string name="tap_color_portu">Toque em cor</string>
+    <string name="find_pair_portu">Encontrar par</string>
+    <string name="left_or_right_portu">Esquerda direita</string>
+    <string name="high_score_portu">Pontuação máxima</string>
+    <string name="score_rank_portu">Ranking</string>
+    <string name="score_coin_portu">Moeda</string>
     <!-- main menu text end -->
 
     <string name="return_home">Home</string>
@@ -97,19 +97,19 @@
     <string name="color_txt_chinese_Black">黑</string>
     <string name="color_txt_chinese_Gray">灰</string>
 
-    <string name="color_txt_japanese_Red">赤い</string>
-    <string name="color_txt_japanese_Green">みどり</string>
-    <string name="color_txt_japanese_Blue">青い</string>
-    <string name="color_txt_japanese_Yellow">きいろ</string>
-    <string name="color_txt_japanese_Black">黒い</string>
-    <string name="color_txt_japanese_Gray">はいいろ</string>
+    <string name="color_txt_spanish_Red">Roja</string>
+    <string name="color_txt_spanish_Green">Verde</string>
+    <string name="color_txt_spanish_Blue">Azul</string>
+    <string name="color_txt_spanish_Yellow">Amarilla</string>
+    <string name="color_txt_spanish_Black">Negra</string>
+    <string name="color_txt_spanish_Gray">Gris</string>
 
-    <string name="color_txt_korean_Red">빨간</string>
-    <string name="color_txt_korean_Green">미도리</string>
-    <string name="color_txt_korean_Blue">푸른</string>
-    <string name="color_txt_korean_Yellow">노란색</string>
-    <string name="color_txt_korean_Black">검은</string>
-    <string name="color_txt_korean_Gray">회색</string>
+    <string name="color_txt_portu_Red">Vermelha</string>
+    <string name="color_txt_portu_Green">Verde</string>
+    <string name="color_txt_portu_Blue">Azul</string>
+    <string name="color_txt_portu_Yellow">Amarela</string>
+    <string name="color_txt_portu_Black">Preto</string>
+    <string name="color_txt_portu_Gray">Cinzenta</string>
     <!-- color text end   -->
 
 </resources>

@@ -61,21 +61,21 @@ interface IColorFragment {
             )
 
             private val japaneseMap = mapOf(
-                Red to R.string.color_txt_japanese_Red,
-                Green to R.string.color_txt_japanese_Green,
-                Blue to R.string.color_txt_japanese_Blue,
-                Yellow to R.string.color_txt_japanese_Yellow,
-                Black to R.string.color_txt_japanese_Black,
-                Gray to R.string.color_txt_japanese_Gray
+                Red to R.string.color_txt_spanish_Red,
+                Green to R.string.color_txt_spanish_Green,
+                Blue to R.string.color_txt_spanish_Blue,
+                Yellow to R.string.color_txt_spanish_Yellow,
+                Black to R.string.color_txt_spanish_Black,
+                Gray to R.string.color_txt_spanish_Gray
             )
 
             private val koreanMap = mapOf(
-                Red to R.string.color_txt_korean_Red,
-                Green to R.string.color_txt_korean_Green,
-                Blue to R.string.color_txt_korean_Blue,
-                Yellow to R.string.color_txt_korean_Yellow,
-                Black to R.string.color_txt_korean_Black,
-                Gray to R.string.color_txt_korean_Gray
+                Red to R.string.color_txt_portu_Red,
+                Green to R.string.color_txt_portu_Green,
+                Blue to R.string.color_txt_portu_Blue,
+                Yellow to R.string.color_txt_portu_Yellow,
+                Black to R.string.color_txt_portu_Black,
+                Gray to R.string.color_txt_portu_Gray
             )
 
             private val theMap = mutableMapOf(
@@ -83,8 +83,8 @@ interface IColorFragment {
                 MyLanguageEnum.German to germanMap,
                 MyLanguageEnum.French to frenchMap,
                 MyLanguageEnum.Chinese to chineseMap,
-                MyLanguageEnum.Japanese to japaneseMap,
-                MyLanguageEnum.Korean to koreanMap
+                MyLanguageEnum.Spanish to japaneseMap,
+                MyLanguageEnum.Portuguese to koreanMap
             )
 
             fun translatedName(

@@ -88,8 +88,14 @@ class LanguageSettingAdapter(
                 add(LanguageSettingModel(MyLanguageEnum.German.name, R.drawable.menu_germany, 0))
                 add(LanguageSettingModel(MyLanguageEnum.French.name, R.drawable.menu_france, 0))
                 add(LanguageSettingModel(MyLanguageEnum.Chinese.name, R.drawable.menu_china, 0))
-                add(LanguageSettingModel(MyLanguageEnum.Japanese.name, R.drawable.menu_japan, 0))
-                add(LanguageSettingModel(MyLanguageEnum.Korean.name, R.drawable.menu_korea, 0))
+                add(LanguageSettingModel(MyLanguageEnum.Spanish.name, R.drawable.menu_spain, 0))
+                add(
+                    LanguageSettingModel(
+                        MyLanguageEnum.Portuguese.name,
+                        R.drawable.menu_portugal,
+                        0
+                    )
+                )
 
                 this[selectedIndex].checkedImage = R.drawable.menu_correct
             }

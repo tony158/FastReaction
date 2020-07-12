@@ -11,8 +11,8 @@ enum class MyLanguageEnum {
     German,
     French,
     Chinese,
-    Japanese,
-    Korean;
+    Spanish,
+    Portuguese;
 
     companion object {
         private val map = values().map { it.ordinal to it }.toMap()
