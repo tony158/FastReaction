@@ -164,9 +164,12 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
         override fun onFingerUp() {
             if (mAnimator == null) {
-                val centerX = resources.displayMetrics.widthPixels / 2
+                val screenCenterX = resources.displayMetrics.widthPixels / 2
 
-                if (imgContainer.x >= centerX)
+                val imgCenterX = IntArray(2).also { imgContainer.getLocationInWindow(it) }
+                    .run { this[0] + imgContainer.width / 2 }
+
+                if (imgCenterX >= screenCenterX)
                     moveHorizontal(false)
                 else
                     moveHorizontal(true)
