@@ -13,7 +13,12 @@ class OnSwipeTouchListener implements View.OnTouchListener {
     }
 
     public boolean onTouch(final View view, final MotionEvent motionEvent) {
-        return gestureDetector.onTouchEvent(motionEvent);
+        boolean touchResult = gestureDetector.onTouchEvent(motionEvent);
+        if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+            onFingerUp();
+        }
+
+        return touchResult;
     }
 
     private class GestureListener extends GestureDetector.SimpleOnGestureListener {
@@ -88,6 +93,9 @@ class OnSwipeTouchListener implements View.OnTouchListener {
     public void onSwipeLeft() {
     }
 
+    public void onFingerUp() {
+    }
+
     private void onSwipeUp() {
     }
 
@@ -102,4 +110,6 @@ class OnSwipeTouchListener implements View.OnTouchListener {
 
     private void onLongClick() {
     }
+
+
 }

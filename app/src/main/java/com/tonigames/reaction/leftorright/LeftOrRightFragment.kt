@@ -18,7 +18,7 @@ import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_left_or_right.*
 
-private const val DURATION = 1600L
+private const val DURATION = 5600L
 
 class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRight {
     private var mRoundCnt: Int = Int.MIN_VALUE
@@ -159,6 +159,17 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             if (state != ViewOutState.Inside) {
                 mSeekBarAnimator?.pause()
                 publishResult()
+            }
+        }
+
+        override fun onFingerUp() {
+            if (mAnimator == null) {
+                val centerX = resources.displayMetrics.widthPixels / 2
+
+                if (imgContainer.x >= centerX)
+                    moveHorizontal(false)
+                else
+                    moveHorizontal(true)
             }
         }
 
