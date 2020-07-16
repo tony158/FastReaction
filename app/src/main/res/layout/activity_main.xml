@@ -50,49 +50,47 @@
         </TableRow>
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|fill_horizontal|center_vertical"
-            android:layout_marginTop="30dp"
             android:gravity="center_horizontal|center_vertical">
 
-            <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
-                android:id="@+id/radio_grp"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:justifyContent="center">
+                android:layout_gravity="center|center_vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1">
 
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/radio_leftright"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    app:toggle_backgroundColor="@color/colorLightGrey"
-                    app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
-                    app:toggle_text="Left Right" />
+                <TextView
+                    android:id="@+id/hahaha"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="casual"
+                    android:foregroundGravity="center_vertical|center"
+                    android:gravity="center|center_vertical"
+                    android:maxWidth="200dp"
+                    android:text="test test"
+                    android:textSize="22sp" />
 
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/radio_findpair"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    app:toggle_backgroundColor="@color/colorLightGrey"
-                    app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
-                    app:toggle_text="Find Pair" />
+                <com.nightonke.boommenu.BoomMenuButton
+                    android:id="@+id/bmb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    app:bmb_buttonEnum="ham"
+                    app:bmb_buttonPlaceEnum="buttonPlace_ham_3"
+                    app:bmb_piecePlaceEnum="piecePlace_ham_3" />
+            </RelativeLayout>
 
-                <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
-                    android:id="@+id/radio_tapcolor"
-                    android:layout_width="100dp"
-                    android:layout_height="40dp"
-                    app:toggle_backgroundColor="@color/colorLightGrey"
-                    app:toggle_selectedBackgroundColor="@color/colorPrimaryLightBlue"
-                    app:toggle_text="Tap Color" />
-
-            </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
         </TableRow>
 
         <TableRow
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:gravity="center_horizontal">
 
             <Button
@@ -100,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="1"

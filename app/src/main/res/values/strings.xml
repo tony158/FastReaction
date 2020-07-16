@@ -23,6 +23,9 @@
     <string name="tap_color_english">Tap Color</string>
     <string name="find_pair_english">Tap Pair</string>
     <string name="left_or_right_english">Left Right</string>
+    <string name="tap_color_description_english">Tap on correct  Color</string>
+    <string name="find_pair_description_english">Tap a pair of things</string>
+    <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
@@ -30,6 +33,9 @@
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>
     <string name="left_or_right_german">Links Rechts</string>
+    <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
+    <string name="find_pair_description_german">Tippen auf die gleichen Dinge</string>
+    <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
     <string name="score_coin_german">Münze</string>
@@ -37,6 +43,9 @@
     <string name="tap_color_french">appuyez Couleur</string>
     <string name="find_pair_french">appuyez Pair</string>
     <string name="left_or_right_french">gauche droite</string>
+    <string name="tap_color_description_french">Tap on correct  Color</string>
+    <string name="find_pair_description_french">Tap a pair of things</string>
+    <string name="left_or_right_description_french">Same shape,swipe to same direction</string>
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
     <string name="score_coin_french">coin</string>
@@ -44,6 +53,9 @@
     <string name="tap_color_chinese">点颜色</string>
     <string name="find_pair_chinese">找一对</string>
     <string name="left_or_right_chinese">左或右</string>
+    <string name="tap_color_description_chinese">点击正确的颜色</string>
+    <string name="find_pair_description_chinese">点击一对相同的东西</string>
+    <string name="left_or_right_description_chinese">相同颜色,划向相同方向</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
     <string name="score_coin_chinese">金币</string>
@@ -51,6 +63,9 @@
     <string name="tap_color_spanish">Toque color</string>
     <string name="find_pair_spanish">Encontrar pareja</string>
     <string name="left_or_right_spanish">Izquierda derecha</string>
+    <string name="tap_color_description_spanish">Toque el color correcto</string>
+    <string name="find_pair_description_spanish">Toca un par de cosas iguales</string>
+    <string name="left_or_right_description_spanish">Misma forma, desliza hacia la misma dirección</string>
     <string name="high_score_spanish">Puntuación más alta</string>
     <string name="score_rank_spanish">Ranking</string>
     <string name="score_coin_spanish">Moneda</string>
@@ -58,6 +73,9 @@
     <string name="tap_color_portu">Toque em cor</string>
     <string name="find_pair_portu">Encontrar par</string>
     <string name="left_or_right_portu">Esquerda direita</string>
+    <string name="tap_color_description_portu">Toque na cor correta</string>
+    <string name="find_pair_description_portu">Toque em um par das mesmas coisas</string>
+    <string name="left_or_right_description_portu">Mesma forma, deslize para a mesma direção</string>
     <string name="high_score_portu">Pontuação máxima</string>
     <string name="score_rank_portu">Ranking</string>
     <string name="score_coin_portu">Moeda</string>

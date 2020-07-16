@@ -10,6 +10,9 @@ interface ISettingChange {
             MainMenuCataEnum.TapColor to R.string.tap_color_english,
             MainMenuCataEnum.FindPair to R.string.find_pair_english,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_english,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_english,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_english,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_english,
             MainMenuCataEnum.HighScore to R.string.high_score_english,
             MainMenuCataEnum.Ranking to R.string.score_rank_english,
             MainMenuCataEnum.Coin to R.string.score_coin_english
@@ -19,6 +22,9 @@ interface ISettingChange {
             MainMenuCataEnum.TapColor to R.string.tap_color_german,
             MainMenuCataEnum.FindPair to R.string.find_pair_german,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_german,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_german,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_german,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_german,
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
             MainMenuCataEnum.Coin to R.string.score_coin_german
@@ -28,6 +34,9 @@ interface ISettingChange {
             MainMenuCataEnum.TapColor to R.string.tap_color_french,
             MainMenuCataEnum.FindPair to R.string.find_pair_french,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_french,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_french,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_french,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_french,
             MainMenuCataEnum.HighScore to R.string.high_score_french,
             MainMenuCataEnum.Ranking to R.string.score_rank_french,
             MainMenuCataEnum.Coin to R.string.score_coin_french
@@ -37,6 +46,9 @@ interface ISettingChange {
             MainMenuCataEnum.TapColor to R.string.tap_color_chinese,
             MainMenuCataEnum.FindPair to R.string.find_pair_chinese,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_chinese,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_chinese,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_chinese,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_chinese,
             MainMenuCataEnum.HighScore to R.string.high_score_chinese,
             MainMenuCataEnum.Ranking to R.string.score_rank_chinese,
             MainMenuCataEnum.Coin to R.string.score_coin_chinese
@@ -46,15 +58,21 @@ interface ISettingChange {
             MainMenuCataEnum.TapColor to R.string.tap_color_spanish,
             MainMenuCataEnum.FindPair to R.string.find_pair_spanish,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_spanish,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_spanish,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_spanish,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_spanish,
             MainMenuCataEnum.HighScore to R.string.high_score_spanish,
             MainMenuCataEnum.Ranking to R.string.score_rank_spanish,
             MainMenuCataEnum.Coin to R.string.score_coin_spanish
         )
 
-        private val koreanMap = mapOf(
+        private val portuMap = mapOf(
             MainMenuCataEnum.TapColor to R.string.tap_color_portu,
             MainMenuCataEnum.FindPair to R.string.find_pair_portu,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_portu,
+            MainMenuCataEnum.TapColorDesp to R.string.tap_color_description_portu,
+            MainMenuCataEnum.FindPairDesp to R.string.find_pair_description_portu,
+            MainMenuCataEnum.LeftOrRightDesp to R.string.left_or_right_description_portu,
             MainMenuCataEnum.HighScore to R.string.high_score_portu,
             MainMenuCataEnum.Ranking to R.string.score_rank_portu,
             MainMenuCataEnum.Coin to R.string.score_coin_portu
@@ -66,7 +84,7 @@ interface ISettingChange {
             MyLanguageEnum.French to frenchMap,
             MyLanguageEnum.Chinese to chineseMap,
             MyLanguageEnum.Spanish to spanishMap,
-            MyLanguageEnum.Portuguese to koreanMap
+            MyLanguageEnum.Portuguese to portuMap
         )
 
         fun translatedMenuText(
@@ -84,12 +102,16 @@ interface ISettingChange {
     fun onLanguageChanged()
 
     fun onBgImageChanged()
+//    fun bindEventHandlerRadioButtons()
 }
 
 enum class MainMenuCataEnum {
     TapColor,
     FindPair,
     LeftOrRight,
+    TapColorDesp,
+    FindPairDesp,
+    LeftOrRightDesp,
     HighScore,
     Ranking,
     Coin

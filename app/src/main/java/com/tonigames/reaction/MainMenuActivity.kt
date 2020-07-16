@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
@@ -17,6 +18,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.nightonke.boommenu.BoomButtons.HamButton
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
@@ -28,7 +30,6 @@ import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import com.tonigames.reaction.popups.MyLanguageEnum
 import kotlinx.android.synthetic.main.activity_main.*
-import nl.bryanderidder.themedtogglebuttongroup.SelectAnimation
 
 
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
@@ -41,7 +42,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        radio_grp.selectAnimation = SelectAnimation.VERTICAL_SLIDE
+//        radio_grp.selectAnimation = SelectAnimation.VERTICAL_SLIDE
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
@@ -53,8 +54,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         // test submit
         onLanguageChanged()
         initSettingButton()
-        refreshRadioButtonState()
-        bindEventHandlerRadioButtons()
+//        refreshRadioButtonState()
+//        bindEventHandlerRadioButtons()
         bindEventHandlerStartButton()
 
         interstitialAd = InterstitialAd(this).apply {
@@ -108,20 +109,18 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun gotoNextActivity() {
-        val targetActivity =
-            when (getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(
-                GAME_TYPE,
-                TAP_COLOR
-            )) {
-                TAP_COLOR -> TapColorManagerActivity::class.java
-                FIND_PAIR -> FindPairManagerActivity::class.java
-                else -> LeftOrRightManagerActivity::class.java
-            }
+        val targetActivity = when (getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(
+            GAME_TYPE,
+            TAP_COLOR
+        )) {
+            TAP_COLOR -> TapColorManagerActivity::class.java
+            FIND_PAIR -> FindPairManagerActivity::class.java
+            else -> LeftOrRightManagerActivity::class.java
+        }
 
         interstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
                 interstitialAd?.loadAd(AdRequest.Builder().build())
-
                 startActivity(Intent(this@MainMenuActivity, targetActivity))
             }
         }
@@ -134,48 +133,48 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun bindEventHandlerRadioButtons() {
-        listOf(radio_tapcolor, radio_findpair, radio_leftright).forEach {
-            it.setOnClickListener {
-                soundBtnClick?.start()
+//    private fun bindEventHandlerRadioButtons() {
+//        listOf(radio_tapcolor, radio_findpair, radio_leftright).forEach {
+//            it.setOnClickListener {
+//                soundBtnClick?.start()
+//
+//                val valueToPut = when (it) {
+//                    radio_tapcolor -> TAP_COLOR
+//                    radio_findpair -> FIND_PAIR
+//                    else -> Constants.Left_Right
+//                }
+//
+//                getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
+//                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
+//                }
+//
+//                when (valueToPut) {
+//                    TAP_COLOR -> score.text = getHighScore(HIGH_SCORE_TAP_COLOR).toString()
+//                    FIND_PAIR -> score.text = getHighScore(HIGH_SCORE_FIND_PAIR).toString()
+//                    else -> score.text = getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
+//                }
+//
+//                refreshHighestScore()
+//            }
+//        }
+//    }
 
-                val valueToPut = when (it) {
-                    radio_tapcolor -> TAP_COLOR
-                    radio_findpair -> FIND_PAIR
-                    else -> Constants.Left_Right
-                }
-
-                getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
-                }
-
-                when (valueToPut) {
-                    TAP_COLOR -> score.text = getHighScore(HIGH_SCORE_TAP_COLOR).toString()
-                    FIND_PAIR -> score.text = getHighScore(HIGH_SCORE_FIND_PAIR).toString()
-                    else -> score.text = getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
-                }
-
-                refreshHighestScore()
-            }
-        }
-    }
-
-    private fun refreshRadioButtonState() {
-        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
-            val toCheck = when (this) {
-                TAP_COLOR -> R.id.radio_tapcolor
-                FIND_PAIR -> R.id.radio_findpair
-                else -> R.id.radio_leftright
-            }
-
-            radio_grp?.selectButton(toCheck)
-        }
-    }
+//    private fun refreshRadioButtonState() {
+//        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
+//            val toCheck = when (this) {
+//                TAP_COLOR -> R.id.radio_tapcolor
+//                FIND_PAIR -> R.id.radio_findpair
+//                else -> R.id.radio_leftright
+//            }
+//
+//            radio_grp?.selectButton(toCheck)
+//        }
+//    }
 
     override fun onResume() {
         super.onResume()
         initSounds()
-        refreshRadioButtonState()
+//        refreshRadioButtonState()
 
         getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
             val gameType = if (this == TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
@@ -262,35 +261,55 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
     private fun refreshHighestScore() {
 
-        getSharedPreferences(Constants.GAME_TYPE, Context.MODE_PRIVATE)
-            .getInt(Constants.GAME_TYPE, Constants.TAP_COLOR)
-            .run {
-                val gameType = when (this) {
-                    Constants.TAP_COLOR -> HIGH_SCORE_TAP_COLOR
-                    Constants.FIND_PAIR -> HIGH_SCORE_FIND_PAIR
-                    else -> HIGH_SCORE_LEFT_RIGHT
-                }
-
-                fireBaseAccess.updateScore(this, getHighScore(gameType))
+        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
+            val gameType = when (this) {
+                TAP_COLOR -> HIGH_SCORE_TAP_COLOR
+                FIND_PAIR -> HIGH_SCORE_FIND_PAIR
+                else -> HIGH_SCORE_LEFT_RIGHT
             }
+
+            fireBaseAccess.updateScore(this, getHighScore(gameType))
+        }
+    }
+
+    private fun buildHamMenu() {
+        val currLanguage: MyLanguageEnum = currentLanguage()
+        val tapColorTitle = translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColor)
+        val findPairTitle = translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPair)
+        val leftRightTitle =
+            translatedMenuText(resources, currLanguage, MainMenuCataEnum.LeftOrRight)
+
+        val tapColorDesp =
+            translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColorDesp)
+        val findPairDesp =
+            translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPairDesp)
+        val leftRightDesp =
+            translatedMenuText(resources, currLanguage, MainMenuCataEnum.LeftOrRightDesp)
+
+        addBuilderBMB(leftRightTitle, leftRightDesp)
+        addBuilderBMB(findPairTitle, findPairDesp)
+        addBuilderBMB(tapColorTitle, tapColorDesp)
+    }
+
+    private fun addBuilderBMB(text: String, subText: String) {
+        bmb.addBuilder(
+            HamButton.Builder()
+                .normalText(text)
+                .subNormalText(subText)
+                .pieceColor(Color.BLACK)
+        )
     }
 
     override fun onLanguageChanged() {
         val currLanguage: MyLanguageEnum = currentLanguage()
-
-        val tapColor = translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColor)
-        val findPair = translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPair)
-        val leftOrRight = translatedMenuText(resources, currLanguage, MainMenuCataEnum.LeftOrRight)
-
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
         val ranking = translatedMenuText(resources, currLanguage, MainMenuCataEnum.Ranking)
 
-        radio_tapcolor.text = tapColor
-        radio_findpair.text = findPair
-        radio_leftright.text = leftOrRight
-
         textViewHighScore.text = highScore
         textViewRanking.text = ranking
+
+        bmb.clearBuilders()
+        buildHamMenu()
     }
 
     override fun onBgImageChanged() {
