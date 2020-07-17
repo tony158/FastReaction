@@ -62,7 +62,7 @@
 
     <string name="tap_color_spanish">Toque color</string>
     <string name="find_pair_spanish">Encontrar pareja</string>
-    <string name="left_or_right_spanish">Izquierda derecha</string>
+    <string name="left_or_right_spanish">Izquierda o derecha</string>
     <string name="tap_color_description_spanish">Toque el color correcto</string>
     <string name="find_pair_description_spanish">Toca un par de cosas iguales</string>
     <string name="left_or_right_description_spanish">Misma forma, desliza hacia la misma dirección</string>
@@ -72,7 +72,7 @@
 
     <string name="tap_color_portu">Toque em cor</string>
     <string name="find_pair_portu">Encontrar par</string>
-    <string name="left_or_right_portu">Esquerda direita</string>
+    <string name="left_or_right_portu">Esquerda ou direita</string>
     <string name="tap_color_description_portu">Toque na cor correta</string>
     <string name="find_pair_description_portu">Toque em um par das mesmas coisas</string>
     <string name="left_or_right_description_portu">Mesma forma, deslize para a mesma direção</string>
