@@ -24,7 +24,7 @@
     <string name="find_pair_english">Find Pair</string>
     <string name="left_or_right_english">Left or Right</string>
     <string name="tap_color_description_english">Tap on correct  Color</string>
-    <string name="find_pair_description_english">Tap a pair of things</string>
+    <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
@@ -34,7 +34,7 @@
     <string name="find_pair_german">Paar finden</string>
     <string name="left_or_right_german">Links Rechts</string>
     <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
-    <string name="find_pair_description_german">Tippen auf die gleichen Dinge</string>
+    <string name="find_pair_description_german">Finde die gleichen Dinge</string>
     <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
@@ -43,9 +43,9 @@
     <string name="tap_color_french">appuyez Couleur</string>
     <string name="find_pair_french">appuyez Pair</string>
     <string name="left_or_right_french">gauche droite</string>
-    <string name="tap_color_description_french">Tap on correct  Color</string>
-    <string name="find_pair_description_french">Tap a pair of things</string>
-    <string name="left_or_right_description_french">Same shape,swipe to same direction</string>
+    <string name="tap_color_description_french">Appuyez sur la bonne couleur</string>
+    <string name="find_pair_description_french">Trouvez une paire de choses</string>
+    <string name="left_or_right_description_french">Même forme, glissez dans la même direction</string>
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
     <string name="score_coin_french">coin</string>

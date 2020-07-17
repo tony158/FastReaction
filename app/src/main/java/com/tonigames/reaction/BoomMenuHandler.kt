@@ -103,7 +103,6 @@ class BoomMenuHandler(
             this.subNormalText(tapColorSubtitle)
         }
 
-        //--------------------------------------------------
         refreshGameTitle()
     }
 
