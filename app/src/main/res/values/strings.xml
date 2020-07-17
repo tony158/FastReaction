@@ -21,8 +21,8 @@
 
     <!-- main menu text start -->
     <string name="tap_color_english">Tap Color</string>
-    <string name="find_pair_english">Tap Pair</string>
-    <string name="left_or_right_english">Left Right</string>
+    <string name="find_pair_english">Find Pair</string>
+    <string name="left_or_right_english">Left or Right</string>
     <string name="tap_color_description_english">Tap on correct  Color</string>
     <string name="find_pair_description_english">Tap a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
@@ -54,7 +54,7 @@
     <string name="find_pair_chinese">找一对</string>
     <string name="left_or_right_chinese">左或右</string>
     <string name="tap_color_description_chinese">点击正确的颜色</string>
-    <string name="find_pair_description_chinese">点击一对相同的东西</string>
+    <string name="find_pair_description_chinese">找一对相同的东西</string>
     <string name="left_or_right_description_chinese">相同颜色,划向相同方向</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>

@@ -8,12 +8,14 @@ import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 class BoomMenuHandler(
-    private val bmb: BoomMenuButton,
-    private val titleText: TextView,
+    private val boomMenu: BoomMenuButton,
+    private val gameTitle: TextView,
     private val context: ContextWrapper
 ) {
 
@@ -23,58 +25,26 @@ class BoomMenuHandler(
 
     private fun buildHamMenu() {
 
-        val currLanguage: MyLanguageEnum = currentLanguage()
-        val tapColorTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.TapColor
-            )
-        val findPairTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.FindPair
-            )
-        val leftRightTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.LeftOrRight
-            )
+        val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
+        val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
+        val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
 
-        val tapColorSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.TapColorSubtitle
-            )
-        val findPairSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.FindPairSubtitle
-            )
-
-        val leftRightSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.LeftOrRightSubtitle
-            )
+        val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
+        val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
+        val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
 
         addBuilderBMB(leftRightTitle, leftRightSubtitle)
         addBuilderBMB(findPairTitle, findPairSubtitle)
         addBuilderBMB(tapColorTitle, tapColorSubtitle)
 
-        bmb.onBoomListener = object : OnBoomListenerAdapter() {
+        boomMenu.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
                 super.onClicked(index, boomButton)
 
                 val valueToPut = when (index) {
-                    0 -> MainMenuActivity.Constants.TAP_COLOR
+                    0 -> MainMenuActivity.Constants.Left_Right
                     1 -> MainMenuActivity.Constants.FIND_PAIR
-                    else -> MainMenuActivity.Constants.Left_Right
+                    else -> MainMenuActivity.Constants.TAP_COLOR
                 }
 
                 context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
@@ -82,9 +52,9 @@ class BoomMenuHandler(
                 }
 
                 when (index) {
-                    0 -> titleText.text = leftRightTitle
-                    1 -> titleText.text = findPairTitle
-                    2 -> titleText.text = tapColorTitle
+                    0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+                    1 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
+                    2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                 }
             }
         }
@@ -101,64 +71,59 @@ class BoomMenuHandler(
     }
 
     private fun addBuilderBMB(text: String, subText: String) {
-        bmb.addBuilder(
-            HamButton.Builder()
-                .normalText(text)
-                .subNormalText(subText)
-                .pieceColor(Color.BLACK)
-        )
+        HamButton.Builder()
+            .normalText(text)
+            .subNormalText(subText)
+            .pieceColor(Color.BLACK).apply {
+                boomMenu.addBuilder(this)
+            }
     }
 
     fun onLanguageChanged() {
+        val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+        val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
+        val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
+
+        val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
+        val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
+        val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
+
+        with(boomMenu.getBuilder(0) as HamButton.Builder) {
+            this.normalText(leftRightTitle)
+            this.subNormalText(leftRightSubtitle)
+        }
+
+        with(boomMenu.getBuilder(1) as HamButton.Builder) {
+            this.normalText(findPairTitle)
+            this.subNormalText(findPairSubtitle)
+        }
+
+        with(boomMenu.getBuilder(2) as HamButton.Builder) {
+            this.normalText(tapColorTitle)
+            this.subNormalText(tapColorSubtitle)
+        }
+
+        //--------------------------------------------------
+        refreshGameTitle()
+    }
+
+    private fun getTranslatedText(cateEnum: MainMenuCataEnum): String {
         val currLanguage: MyLanguageEnum = currentLanguage()
-        val tapColorTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.TapColor
-            )
-        val findPairTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.FindPair
-            )
-        val leftRightTitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.LeftOrRight
-            )
+        return ISettingChange.translatedMenuText(
+            context.resources,
+            currLanguage,
+            cateEnum
+        )
+    }
 
-        val tapColorSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.TapColorSubtitle
-            )
-        val findPairSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.FindPairSubtitle
-            )
-        val leftRightSubtitle =
-            ISettingChange.translatedMenuText(
-                context.resources,
-                currLanguage,
-                MainMenuCataEnum.LeftOrRightSubtitle
-            )
-
-        bmb.getBoomButton(0)?.textView?.text = leftRightTitle
-        bmb.getBoomButton(0)?.subTextView?.text = leftRightSubtitle
-
-        bmb.getBoomButton(1)?.textView?.text = findPairTitle
-        bmb.getBoomButton(1)?.subTextView?.text = findPairSubtitle
-
-        bmb.getBoomButton(2)?.textView?.text = tapColorTitle
-        bmb.getBoomButton(2)?.subTextView?.text = tapColorSubtitle
-
-        //        bmb.onButtonClick(1,null)
-        //        titleText?.text = ""    //TODO
+    private fun refreshGameTitle() {
+        context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR)
+            .run {
+                when (this) {
+                    TAP_COLOR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
+                    FIND_PAIR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
+                    else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+                }
+            }
     }
 }

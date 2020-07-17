@@ -100,9 +100,6 @@ interface ISettingChange {
     }
 
     fun onLanguageChanged()
-
-    fun onBgImageChanged()
-//    fun bindEventHandlerRadioButtons()
 }
 
 enum class MainMenuCataEnum {

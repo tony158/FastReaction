@@ -72,8 +72,8 @@
                     android:foregroundGravity="center_vertical|center"
                     android:gravity="center|center_vertical"
                     android:maxWidth="200dp"
-                    android:text="test test"
-                    android:textSize="22sp" />
+                    android:text=""
+                    android:textSize="20sp" />
 
                 <com.nightonke.boommenu.BoomMenuButton
                     android:id="@+id/bmb"

@@ -17,7 +17,6 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.nightonke.boommenu.BoomButtons.HamButton
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
@@ -131,48 +130,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-//    private fun bindEventHandlerRadioButtons() {
-//        listOf(radio_tapcolor, radio_findpair, radio_leftright).forEach {
-//            it.setOnClickListener {
-//                soundBtnClick?.start()
-//
-//                val valueToPut = when (it) {
-//                    radio_tapcolor -> TAP_COLOR
-//                    radio_findpair -> FIND_PAIR
-//                    else -> Constants.Left_Right
-//                }
-//
-//                getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-//                    edit().putInt(Constants.GAME_TYPE, valueToPut).commit()
-//                }
-//
-//                when (valueToPut) {
-//                    TAP_COLOR -> score.text = getHighScore(HIGH_SCORE_TAP_COLOR).toString()
-//                    FIND_PAIR -> score.text = getHighScore(HIGH_SCORE_FIND_PAIR).toString()
-//                    else -> score.text = getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
-//                }
-//
-//                refreshHighestScore()
-//            }
-//        }
-//    }
-
-//    private fun refreshRadioButtonState() {
-//        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
-//            val toCheck = when (this) {
-//                TAP_COLOR -> R.id.radio_tapcolor
-//                FIND_PAIR -> R.id.radio_findpair
-//                else -> R.id.radio_leftright
-//            }
-//
-//            radio_grp?.selectButton(toCheck)
-//        }
-//    }
-
     override fun onResume() {
         super.onResume()
         initSounds()
-//        refreshRadioButtonState()
 
         getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
             val gameType = if (this == TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
@@ -219,9 +179,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
             const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
 
-            const val TAP_COLOR: Int = 0
-            const val FIND_PAIR: Int = 1
-            const val Left_Right: Int = 2
+            const val FIND_PAIR: Int = 0
+            const val Left_Right: Int = 1
+            const val TAP_COLOR: Int = 2
 
             const val SELECTED_LANGUAGE = "SelectedLanguage"
             const val SELECTED_BG_IMAGE = "SelectedBgImage"
@@ -278,9 +238,5 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         textViewRanking.text = ranking
 
         bmbMenuHandler?.onLanguageChanged()
-    }
-
-    override fun onBgImageChanged() {
-        //to implement later
     }
 }
