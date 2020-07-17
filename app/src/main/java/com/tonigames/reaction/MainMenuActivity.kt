@@ -31,18 +31,18 @@ import com.tonigames.reaction.popups.LanguageSettingFragment
 import com.tonigames.reaction.popups.MyLanguageEnum
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var soundBtnClick: MediaPlayer? = null
     private var interstitialAd: InterstitialAd? = null
-
+    private var bmbMenuHandler: BoomMenuHandler? = null
     private lateinit var fireBaseAccess: FireBaseAccess
 
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        radio_grp.selectAnimation = SelectAnimation.VERTICAL_SLIDE
+
+        bmbMenuHandler = BoomMenuHandler(bmb, this).also { it.onCreate() }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
@@ -54,8 +54,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         // test submit
         onLanguageChanged()
         initSettingButton()
-//        refreshRadioButtonState()
-//        bindEventHandlerRadioButtons()
+
         bindEventHandlerStartButton()
 
         interstitialAd = InterstitialAd(this).apply {
@@ -195,7 +194,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun showLeaderBoardPP() {
-
     }
 
     private fun openRatingLink() {
@@ -272,34 +270,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun buildHamMenu() {
-        val currLanguage: MyLanguageEnum = currentLanguage()
-        val tapColorTitle = translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColor)
-        val findPairTitle = translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPair)
-        val leftRightTitle =
-            translatedMenuText(resources, currLanguage, MainMenuCataEnum.LeftOrRight)
-
-        val tapColorDesp =
-            translatedMenuText(resources, currLanguage, MainMenuCataEnum.TapColorDesp)
-        val findPairDesp =
-            translatedMenuText(resources, currLanguage, MainMenuCataEnum.FindPairDesp)
-        val leftRightDesp =
-            translatedMenuText(resources, currLanguage, MainMenuCataEnum.LeftOrRightDesp)
-
-        addBuilderBMB(leftRightTitle, leftRightDesp)
-        addBuilderBMB(findPairTitle, findPairDesp)
-        addBuilderBMB(tapColorTitle, tapColorDesp)
-    }
-
-    private fun addBuilderBMB(text: String, subText: String) {
-        bmb.addBuilder(
-            HamButton.Builder()
-                .normalText(text)
-                .subNormalText(subText)
-                .pieceColor(Color.BLACK)
-        )
-    }
-
     override fun onLanguageChanged() {
         val currLanguage: MyLanguageEnum = currentLanguage()
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
@@ -308,8 +278,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         textViewHighScore.text = highScore
         textViewRanking.text = ranking
 
-        bmb.clearBuilders()
-        buildHamMenu()
+        bmbMenuHandler?.onLanguageChanged()
     }
 
     override fun onBgImageChanged() {
