@@ -8,6 +8,7 @@ import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 class BoomMenuHandler(
@@ -69,6 +70,16 @@ class BoomMenuHandler(
         bmb.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
                 super.onClicked(index, boomButton)
+
+                val valueToPut = when (index) {
+                    0 -> MainMenuActivity.Constants.TAP_COLOR
+                    1 -> MainMenuActivity.Constants.FIND_PAIR
+                    else -> MainMenuActivity.Constants.Left_Right
+                }
+
+                context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
+                    edit().putInt(GAME_TYPE, valueToPut).commit()
+                }
 
                 when (index) {
                     0 -> titleText.text = leftRightTitle
@@ -147,6 +158,7 @@ class BoomMenuHandler(
         bmb.getBoomButton(2)?.textView?.text = tapColorTitle
         bmb.getBoomButton(2)?.subTextView?.text = tapColorSubtitle
 
-        titleText?.text = ""
+        //        bmb.onButtonClick(1,null)
+        //        titleText?.text = ""    //TODO
     }
 }
