@@ -3,11 +3,18 @@ package com.tonigames.reaction
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
+import android.widget.TextView
+import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
+import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.popups.MyLanguageEnum
 
-class BoomMenuHandler(private val bmb: BoomMenuButton, private val context: ContextWrapper) {
+class BoomMenuHandler(
+    private val bmb: BoomMenuButton,
+    private val titleText: TextView,
+    private val context: ContextWrapper
+) {
 
     fun onCreate() {
         buildHamMenu()
@@ -58,6 +65,18 @@ class BoomMenuHandler(private val bmb: BoomMenuButton, private val context: Cont
         addBuilderBMB(leftRightTitle, leftRightSubtitle)
         addBuilderBMB(findPairTitle, findPairSubtitle)
         addBuilderBMB(tapColorTitle, tapColorSubtitle)
+
+        bmb.onBoomListener = object : OnBoomListenerAdapter() {
+            override fun onClicked(index: Int, boomButton: BoomButton?) {
+                super.onClicked(index, boomButton)
+
+                when (index) {
+                    0 -> titleText.text = leftRightTitle
+                    1 -> titleText.text = findPairTitle
+                    2 -> titleText.text = tapColorTitle
+                }
+            }
+        }
     }
 
     /** get the current language setting*/
@@ -127,5 +146,7 @@ class BoomMenuHandler(private val bmb: BoomMenuButton, private val context: Cont
 
         bmb.getBoomButton(2)?.textView?.text = tapColorTitle
         bmb.getBoomButton(2)?.subTextView?.text = tapColorSubtitle
+
+        titleText?.text = ""
     }
 }

@@ -42,7 +42,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bmbMenuHandler = BoomMenuHandler(bmb, this).also { it.onCreate() }
+        bmbMenuHandler = BoomMenuHandler(bmb, gameTitle, this).also { it.onCreate() }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
