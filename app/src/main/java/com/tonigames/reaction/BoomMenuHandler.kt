@@ -3,6 +3,7 @@ package com.tonigames.reaction
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.widget.TextView
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
@@ -16,9 +17,9 @@ import com.tonigames.reaction.popups.MyLanguageEnum
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
     private val gameTitle: TextView,
-    private val context: ContextWrapper
+    private val context: ContextWrapper,
+    private val soundBtnClick: MediaPlayer?
 ) {
-
     fun onCreate() {
         buildHamMenu()
     }
@@ -41,14 +42,14 @@ class BoomMenuHandler(
             override fun onClicked(index: Int, boomButton: BoomButton?) {
                 super.onClicked(index, boomButton)
 
-                val valueToPut = when (index) {
+                val gameType = when (index) {
                     0 -> MainMenuActivity.Constants.Left_Right
                     1 -> MainMenuActivity.Constants.FIND_PAIR
                     else -> MainMenuActivity.Constants.TAP_COLOR
                 }
 
                 context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                    edit().putInt(GAME_TYPE, valueToPut).commit()
+                    edit().putInt(GAME_TYPE, gameType).commit()
                 }
 
                 when (index) {
@@ -76,6 +77,9 @@ class BoomMenuHandler(
             .subNormalText(subText)
             .pieceColor(Color.BLACK).apply {
                 boomMenu.addBuilder(this)
+            }
+            .listener {
+                soundBtnClick?.start()
             }
     }
 

@@ -40,10 +40,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        bmbMenuHandler = BoomMenuHandler(bmb, gameTitle, this).also { it.onCreate() }
-
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
+        bmbMenuHandler = BoomMenuHandler(bmb, gameTitle, this, soundBtnClick).also { it.onCreate() }
 
         imageBtnLogo?.setOnClickListener {
             YoYo.with(Techniques.RubberBand).duration(800).playOn(it)
