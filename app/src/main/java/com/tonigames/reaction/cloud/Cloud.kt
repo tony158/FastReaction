@@ -52,7 +52,7 @@ class FireBaseAccess(
 ) {
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val deviceName: String =
-        BluetoothAdapter.getDefaultAdapter().name ?: android.os.Build.MODEL
+        BluetoothAdapter.getDefaultAdapter()?.name ?: android.os.Build.MODEL
 
     fun updateScore(gameType: Int, highestScore: Int) {
         textView?.text = DEFAULT_TEXT
