@@ -72,6 +72,7 @@ class BoomMenuHandler(
     }
 
     private fun addBuilderBMB(text: String, subText: String) {
+        @Suppress("DEPRECATION")
         HamButton.Builder()
             .normalImageDrawable(context.resources.getDrawable(R.drawable.ic_arrow_vector))
             .normalText(text)
