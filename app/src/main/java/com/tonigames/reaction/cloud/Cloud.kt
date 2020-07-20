@@ -7,7 +7,6 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
-import java.util.*
 
 private const val DEFAULT_TEXT = "......"
 

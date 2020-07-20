@@ -48,7 +48,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             YoYo.with(Techniques.RubberBand).duration(800).playOn(it)
         }
 
-        // test submit
         onLanguageChanged()
         initSettingButton()
 
@@ -59,8 +58,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             loadAd(AdRequest.Builder().build())
         }
 
-        fireBaseAccess =
-            FireBaseAccess(Secure.getString(contentResolver, Secure.ANDROID_ID), textViewRank)
+        fireBaseAccess = Secure.getString(contentResolver, Secure.ANDROID_ID).run {
+            FireBaseAccess(this, textViewRank)
+        }
     }
 
     private fun initSettingButton() {
@@ -183,7 +183,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             const val TAP_COLOR: Int = 2
 
             const val SELECTED_LANGUAGE = "SelectedLanguage"
-            const val SELECTED_BG_IMAGE = "SelectedBgImage"
         }
     }
 
