@@ -10,7 +10,7 @@
     tools:context=".MainMenuActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/bgImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
@@ -24,8 +24,8 @@
 
     <ImageButton
         android:id="@+id/imageBtnLogo"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:adjustViewBounds="true"
@@ -93,11 +93,11 @@
         android:soundEffectsEnabled="true"
         android:text="@string/button_txt_start"
         android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/bgImageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/bgImageView" />
 
     <RelativeLayout
         android:id="@+id/relativeLayoutScore"
@@ -184,9 +184,9 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
         android:gravity="center|center_horizontal|center_vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintBottom_toBottomOf="@+id/bgImageView"
+        app:layout_constraintEnd_toEndOf="@+id/bgImageView"
+        app:layout_constraintStart_toStartOf="@+id/bgImageView"
         app:tbm_backgroundColor="@color/red"
         app:tbm_menuAnchor="bottom">
 
