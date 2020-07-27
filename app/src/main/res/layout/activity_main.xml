@@ -178,84 +178,48 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/relativeLayoutTapBarMenu"
+    <com.michaldrabik.tapbarmenulib.TapBarMenu
+        android:id="@+id/tapBarMenu"
         android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
-        android:layout_weight="1"
         android:gravity="center|center_horizontal|center_vertical"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:tbm_backgroundColor="@color/red"
+        app:tbm_menuAnchor="bottom">
 
-        <com.michaldrabik.tapbarmenulib.TapBarMenu
-            android:id="@+id/tapBarMenu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="40dp"
-            android:layout_marginEnd="40dp"
-            android:gravity="center_horizontal|center_vertical"
-            app:tbm_backgroundColor="@color/red"
-            app:tbm_menuAnchor="bottom">
+        <ImageView
+            android:id="@+id/barMenuItemLanguage"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:src="@drawable/menu_global_big" />
 
-            <ImageView
-                android:id="@+id/barMenuItemLanguage"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:src="@drawable/menu_global_big" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1" />
 
-            <!--
-                                <ImageView
-                                    android:id="@+id/barMenuItemRanking"
-                                    android:layout_width="0dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginStart="16dp"
-                                    android:layout_marginTop="16dp"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_marginBottom="16dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/menu_leader_board" />
-            -->
+        <ImageView
+            android:id="@+id/barMenuItemLike"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:src="@drawable/menu_like_big" />
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/barMenuItemLike"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:src="@drawable/menu_like_big" />
-
-            <!--
-                                <ImageView
-                                    android:id="@+id/barMenuItemSetting"
-                                    android:layout_width="0dp"
-                                    android:layout_height="50dp"
-                                    android:layout_marginStart="16dp"
-                                    android:layout_marginTop="16dp"
-                                    android:layout_marginEnd="16dp"
-                                    android:layout_marginBottom="16dp"
-                                    android:layout_weight="1"
-                                    android:src="@drawable/menu_settings" />
-            -->
-
-        </com.michaldrabik.tapbarmenulib.TapBarMenu>
-    </RelativeLayout>
+    </com.michaldrabik.tapbarmenulib.TapBarMenu>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
