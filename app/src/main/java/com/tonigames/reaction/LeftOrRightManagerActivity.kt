@@ -137,9 +137,9 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
         mDialogPopup?.dismiss()
     }
 
-    private fun releaseMedia() {
+    private fun releaseMedia() =
         listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-    }
+
 
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)

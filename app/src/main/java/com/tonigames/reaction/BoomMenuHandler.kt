@@ -20,9 +20,7 @@ class BoomMenuHandler(
     private val context: ContextWrapper,
     private val soundBtnClick: MediaPlayer?
 ) {
-    fun onCreate() {
-        buildHamMenu()
-    }
+    fun onCreate() = buildHamMenu()
 
     private fun buildHamMenu() {
 
@@ -112,16 +110,15 @@ class BoomMenuHandler(
         refreshGameTitle()
     }
 
-    private fun getTranslatedText(cateEnum: MainMenuCataEnum): String {
-        val currLanguage: MyLanguageEnum = currentLanguage()
-        return ISettingChange.translatedMenuText(
+    private fun getTranslatedText(cateEnum: MainMenuCataEnum) =
+        ISettingChange.translatedMenuText(
             context.resources,
-            currLanguage,
+            currentLanguage(),
             cateEnum
         )
-    }
 
-    private fun refreshGameTitle() {
+
+    private fun refreshGameTitle() =
         context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR)
             .run {
                 when (this) {
@@ -130,5 +127,5 @@ class BoomMenuHandler(
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                 }
             }
-    }
+
 }

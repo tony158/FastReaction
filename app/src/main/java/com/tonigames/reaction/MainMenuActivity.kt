@@ -146,9 +146,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         return true
     }
 
-    private fun showLanguageSettingPP() {
+    private fun showLanguageSettingPP() =
         LanguageSettingFragment(this).show(supportFragmentManager, "test11")
-    }
+
 
     private fun showLeaderBoardPP() {
     }
@@ -164,11 +164,11 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun getHighScore(gameType: String = ""): Int {
-        return getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
+    private fun getHighScore(gameType: String = "") =
+        getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
             getInt(gameType, 0)
         }
-    }
+
 
     class Constants {
         companion object {
@@ -195,13 +195,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         releaseSounds()
     }
 
-    private fun releaseSounds() {
-        soundBtnClick?.release()
+    private fun releaseSounds() = soundBtnClick?.release()
+
+    private fun initSounds() = MediaPlayer.create(this, R.raw.button_click).also {
+        soundBtnClick = it
     }
 
-    private fun initSounds() {
-        soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
-    }
 
     /** get the current language setting*/
     private fun currentLanguage(): MyLanguageEnum {
