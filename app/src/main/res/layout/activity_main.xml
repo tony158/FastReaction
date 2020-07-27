@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal|center_vertical"
@@ -9,267 +10,252 @@
     tools:context=".MainMenuActivity">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:contentDescription=""
+        android:contentDescription="@string/bg_img_description"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/svg_bermuda_square" />
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="top"
+    <ImageButton
+        android:id="@+id/imageBtnLogo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
         android:background="@drawable/md_transparent"
-        android:gravity="center|center_horizontal|top"
-        android:stretchColumns="*"
-        app:layout_anchorGravity="center_horizontal">
+        android:contentDescription="@string/app_logo"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/quick" />
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginTop="30dp"
-            android:gravity="center_horizontal">
+    <RelativeLayout
+        android:id="@+id/relativeLayoutGameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/btnStart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent">
 
-            <ImageButton
-                android:id="@+id/imageBtnLogo"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="120dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="120dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/app_logo"
-                android:padding="10dp"
-                android:scaleType="fitCenter"
-                app:srcCompat="@drawable/quick" />
-        </TableRow>
+        <TextView
+            android:id="@+id/gameTitle"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="casual"
+            android:foregroundGravity="center_vertical|center"
+            android:gravity="center|center_vertical"
+            android:maxWidth="200dp"
+            android:text=""
+            android:textSize="18sp" />
 
-        <TableRow
+        <com.nightonke.boommenu.BoomMenuButton
+            android:id="@+id/bmb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|fill_horizontal|center_vertical"
-            android:gravity="center_horizontal|center_vertical">
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            app:bmb_buttonEnum="ham"
+            app:bmb_buttonPlaceEnum="buttonPlace_ham_3"
+            app:bmb_piecePlaceEnum="piecePlace_ham_3" />
+    </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|center_vertical"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1">
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ripple_button"
+        android:contentDescription="@string/button_txt_start"
+        android:drawableEnd="@drawable/ic_play_to_stop"
+        android:fontFamily="casual"
+        android:padding="20dp"
+        android:scaleType="fitXY"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:soundEffectsEnabled="true"
+        android:text="@string/button_txt_start"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-                <TextView
-                    android:id="@+id/gameTitle"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="casual"
-                    android:foregroundGravity="center_vertical|center"
-                    android:gravity="center|center_vertical"
-                    android:maxWidth="200dp"
-                    android:text=""
-                    android:textSize="18sp" />
+    <RelativeLayout
+        android:id="@+id/relativeLayoutScore"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnStart">
 
-                <com.nightonke.boommenu.BoomMenuButton
-                    android:id="@+id/bmb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    app:bmb_buttonEnum="ham"
-                    app:bmb_buttonPlaceEnum="buttonPlace_ham_3"
-                    app:bmb_piecePlaceEnum="piecePlace_ham_3" />
-            </RelativeLayout>
+        <TextView
+            android:id="@+id/textViewHighScore"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:gravity="center_vertical"
+            android:maxWidth="200dp"
+            android:text="High score:"
+            android:textSize="18sp" />
 
-        </TableRow>
-
-        <TableRow
+        <TextView
+            android:id="@+id/score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal">
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:maxWidth="100dp"
+            android:text=""
+            android:textSize="18sp" />
+    </RelativeLayout>
 
-            <Button
-                android:id="@+id/btnStart"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:adjustViewBounds="true"
-                android:background="@drawable/ripple_button"
-                android:contentDescription="@string/button_txt_start"
-                android:drawableEnd="@drawable/ic_play_to_stop"
-                android:fontFamily="casual"
-                android:padding="20dp"
-                android:scaleType="fitXY"
-                android:shadowColor="@color/colorPrimaryDark"
-                android:soundEffectsEnabled="true"
-                android:text="@string/button_txt_start"
-                android:textSize="36sp" />
-        </TableRow>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutRanking"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayoutScore">
 
-        <TableRow
+        <TextView
+            android:id="@+id/textViewRanking"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:gravity="center_vertical"
+            android:maxWidth="200dp"
+            android:text="Ranking"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textViewRank"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="220dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="casual"
+            android:maxWidth="100dp"
+            android:text=""
+            android:textSize="18sp" />
+    </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1">
+    <RelativeLayout
+        android:id="@+id/relativeLayoutTapBarMenu"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"
+        android:gravity="center|center_horizontal|center_vertical"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-                <TextView
-                    android:id="@+id/textViewHighScore"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="casual"
-                    android:maxWidth="200dp"
-                    android:text=""
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/score"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="220dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="casual"
-                    android:maxWidth="100dp"
-                    android:text=""
-                    android:textSize="18sp" />
-            </RelativeLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_horizontal">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="4dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/textViewRanking"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="casual"
-                    android:maxWidth="200dp"
-                    android:text="Ranking"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/textViewRank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="220dp"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="casual"
-                    android:maxWidth="100dp"
-                    android:text=""
-                    android:textSize="18sp" />
-            </RelativeLayout>
-        </TableRow>
-
-        <TableRow
+        <com.michaldrabik.tapbarmenulib.TapBarMenu
+            android:id="@+id/tapBarMenu"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center_horizontal|center_vertical"
+            app:tbm_backgroundColor="@color/red"
+            app:tbm_menuAnchor="bottom">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
-                android:layout_weight="1">
+            <ImageView
+                android:id="@+id/barMenuItemLanguage"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:src="@drawable/menu_global_big" />
 
-                <com.michaldrabik.tapbarmenulib.TapBarMenu
-                    android:id="@+id/tapBarMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginEnd="40dp"
-                    app:tbm_backgroundColor="@color/red"
-                    app:tbm_menuAnchor="bottom">
+            <!--
+                                <ImageView
+                                    android:id="@+id/barMenuItemRanking"
+                                    android:layout_width="0dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/menu_leader_board" />
+            -->
 
-                    <ImageView
-                        android:id="@+id/barMenuItemLanguage"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/menu_global_big" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1" />
 
-                    <!--
-                                        <ImageView
-                                            android:id="@+id/barMenuItemRanking"
-                                            android:layout_width="0dp"
-                                            android:layout_height="50dp"
-                                            android:layout_marginStart="16dp"
-                                            android:layout_marginTop="16dp"
-                                            android:layout_marginEnd="16dp"
-                                            android:layout_marginBottom="16dp"
-                                            android:layout_weight="1"
-                                            android:src="@drawable/menu_leader_board" />
-                    -->
+            <ImageView
+                android:id="@+id/barMenuItemLike"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_weight="1"
+                android:src="@drawable/menu_like_big" />
 
-                    <Space
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_weight="1" />
+            <!--
+                                <ImageView
+                                    android:id="@+id/barMenuItemSetting"
+                                    android:layout_width="0dp"
+                                    android:layout_height="50dp"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/menu_settings" />
+            -->
 
-                    <ImageView
-                        android:id="@+id/barMenuItemLike"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/menu_like_big" />
+        </com.michaldrabik.tapbarmenulib.TapBarMenu>
+    </RelativeLayout>
 
-                    <!--
-                                        <ImageView
-                                            android:id="@+id/barMenuItemSetting"
-                                            android:layout_width="0dp"
-                                            android:layout_height="50dp"
-                                            android:layout_marginStart="16dp"
-                                            android:layout_marginTop="16dp"
-                                            android:layout_marginEnd="16dp"
-                                            android:layout_marginBottom="16dp"
-                                            android:layout_weight="1"
-                                            android:src="@drawable/menu_settings" />
-                    -->
-
-                </com.michaldrabik.tapbarmenulib.TapBarMenu>
-
-            </RelativeLayout>
-
-        </TableRow>
-
-    </TableLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
