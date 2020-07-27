@@ -189,7 +189,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             mAnimator = imgContainer.animate().also {
                 it.translationX((xMoveBy).toFloat())
-                it.duration = 150L
+                it.duration = 120L
                 it.setListener(listener)
                 it.start()
             }
