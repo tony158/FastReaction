@@ -65,7 +65,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
     private fun initSettingButton() {
         tapBarMenu.setOnClickListener {
-            soundBtnClick?.start()
             tapBarMenu.toggle()
         }
 
