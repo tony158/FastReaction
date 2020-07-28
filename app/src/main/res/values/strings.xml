@@ -55,7 +55,7 @@
     <string name="left_or_right_chinese">左或右</string>
     <string name="tap_color_description_chinese">点击正确的颜色</string>
     <string name="find_pair_description_chinese">找一对相同的东西</string>
-    <string name="left_or_right_description_chinese">相同颜色,划向相同方向</string>
+    <string name="left_or_right_description_chinese">相同形状,划向相同方向</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
     <string name="score_coin_chinese">金币</string>
