@@ -61,7 +61,7 @@
             android:fontFamily="casual"
             android:foregroundGravity="center_vertical|center"
             android:gravity="center|center_vertical"
-            android:maxWidth="200dp"
+            android:maxWidth="220dp"
             android:text=""
             android:textSize="18sp" />
 
