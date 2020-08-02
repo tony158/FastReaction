@@ -63,7 +63,7 @@ class BoomMenuHandler(
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                 }
 
-                updateCallback()
+                updateCallback.invoke()
             }
         }
     }
