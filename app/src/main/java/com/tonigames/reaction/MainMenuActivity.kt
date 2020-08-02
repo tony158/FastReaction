@@ -44,7 +44,13 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
-        bmbMenuHandler = BoomMenuHandler(bmb, gameTitle, this, soundBtnClick).also { it.onCreate() }
+        bmbMenuHandler = BoomMenuHandler(
+            bmb,
+            gameTitle,
+            this,
+            soundBtnClick,
+            updateCallback = { refreshHighestScore() }
+        ).also { it.onCreate() }
 
         imageBtnLogo?.setOnClickListener {
             YoYo.with(Techniques.RubberBand).duration(800).playOn(it)
@@ -135,17 +141,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         super.onResume()
         initSounds()
 
-        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
-            val gameType = when (this) {
-                TAP_COLOR -> HIGH_SCORE_TAP_COLOR
-                FIND_PAIR -> HIGH_SCORE_FIND_PAIR
-                ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
-                else -> HIGH_SCORE_LEFT_RIGHT
-            }
-
-            score.text = getHighScore(gameType).toString()
-        }
-
         refreshHighestScore()
     }
 
@@ -210,8 +205,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private fun initSounds() = MediaPlayer.create(this, R.raw.button_click).also {
         soundBtnClick = it
     }
-
-
+    
     /** get the current language setting*/
     private fun currentLanguage(): MyLanguageEnum {
         val languageIndex = getSharedPreferences(
@@ -231,6 +225,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
                 ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
                 else -> HIGH_SCORE_LEFT_RIGHT
             }
+
+            score.text = getHighScore(gameType).toString()
 
             fireBaseAccess.updateScore(this, getHighScore(gameType))
         }

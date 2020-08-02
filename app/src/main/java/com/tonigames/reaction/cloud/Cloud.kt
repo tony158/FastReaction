@@ -13,17 +13,17 @@ private const val DEFAULT_TEXT = "......"
 
 class RefreshRankingTask(
     private var android_id: String,
-    private val view: TextView?
+    private val ranking: TextView?
 ) : AsyncTask<DataSnapshot, Void, String>() {
 
     override fun onPreExecute() {
         super.onPreExecute()
-        view?.text = DEFAULT_TEXT
+        ranking?.text = DEFAULT_TEXT
     }
 
     override fun onCancelled() {
         super.onCancelled()
-        view?.text = DEFAULT_TEXT
+        ranking?.text = DEFAULT_TEXT
     }
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
@@ -42,7 +42,7 @@ class RefreshRankingTask(
 
     override fun onPostExecute(result: String) {
         super.onPostExecute(result)
-        view?.text = result
+        ranking?.text = result
     }
 }
 

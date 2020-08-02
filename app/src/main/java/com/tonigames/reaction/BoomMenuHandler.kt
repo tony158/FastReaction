@@ -19,7 +19,8 @@ class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
     private val gameTitle: TextView,
     private val context: ContextWrapper,
-    private val soundBtnClick: MediaPlayer?
+    private val soundBtnClick: MediaPlayer?,
+    private val updateCallback: () -> Unit
 ) {
     fun onCreate() = buildHamMenu()
 
@@ -61,6 +62,8 @@ class BoomMenuHandler(
                     2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                 }
+
+                updateCallback()
             }
         }
     }
