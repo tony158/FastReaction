@@ -112,6 +112,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         )) {
             TAP_COLOR -> TapColorManagerActivity::class.java
             FIND_PAIR -> FindPairManagerActivity::class.java
+            ROCK_PAPER -> RockPaperManagerActivity::class.java
             else -> LeftOrRightManagerActivity::class.java
         }
 
@@ -135,7 +136,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSounds()
 
         getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
-            val gameType = if (this == TAP_COLOR) HIGH_SCORE_TAP_COLOR else HIGH_SCORE_FIND_PAIR
+            val gameType = when (this) {
+                TAP_COLOR -> HIGH_SCORE_TAP_COLOR
+                FIND_PAIR -> HIGH_SCORE_FIND_PAIR
+                ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
+                else -> HIGH_SCORE_LEFT_RIGHT
+            }
 
             score.text = getHighScore(gameType).toString()
         }
