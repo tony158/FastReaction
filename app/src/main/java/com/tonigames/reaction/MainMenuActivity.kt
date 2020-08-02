@@ -22,7 +22,9 @@ import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.LanguageSettingFragment
@@ -176,10 +178,12 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
             const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
             const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
+            const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
 
             const val FIND_PAIR: Int = 0
             const val Left_Right: Int = 1
             const val TAP_COLOR: Int = 2
+            const val ROCK_PAPER: Int = 3
 
             const val SELECTED_LANGUAGE = "SelectedLanguage"
         }
@@ -218,6 +222,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             val gameType = when (this) {
                 TAP_COLOR -> HIGH_SCORE_TAP_COLOR
                 FIND_PAIR -> HIGH_SCORE_FIND_PAIR
+                ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
                 else -> HIGH_SCORE_LEFT_RIGHT
             }
 

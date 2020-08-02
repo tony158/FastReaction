@@ -22,3 +22,10 @@ data class LeftRightDTO(
     val score: Int,
     val visit_at: Date? = null
 )
+
+data class RockPaperDTO(
+    val user_id: String,
+    val user_name: String,
+    val score: Int,
+    val visit_at: Date? = null
+)

@@ -11,6 +11,7 @@ import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.popups.MyLanguageEnum
 
@@ -27,14 +28,17 @@ class BoomMenuHandler(
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
         val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+        val rockPaperTitle = getTranslatedText(MainMenuCataEnum.RockPaper)
 
         val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
         val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
+        val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
         addBuilderBMB(leftRightTitle, leftRightSubtitle)
         addBuilderBMB(findPairTitle, findPairSubtitle)
         addBuilderBMB(tapColorTitle, tapColorSubtitle)
+        addBuilderBMB(rockPaperTitle, rockPaperSubtitle)
 
         boomMenu.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
@@ -43,7 +47,8 @@ class BoomMenuHandler(
                 val gameType = when (index) {
                     0 -> MainMenuActivity.Constants.Left_Right
                     1 -> MainMenuActivity.Constants.FIND_PAIR
-                    else -> MainMenuActivity.Constants.TAP_COLOR
+                    2 -> MainMenuActivity.Constants.TAP_COLOR
+                    else -> MainMenuActivity.Constants.ROCK_PAPER
                 }
 
                 context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
@@ -54,6 +59,7 @@ class BoomMenuHandler(
                     0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                     1 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
                     2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
+                    else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                 }
             }
         }
@@ -124,6 +130,7 @@ class BoomMenuHandler(
                 when (this) {
                     TAP_COLOR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                     FIND_PAIR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
+                    ROCK_PAPER -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                 }
             }

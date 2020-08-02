@@ -23,9 +23,11 @@
     <string name="tap_color_english">Tap Color</string>
     <string name="find_pair_english">Find Pair</string>
     <string name="left_or_right_english">Left or Right</string>
+    <string name="rock_paper_english">Rock Paper Scissors</string>
     <string name="tap_color_description_english">Tap on correct  Color</string>
     <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
+    <string name="rock_paper_description_english">Blue:select gesture to win. Red: ...to lose</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
@@ -33,9 +35,11 @@
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>
     <string name="left_or_right_german">Links Rechts</string>
+    <string name="rock_paper_right_german">Schnick Schnack Schnuck</string>
     <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
     <string name="find_pair_description_german">Finde die gleichen Dinge</string>
     <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
+    <string name="rock_paper_description_german">Blau: Wählen Geste zu gewinnen. Rot: ...zu verlieren </string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
     <string name="score_coin_german">Münze</string>
@@ -46,6 +50,7 @@
     <string name="tap_color_description_french">Appuyez sur la bonne couleur</string>
     <string name="find_pair_description_french">Trouvez une paire de choses</string>
     <string name="left_or_right_description_french">Même forme, glissez dans la même direction</string>
+    <string name="rock_paper_description_french">Bleu: sélectionnez le geste pour gagner. Rouge: ... perdre</string>
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
     <string name="score_coin_french">coin</string>
@@ -53,9 +58,11 @@
     <string name="tap_color_chinese">点颜色</string>
     <string name="find_pair_chinese">找一对</string>
     <string name="left_or_right_chinese">左或右</string>
+    <string name="rock_paper_chinese">石头剪刀布</string>
     <string name="tap_color_description_chinese">点击正确的颜色</string>
     <string name="find_pair_description_chinese">找一对相同的东西</string>
     <string name="left_or_right_description_chinese">相同形状,划向相同方向</string>
+    <string name="rock_paper_description_chinese">蓝色：选择赢家手势 红色：选择输家手势</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
     <string name="score_coin_chinese">金币</string>
@@ -130,6 +137,8 @@
     <string name="color_txt_portu_Gray">Cinzenta</string>
 
     <string name="bg_img_description">bg_img_description</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- color text end   -->
 
 </resources>

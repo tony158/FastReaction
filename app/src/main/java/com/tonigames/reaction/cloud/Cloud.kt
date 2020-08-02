@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.google.firebase.database.*
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 
 private const val DEFAULT_TEXT = "......"
 
@@ -59,6 +60,7 @@ class FireBaseAccess(
         val refName = when (gameType) {
             TAP_COLOR -> TapColorDTO::class.java.simpleName
             FIND_PAIR -> FindPairDTO::class.java.simpleName
+            ROCK_PAPER -> RockPaperDTO::class.java.simpleName
             else -> LeftRightDTO::class.java.simpleName
         }
 
@@ -73,6 +75,7 @@ class FireBaseAccess(
         val highScoreDto: Any = when (gameType) {
             TAP_COLOR -> TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
             FIND_PAIR -> FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
+            ROCK_PAPER -> RockPaperDTO(android_id, deviceName, score, Calendar.getInstance().time)
             else -> LeftRightDTO(android_id, deviceName, score, Calendar.getInstance().time)
         }
 
