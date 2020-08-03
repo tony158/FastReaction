@@ -33,7 +33,6 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper) {
         return inflater.inflate(R.layout.fragment_rock_paper, container, false)
     }
 
-
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
