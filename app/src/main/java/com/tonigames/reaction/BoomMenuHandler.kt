@@ -97,10 +97,12 @@ class BoomMenuHandler(
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
         val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
+        val rockPaperTitle = getTranslatedText(MainMenuCataEnum.RockPaper)
 
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
         val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
+        val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
         with(boomMenu.getBuilder(0) as HamButton.Builder) {
             this.normalText(leftRightTitle)
@@ -115,6 +117,11 @@ class BoomMenuHandler(
         with(boomMenu.getBuilder(2) as HamButton.Builder) {
             this.normalText(tapColorTitle)
             this.subNormalText(tapColorSubtitle)
+        }
+
+        with(boomMenu.getBuilder(3) as HamButton.Builder) {
+            this.normalText(rockPaperTitle)
+            this.subNormalText(rockPaperSubtitle)
         }
 
         refreshGameTitle()
