@@ -2,7 +2,6 @@ package com.tonigames.reaction.rockpaper
 
 import android.animation.Animator
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,11 +9,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
+import android.widget.Button
 import android.widget.SeekBar
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import com.tonigames.reaction.leftorright.ResultListener
-import com.tonigames.reaction.tapcolor.FragmentInteractionListener
 import kotlinx.android.synthetic.main.fragment_tap_color_two.*
 
 private const val DURATION = 1300L
@@ -43,6 +44,26 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
         ).also {
             it.start()
         }
+    }
+
+    fun bindButtonListeners(buttons: List<Button>) {
+        buttons.forEach(fun(button: Button) {
+            button.setOnClickListener(fun(theButton: View) {
+                YoYo.with(Techniques.Pulse).duration(100).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            try {
+                                seekBarAnimator?.pause()
+
+                                //  gameOverListener?.onCorrectColorSelected()
+                            } catch (e: Exception) {
+                                Log.d("onAnimationEnd", e.toString())
+                            }
+                        }
+                    }
+                ).playOn(theButton)
+            })
+        })
     }
 
     private fun initSeekBarAnimator(
