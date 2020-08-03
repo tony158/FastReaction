@@ -1,4 +1,4 @@
-package com.tonigames.reaction
+package com.tonigames.reaction.popups
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -10,11 +10,14 @@ import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
+import com.tonigames.reaction.ISettingChange
+import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
-import com.tonigames.reaction.popups.MyLanguageEnum
+import com.tonigames.reaction.MainMenuCataEnum
+import com.tonigames.reaction.R
 
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
@@ -82,7 +85,9 @@ class BoomMenuHandler(
     private fun addBuilderBMB(text: String, subText: String) {
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .normalImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_play_to_stop))
+            .normalImageDrawable(ContextCompat.getDrawable(context,
+                R.drawable.ic_play_to_stop
+            ))
             .normalText(text)
             .subNormalText(subText)
             .pieceColor(Color.BLACK).apply {

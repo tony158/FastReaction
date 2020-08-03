@@ -27,6 +27,7 @@ import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TA
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.cloud.FireBaseAccess
+import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import com.tonigames.reaction.popups.MyLanguageEnum
 import kotlinx.android.synthetic.main.activity_main.*
