@@ -128,8 +128,8 @@
 
                 <ImageButton
                     android:id="@+id/imageBtnAns1"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:background="@android:color/darker_gray"
@@ -161,8 +161,8 @@
 
                 <ImageButton
                     android:id="@+id/imageBtnAns2"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:background="@android:color/darker_gray"
@@ -196,8 +196,8 @@
 
                 <ImageButton
                     android:id="@+id/imageBtnAns3"
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
+                    android:layout_width="86dp"
+                    android:layout_height="86dp"
                     android:layout_centerInParent="true"
                     android:adjustViewBounds="true"
                     android:background="@android:color/darker_gray"
