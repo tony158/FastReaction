@@ -5,6 +5,7 @@ import android.content.ContextWrapper
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
@@ -81,7 +82,7 @@ class BoomMenuHandler(
     private fun addBuilderBMB(text: String, subText: String) {
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .normalImageDrawable(context.resources.getDrawable(R.drawable.ic_play_to_stop))
+            .normalImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_play_to_stop))
             .normalText(text)
             .subNormalText(subText)
             .pieceColor(Color.BLACK).apply {
