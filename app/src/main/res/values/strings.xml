@@ -27,7 +27,7 @@
     <string name="tap_color_description_english">Tap on correct  Color</string>
     <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
-    <string name="rock_paper_description_english">Blue:select gesture to win. Red: ...to lose</string>
+    <string name="rock_paper_description_english">Blue:select gesture to win. Red: gesture to lose</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
@@ -39,7 +39,7 @@
     <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
     <string name="find_pair_description_german">Finde die gleichen Dinge</string>
     <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
-    <string name="rock_paper_description_german">Blau: Wählen Geste zu gewinnen. Rot: ...zu verlieren </string>
+    <string name="rock_paper_description_german">Blau: Wählen Geste zu gewinnen. Rot: Geste zu verlieren </string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
     <string name="score_coin_german">Münze</string>
