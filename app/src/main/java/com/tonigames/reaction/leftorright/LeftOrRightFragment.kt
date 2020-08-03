@@ -26,7 +26,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     private var mLastImg: Int = Int.MIN_VALUE
 
     private var mSeekBarAnimator: Animator? = null
-    private var mLeftRightResultListener: LeftRightResultListener? = null
+    private var mResultListener: ResultListener? = null
     private var mSwipeListener: SwipeListener? = null
 
     override fun onCreateView(
@@ -48,8 +48,8 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is LeftRightResultListener) {
-            mLeftRightResultListener = context
+        if (context is ResultListener) {
+            mResultListener = context
         }
     }
 
@@ -95,7 +95,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             mSeekBarAnimator = initSeekBarAnimator(
                 reduceDuration(DURATION, mRoundCnt),
                 progressBar,
-                mLeftRightResultListener
+                mResultListener
             ).also { it.start() }
         }
     }
@@ -103,7 +103,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
     private fun initSeekBarAnimator(
         animationTime: Long,
         progressBar: SeekBar? = null,
-        resultListener: LeftRightResultListener? = null
+        resultListener: ResultListener? = null
     ): Animator {
         progressBar?.max = 100
         progressBar?.progress = 0
@@ -198,7 +198,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         private fun publishResult() {
             outScreenState(imgContainer).also {
                 enableTouch(false)
-                mLeftRightResultListener?.onResult(mCurrImage, it)
+                mResultListener?.onResult(mCurrImage, it)
             }
         }
 

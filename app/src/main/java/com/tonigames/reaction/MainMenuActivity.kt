@@ -119,7 +119,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             TAP_COLOR -> TapColorManagerActivity::class.java
             FIND_PAIR -> FindPairManagerActivity::class.java
             ROCK_PAPER -> RockPaperManagerActivity::class.java
-            else -> LeftOrRightManagerActivity::class.java
+            else -> ManagerActivity::class.java
         }
 
         interstitialAd?.adListener = object : AdListener() {

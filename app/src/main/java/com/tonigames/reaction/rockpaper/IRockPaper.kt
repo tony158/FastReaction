@@ -1,4 +1,4 @@
-package com.tonigames.reaction.leftorright
+package com.tonigames.reaction.rockpaper
 
 import com.tonigames.reaction.R
 import java.util.*
@@ -16,7 +16,7 @@ interface ResultListener {
     fun onTimeUp()
 }
 
-interface ILeftOrRight {
+interface IRockPaper {
     fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
     fun randomImage(): Int {

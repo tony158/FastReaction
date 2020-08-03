@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:screenOrientation="portrait"
-    tools:context=".LeftOrRightManagerActivity">
+    tools:context=".ManagerActivity">
 
     <FrameLayout
         android:id="@+id/fragment_container"

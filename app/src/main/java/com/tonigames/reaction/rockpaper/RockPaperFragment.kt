@@ -1,36 +1,77 @@
 package com.tonigames.reaction.rockpaper
 
+import android.animation.Animator
+import android.animation.ValueAnimator
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
+import android.widget.SeekBar
+import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
+import com.tonigames.reaction.leftorright.ResultListener
+import com.tonigames.reaction.tapcolor.FragmentInteractionListener
+import kotlinx.android.synthetic.main.fragment_tap_color_two.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val DURATION = 1300L
 
-class RockPaperFragment : Fragment(R.layout.fragment_rock_paper) {
+class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
 
+    private var seekBarAnimator: Animator? = null
     private var mRoundCnt: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
 
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var gameOverListener: ResultListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_rock_paper, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tvRoundCnt?.run { text = mRoundCnt.toString() }
+
+        seekBarAnimator = initSeekBarAnimator(
+            reduceDuration(DURATION, mRoundCnt), progressBar, gameOverListener
+        ).also {
+            it.start()
+        }
+    }
+
+    private fun initSeekBarAnimator(
+        animationTime: Long,
+        progressBar: SeekBar? = null,
+        resultListener: ResultListener? = null
+    ): Animator {
+        progressBar?.max = 100
+        progressBar?.progress = 0
+
+        return ValueAnimator.ofInt(0, 100).apply {
+            duration = animationTime
+            interpolator = LinearInterpolator()
+
+            addUpdateListener { animation ->
+                (animation.animatedValue as Int).also { progressBar?.progress = it }
+            }
+
+            addListener(object : DefaultAnimatorListener() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    try {
+                        progressBar?.progress = 100
+                        resultListener?.onTimeUp()
+                    } catch (e: Exception) {
+                        Log.wtf("RockPaperFragment", e.message ?: "exception")
+                    }
+                }
+            })
+        }
     }
 
     companion object {

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_tap_color_two.*
-
 private const val DURATION = 1300L
+
 
 class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color_two) {
 

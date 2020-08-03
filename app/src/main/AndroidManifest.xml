@@ -28,7 +28,7 @@
             android:name=".TapColorManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LeftOrRightManagerActivity"
+            android:name=".ManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RockPaperManagerActivity"

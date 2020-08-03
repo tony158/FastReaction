@@ -21,10 +21,10 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
-import com.tonigames.reaction.leftorright.LeftRightResultListener
+import com.tonigames.reaction.leftorright.ResultListener
 import com.tonigames.reaction.leftorright.ViewOutState
 
-class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener {
+class ManagerActivity : AppCompatActivity(), ResultListener {
     private var interstitialAd: InterstitialAd? = null
 
     private var soundBtnClick: MediaPlayer? = null
@@ -199,7 +199,7 @@ class LeftOrRightManagerActivity : AppCompatActivity(), LeftRightResultListener 
                             soundBtnClick?.start()
 
                             Intent(
-                                this@LeftOrRightManagerActivity,
+                                this@ManagerActivity,
                                 MainMenuActivity::class.java
                             ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
