@@ -29,3 +29,5 @@ data class RockPaperDTO(
     val score: Int,
     val visit_at: Date? = null
 )
+
+data class AdsEnabled(val enabled: Boolean = false)
