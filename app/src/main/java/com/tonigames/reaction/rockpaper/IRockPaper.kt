@@ -3,17 +3,11 @@ package com.tonigames.reaction.rockpaper
 import com.tonigames.reaction.R
 import java.util.*
 
-enum class ViewOutState(val state: Int) {
-    Invalid(0),
-    LeftOut(1),
-    Inside(2),
-    RightOut(3)
-}
-
 interface ResultListener {
-    fun onResult(lastImg: Int, state: ViewOutState)
+    fun onCorrectColorSelected()
 
-    fun onTimeUp()
+    // wrong answer or time's up
+    fun onFailedToSolve(msg: String = "")
 }
 
 interface IRockPaper {
@@ -35,12 +29,15 @@ interface IRockPaper {
 
     companion object {
         val allDrawables: List<Int> = listOf(
-            R.drawable.leftright_circle,
-            R.drawable.leftright_diamond,
-            R.drawable.leftright_heart,
-            R.drawable.leftright_star,
-            R.drawable.leftright_triangle,
-            R.drawable.leftright_square
+            R.drawable.menu_hand_rock_l,
+            R.drawable.menu_hand_scissor_l,
+            R.drawable.menu_hand_paper_l
+        )
+
+        val answerCheckMap = mapOf<Int, Int>(
+            R.drawable.menu_hand_rock_l to R.drawable.menu_hand_paper_l,
+            R.drawable.menu_hand_scissor_l to R.drawable.menu_hand_rock_l,
+            R.drawable.menu_hand_paper_l to R.drawable.menu_hand_scissor_l
         )
     }
 }
