@@ -168,11 +168,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun getHighScore(gameType: String = "") =
-        getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
-            getInt(gameType, 0)
-        }
-
+    private fun getHighScore(gameType: String = "") = ISettingChange.getHighScore(this, gameType)
 
     class Constants {
         companion object {
@@ -182,9 +178,14 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
             const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
 
-            const val FIND_PAIR: Int = 0
-            const val Left_Right: Int = 1
-            const val TAP_COLOR: Int = 2
+            const val LOCKED_TAP_COLOR: String = "LockedTapColor"
+            const val LOCKED_FIND_PAIR: String = "LockedFindPair"
+            const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
+            const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
+
+            const val TAP_COLOR: Int = 0
+            const val FIND_PAIR: Int = 1
+            const val LEFT_RIGHT: Int = 2
             const val ROCK_PAPER: Int = 3
 
             const val SELECTED_LANGUAGE = "SelectedLanguage"
@@ -206,7 +207,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private fun initSounds() = MediaPlayer.create(this, R.raw.button_click).also {
         soundBtnClick = it
     }
-    
+
     /** get the current language setting*/
     private fun currentLanguage(): MyLanguageEnum {
         val languageIndex = getSharedPreferences(
@@ -228,7 +229,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             }
 
             score.text = getHighScore(gameType).toString()
-
             fireBaseAccess.updateScore(this, getHighScore(gameType))
         }
     }

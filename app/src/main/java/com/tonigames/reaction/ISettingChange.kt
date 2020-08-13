@@ -1,6 +1,10 @@
 package com.tonigames.reaction
 
+import android.content.Context
 import android.content.res.Resources
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 interface ISettingChange {
@@ -109,6 +113,29 @@ interface ISettingChange {
                     res.getString(this)
                 }
         }
+
+        fun getHighScore(context: Context, gameType: String = "") =
+            context.getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
+                getInt(gameType, 0)
+            }
+
+        fun isGameLocked(context: Context, gameType: Int): Boolean {
+            val lockedType = when (gameType) {
+                FIND_PAIR -> MainMenuActivity.Constants.LOCKED_FIND_PAIR
+                LEFT_RIGHT -> MainMenuActivity.Constants.LOCKED_LEFT_RIGHT
+                ROCK_PAPER -> MainMenuActivity.Constants.LOCKED_ROCK_PAPER
+                else -> MainMenuActivity.Constants.LOCKED_TAP_COLOR
+            }
+
+            return when (lockedType) {
+                MainMenuActivity.Constants.LOCKED_TAP_COLOR -> false
+                else -> context.getSharedPreferences(
+                    MainMenuActivity.Constants.GAME_TYPE,
+                    Context.MODE_PRIVATE
+                )
+                    .getBoolean(lockedType, true)
+            }
+        }
     }
 
     fun onLanguageChanged()
@@ -119,10 +146,12 @@ enum class MainMenuCataEnum {
     FindPair,
     LeftOrRight,
     RockPaper,
+
     TapColorSubtitle,
     FindPairSubtitle,
     LeftOrRightSubtitle,
     RockPaperSubtitle,
+
     HighScore,
     Ranking,
     Coin

@@ -14,6 +14,11 @@ import com.tonigames.reaction.ISettingChange
 import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.MainMenuCataEnum
@@ -40,20 +45,20 @@ class BoomMenuHandler(
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
-        addBuilderBMB(leftRightTitle, leftRightSubtitle)
-        addBuilderBMB(findPairTitle, findPairSubtitle)
-        addBuilderBMB(tapColorTitle, tapColorSubtitle)
-        addBuilderBMB(rockPaperTitle, rockPaperSubtitle)
+        addBuilderBMB(tapColorTitle, tapColorSubtitle, TAP_COLOR)
+        addBuilderBMB(leftRightTitle, leftRightSubtitle, LEFT_RIGHT)
+        addBuilderBMB(findPairTitle, findPairSubtitle, FIND_PAIR)
+        addBuilderBMB(rockPaperTitle, rockPaperSubtitle, ROCK_PAPER)
 
         boomMenu.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
                 super.onClicked(index, boomButton)
 
                 val gameType = when (index) {
-                    0 -> MainMenuActivity.Constants.Left_Right
-                    1 -> MainMenuActivity.Constants.FIND_PAIR
-                    2 -> MainMenuActivity.Constants.TAP_COLOR
-                    else -> MainMenuActivity.Constants.ROCK_PAPER
+                    0 -> TAP_COLOR
+                    1 -> FIND_PAIR
+                    2 -> LEFT_RIGHT
+                    else -> ROCK_PAPER
                 }
 
                 context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
@@ -61,9 +66,9 @@ class BoomMenuHandler(
                 }
 
                 when (index) {
-                    0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+                    0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                     1 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
-                    2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
+                    2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                 }
 
@@ -82,12 +87,16 @@ class BoomMenuHandler(
         return MyLanguageEnum.fromIndex(languageIndex)
     }
 
-    private fun addBuilderBMB(text: String, subText: String) {
+    private fun addBuilderBMB(text: String, subText: String, gameType: Int = TAP_COLOR) {
+        val drawableIcon = if (ISettingChange.isGameLocked(
+                context,
+                gameType
+            )
+        ) R.drawable.menu_ads_big else R.drawable.menu_play_big
+
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .normalImageDrawable(ContextCompat.getDrawable(context,
-                R.drawable.ic_play_to_stop
-            ))
+            .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
             .subNormalText(subText)
             .pieceColor(Color.BLACK).apply {
@@ -99,19 +108,19 @@ class BoomMenuHandler(
     }
 
     fun onLanguageChanged() {
-        val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
-        val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
+        val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
+        val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
         val rockPaperTitle = getTranslatedText(MainMenuCataEnum.RockPaper)
 
-        val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
-        val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
         val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
+        val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
+        val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
         with(boomMenu.getBuilder(0) as HamButton.Builder) {
-            this.normalText(leftRightTitle)
-            this.subNormalText(leftRightSubtitle)
+            this.normalText(tapColorTitle)
+            this.subNormalText(tapColorSubtitle)
         }
 
         with(boomMenu.getBuilder(1) as HamButton.Builder) {
@@ -120,8 +129,8 @@ class BoomMenuHandler(
         }
 
         with(boomMenu.getBuilder(2) as HamButton.Builder) {
-            this.normalText(tapColorTitle)
-            this.subNormalText(tapColorSubtitle)
+            this.normalText(leftRightTitle)
+            this.subNormalText(leftRightSubtitle)
         }
 
         with(boomMenu.getBuilder(3) as HamButton.Builder) {
@@ -139,7 +148,6 @@ class BoomMenuHandler(
             cateEnum
         )
 
-
     private fun refreshGameTitle() =
         context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR)
             .run {
@@ -150,5 +158,4 @@ class BoomMenuHandler(
                     else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                 }
             }
-
 }
