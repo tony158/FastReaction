@@ -4,7 +4,7 @@ import com.tonigames.reaction.R
 import java.util.*
 
 interface ResultListener {
-    fun onCorrectColorSelected()
+    fun onCorrectSelection()
 
     // wrong answer or time's up
     fun onFailedToSolve(msg: String = "")
@@ -34,10 +34,10 @@ interface IRockPaper {
             R.drawable.menu_hand_paper_l
         )
 
-        val answerCheckMap = mapOf<Int, Int>(
-            R.drawable.menu_hand_rock_l to R.drawable.menu_hand_paper_l,
-            R.drawable.menu_hand_scissor_l to R.drawable.menu_hand_rock_l,
-            R.drawable.menu_hand_paper_l to R.drawable.menu_hand_scissor_l
+        val answerCheckMap = mapOf(
+            R.drawable.menu_hand_rock_l to R.drawable.menu_hand_scissor_l,
+            R.drawable.menu_hand_scissor_l to R.drawable.menu_hand_paper_l,
+            R.drawable.menu_hand_paper_l to R.drawable.menu_hand_rock_l
         )
     }
 }

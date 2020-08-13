@@ -2,6 +2,7 @@ package com.tonigames.reaction.rockpaper
 
 import android.animation.Animator
 import android.animation.ValueAnimator
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,29 +10,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.SeekBar
-import android.widget.ToggleButton
+import android.widget.*
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
-import com.tonigames.reaction.leftorright.ResultListener
-import kotlinx.android.synthetic.main.fragment_find_pair_two.*
+import com.tonigames.reaction.rockpaper.IRockPaper.Companion.answerCheckMap
 import kotlinx.android.synthetic.main.fragment_rock_paper.*
-import kotlinx.android.synthetic.main.fragment_tap_color_two.*
-import kotlinx.android.synthetic.main.fragment_tap_color_two.progressBar
-import kotlinx.android.synthetic.main.fragment_tap_color_two.tvRoundCnt
+import kotlinx.android.synthetic.main.fragment_rock_paper.progressBar
+import kotlinx.android.synthetic.main.fragment_rock_paper.tvRoundCnt
 
-private const val DURATION = 1300L
+private const val DURATION = 3300L
 
 class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
 
     private var seekBarAnimator: Animator? = null
     private var mRoundCnt: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
-
+    private var buttonLayoutMap: Map<Int, ImageButton> = mapOf()
     private var gameOverListener: ResultListener? = null
 
     override fun onCreateView(
@@ -46,7 +42,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
         val answer3 = view.findViewById(R.id.imageBtnAns3) as ImageButton
 
         val randomImg = IRockPaper.allDrawables.random()
-        quiz.setImageResource(randomImage())
+        quiz.setImageResource(randomImg!!)
         quiz.tag = randomImg
 
         val shuffles = IRockPaper.allDrawables.shuffled()
@@ -56,6 +52,14 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
         answer2.tag = shuffles[1]
         answer3.setImageResource(shuffles[2])
         answer3.tag = shuffles[2]
+
+        if (buttonLayoutMap.isNullOrEmpty()) {
+            buttonLayoutMap = mapOf(
+                R.id.toggleBtnAns1 to answer1,
+                R.id.toggleBtnAns2 to answer2,
+                R.id.toggleBtnAns3 to answer3
+            )
+        }
 
         return view
     }
@@ -82,7 +86,13 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
                             try {
                                 seekBarAnimator?.pause()
 
-                                //  gameOverListener?.onCorrectColorSelected()
+                                val selectedImg = buttonLayoutMap[theButton.id]?.tag ?: ""
+
+                                if (imageBtnAnsQuestion.tag == answerCheckMap[selectedImg]) {
+                                    gameOverListener?.onCorrectSelection()
+                                } else {
+                                    gameOverListener?.onFailedToSolve("Wrong answer")
+                                }
                             } catch (e: Exception) {
                                 Log.d("onAnimationEnd", e.toString())
                             }
@@ -113,13 +123,27 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
                 override fun onAnimationEnd(animation: Animator?) {
                     try {
                         progressBar?.progress = 100
-                        resultListener?.onTimeUp()
+                        resultListener?.onFailedToSolve("Time's up!")
                     } catch (e: Exception) {
                         Log.wtf("RockPaperFragment", e.message ?: "exception")
                     }
                 }
             })
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is ResultListener) {
+            gameOverListener = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+
+        gameOverListener = null
     }
 
     companion object {
