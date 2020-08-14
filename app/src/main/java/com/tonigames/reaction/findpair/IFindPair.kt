@@ -296,6 +296,9 @@ interface IFindPairFragment {
             R.drawable.wellness,
             R.drawable.whale,
             R.drawable.windmill,
+            R.drawable.football_boots,
+            R.drawable.virus,
+            R.drawable.vacuum,
             R.drawable.wine
         )
     }
