@@ -3,6 +3,7 @@ package com.tonigames.reaction.popups
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
+import android.graphics.Rect
 import android.media.MediaPlayer
 import android.widget.TextView
 import androidx.core.content.ContextCompat
@@ -96,6 +97,7 @@ class BoomMenuHandler(
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
+            .imagePadding(Rect(20, 20, 20, 20))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
             .subNormalText(subText)

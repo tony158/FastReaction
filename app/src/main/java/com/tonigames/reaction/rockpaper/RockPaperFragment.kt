@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_rock_paper.*
 import kotlinx.android.synthetic.main.fragment_rock_paper.progressBar
 import kotlinx.android.synthetic.main.fragment_rock_paper.tvRoundCnt
 
-private const val DURATION = 3300L
+private const val DURATION = 2000L
 
 class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
 
@@ -91,6 +91,10 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
                                 if (imageBtnAnsQuestion.tag == answerCheckMap[selectedImg]) {
                                     gameOverListener?.onCorrectSelection()
                                 } else {
+                                    toggleBtnAns1.isChecked = false
+                                    toggleBtnAns2.isChecked = false
+                                    toggleBtnAns3.isChecked = false
+
                                     gameOverListener?.onFailedToSolve("Wrong answer")
                                 }
                             } catch (e: Exception) {
