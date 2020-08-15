@@ -94,7 +94,7 @@ class BoomMenuHandler(
                 context,
                 gameType
             )
-        ) R.drawable.menu_ads_big else R.drawable.menu_play_big
+        ) R.drawable.menu_video_ads else R.drawable.menu_unlock
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
