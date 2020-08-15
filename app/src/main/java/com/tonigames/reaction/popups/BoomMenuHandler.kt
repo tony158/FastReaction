@@ -1,19 +1,24 @@
 package com.tonigames.reaction.popups
 
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
 import android.graphics.Rect
 import android.media.MediaPlayer
 import android.widget.TextView
+import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.rewarded.RewardItem
 import com.google.android.gms.ads.rewarded.RewardedAd
+import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.ISettingChange
-import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
@@ -56,16 +61,13 @@ class BoomMenuHandler(
                 val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
                 if (!isGameLocked) {
-                    // game is unlocked, so select the game
                     context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
                         edit().putInt(GAME_TYPE, gameType).commit()
                     }
                     refreshGameTitle()
-
                     gameTypeSelectCallback.invoke()
                 } else {
                     // game is locked, show popup of ads
-                    
 
                 }
             }
@@ -145,6 +147,40 @@ class BoomMenuHandler(
                     else -> gameTitle.text = "???"
                 }
             }
+
+    private fun loadRewardAds() {
+        val adLoadCallback = object : RewardedAdLoadCallback() {
+            override fun onRewardedAdLoaded() {
+                // Ad successfully loaded.
+            }
+
+            override fun onRewardedAdFailedToLoad(error: Int) {
+                // Ad failed to load.
+            }
+        }
+        rewardedAd?.loadAd(AdRequest.Builder().build(), adLoadCallback)
+    }
+
+    private fun showRewardAds() {
+        val adCallback = object : RewardedAdCallback() {
+            override fun onRewardedAdOpened() {
+                // Ad opened.
+            }
+
+            override fun onRewardedAdClosed() {
+                // Ad closed.
+            }
+
+            override fun onUserEarnedReward(@NonNull reward: RewardItem) {
+                // User earned reward.
+            }
+
+            override fun onRewardedAdFailedToShow(msg: Int) {
+                // Ad failed to display.
+            }
+        }
+        rewardedAd?.show(context as Activity, adCallback)   // ??????? convert
+    }
 
     companion object {
         private val indexToGameTypeMap =

@@ -31,12 +31,15 @@
     <string name="tap_color_description_english">Tap on correct  Color</string>
     <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
-    <string name="rock_paper_description_english">Blue:select gesture to win. Red: gesture to lose</string>
+    <string name="rock_paper_description_english">Select gesture to win</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
     <string name="gameLocked_msg_english">To unlock this game, you need to get high score 50 in last game,
         or watch a short ads video to unlock it</string>
+    <string name="reward_load_failed_msg_english">Failed to load ads, please try again later</string>
+    <string name="reward_earned_msg_english">Game is unlocked now</string>
+
 
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>
@@ -45,7 +48,7 @@
     <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
     <string name="find_pair_description_german">Finde die gleichen Dinge</string>
     <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
-    <string name="rock_paper_description_german">Blau: Wählen Geste zu gewinnen. Rot: Geste zu verlieren </string>
+    <string name="rock_paper_description_german">Wählen Geste zu gewinnen</string>
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
     <string name="score_coin_german">Münze</string>
@@ -56,7 +59,7 @@
     <string name="tap_color_description_french">Appuyez sur la bonne couleur</string>
     <string name="find_pair_description_french">Trouvez une paire de choses</string>
     <string name="left_or_right_description_french">Même forme, glissez dans la même direction</string>
-    <string name="rock_paper_description_french">Bleu: sélectionnez le geste pour gagner. Rouge: ... perdre</string>
+    <string name="rock_paper_description_french">Sélectionnez le geste pour gagner</string>
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
     <string name="score_coin_french">coin</string>
@@ -68,7 +71,7 @@
     <string name="tap_color_description_chinese">点击正确的颜色</string>
     <string name="find_pair_description_chinese">找一对相同的东西</string>
     <string name="left_or_right_description_chinese">相同形状,划向相同方向</string>
-    <string name="rock_paper_description_chinese">蓝色：选择赢家手势 红色：选择输家手势</string>
+    <string name="rock_paper_description_chinese">选择赢家手势</string>
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
     <string name="score_coin_chinese">金币</string>
