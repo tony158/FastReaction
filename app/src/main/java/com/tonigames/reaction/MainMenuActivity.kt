@@ -118,11 +118,11 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             GAME_TYPE,
             TAP_COLOR
         )) {
-            TAP_COLOR -> TapColorManagerActivity::class.java
-            FIND_PAIR -> FindPairManagerActivity::class.java
-            LEFT_RIGHT -> LeftRightManagerActivity::class.java
-            ROCK_PAPER -> RockPaperManagerActivity::class.java
-            else -> TapColorManagerActivity::class.java
+            TAP_COLOR -> TapColorGameManagerActivity::class.java
+            FIND_PAIR -> FindPairGameManagerActivity::class.java
+            LEFT_RIGHT -> LeftRightGameManagerActivity::class.java
+            ROCK_PAPER -> RockPaperGameManagerActivity::class.java
+            else -> TapColorGameManagerActivity::class.java
         }
 
         interstitialAd?.adListener = object : AdListener() {

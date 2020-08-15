@@ -14,7 +14,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 
-abstract class AbstractManagerActivity : AppCompatActivity() {
+abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
     var interstitialAd: InterstitialAd? = null
 

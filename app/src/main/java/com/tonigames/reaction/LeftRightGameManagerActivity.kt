@@ -18,7 +18,7 @@ import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import com.tonigames.reaction.leftorright.ResultListener
 import com.tonigames.reaction.leftorright.ViewOutState
 
-class LeftRightManagerActivity : AbstractManagerActivity(), ResultListener {
+class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListener {
 
     private var mCurrFragment: LeftOrRightFragment? = null
 
@@ -142,7 +142,7 @@ class LeftRightManagerActivity : AbstractManagerActivity(), ResultListener {
                             soundBtnClick?.start()
 
                             Intent(
-                                this@LeftRightManagerActivity,
+                                this@LeftRightGameManagerActivity,
                                 MainMenuActivity::class.java
                             ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

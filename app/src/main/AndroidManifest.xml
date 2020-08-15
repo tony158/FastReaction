@@ -22,16 +22,16 @@
             android:value="@string/ads_app_id" />
 
         <activity
-            android:name=".FindPairManagerActivity"
+            android:name=".FindPairGameManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TapColorManagerActivity"
+            android:name=".TapColorGameManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LeftRightManagerActivity"
+            android:name=".LeftRightGameManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".RockPaperManagerActivity"
+            android:name=".RockPaperGameManagerActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainMenuActivity"

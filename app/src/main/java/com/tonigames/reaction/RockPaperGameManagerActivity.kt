@@ -15,7 +15,7 @@ import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_RO
 import com.tonigames.reaction.rockpaper.ResultListener
 import com.tonigames.reaction.rockpaper.RockPaperFragment
 
-class RockPaperManagerActivity : AbstractManagerActivity(), ResultListener {
+class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListener {
 
     private var mCurrFragment: Fragment? = null
 
@@ -78,7 +78,7 @@ class RockPaperManagerActivity : AbstractManagerActivity(), ResultListener {
                             soundBtnClick?.start()
 
                             Intent(
-                                this@RockPaperManagerActivity,
+                                this@RockPaperGameManagerActivity,
                                 MainMenuActivity::class.java
                             ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

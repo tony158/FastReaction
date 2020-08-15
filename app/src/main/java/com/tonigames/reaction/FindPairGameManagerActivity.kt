@@ -14,7 +14,7 @@ import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.findpair.*
 
-class FindPairManagerActivity : AbstractManagerActivity(), FindPairInteractionListener {
+class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInteractionListener {
 
     private var mCurrFragment: AbstractFindPairFragment? = null
 
@@ -93,7 +93,7 @@ class FindPairManagerActivity : AbstractManagerActivity(), FindPairInteractionLi
                         override fun onAnimationEnd(animation: Animator?) {
                             soundBtnClick?.start()
 
-                            Intent(this@FindPairManagerActivity, MainMenuActivity::class.java).run {
+                            Intent(this@FindPairGameManagerActivity, MainMenuActivity::class.java).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(this)
                             }

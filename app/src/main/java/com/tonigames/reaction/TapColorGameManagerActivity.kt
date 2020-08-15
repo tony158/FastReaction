@@ -18,7 +18,7 @@ import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
 
-class TapColorManagerActivity : AbstractManagerActivity(), FragmentInteractionListener {
+class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInteractionListener {
 
     private var mCurrFragment: Fragment? = null
 
@@ -118,7 +118,7 @@ class TapColorManagerActivity : AbstractManagerActivity(), FragmentInteractionLi
                         override fun onAnimationEnd(animation: Animator?) {
                             soundBtnClick?.start()
 
-                            Intent(this@TapColorManagerActivity, MainMenuActivity::class.java).run {
+                            Intent(this@TapColorGameManagerActivity, MainMenuActivity::class.java).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(this)
                             }
