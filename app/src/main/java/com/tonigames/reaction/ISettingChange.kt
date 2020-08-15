@@ -1,6 +1,7 @@
 package com.tonigames.reaction
 
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.res.Resources
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
@@ -132,9 +133,18 @@ interface ISettingChange {
                 else -> context.getSharedPreferences(
                     MainMenuActivity.Constants.GAME_TYPE,
                     Context.MODE_PRIVATE
-                )
-                    .getBoolean(lockedType, true)
+                ).getBoolean(lockedType, true)
             }
+        }
+
+        /** get the current language from preference */
+        fun currentLanguage(context: ContextWrapper): MyLanguageEnum {
+            val languageIndex = context.getSharedPreferences(
+                MainMenuActivity.Constants.SELECTED_LANGUAGE,
+                Context.MODE_PRIVATE
+            ).getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
+
+            return MyLanguageEnum.fromIndex(languageIndex)
         }
     }
 

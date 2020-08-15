@@ -12,12 +12,16 @@
     <string name="game_type">game_type</string>
 
     <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
-    <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
-    <!--<string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>   &lt;!&ndash;for testing&ndash;&gt;-->
-    <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
-    <!--<string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string> &lt;!&ndash;for testing&ndash;&gt;-->
-    <string name="ads_reward_unit_id">ca-app-pub-6275033303840302/2967032123</string>
-    <!--<string name="ads_reward_unit_id">ca-app-pub-3940256099942544/5224354917</string>&lt;!&ndash;for testing&ndash;&gt;-->
+
+    <!--
+        <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
+        <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
+        <string name="ads_reward_unit_id">ca-app-pub-6275033303840302/2967032123</string>
+    -->
+
+    <string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>   <!--for testing-->
+    <string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>     <!--for testing-->
+    <string name="ads_reward_unit_id">ca-app-pub-3940256099942544/5224354917</string>   <!--for testing-->
 
     <!-- main menu text start -->
     <string name="tap_color_english">Tap Color</string>
@@ -31,6 +35,8 @@
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
+    <string name="gameLocked_msg_english">To unlock this game, you need to get high score 50 in last game,
+        or watch a short ads video to unlock it</string>
 
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>

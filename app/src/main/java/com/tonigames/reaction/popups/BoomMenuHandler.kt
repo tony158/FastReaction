@@ -7,6 +7,7 @@ import android.graphics.Rect
 import android.media.MediaPlayer
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.rewarded.RewardedAd
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
@@ -15,10 +16,6 @@ import com.tonigames.reaction.ISettingChange
 import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
@@ -30,12 +27,12 @@ class BoomMenuHandler(
     private val gameTitle: TextView,
     private val context: ContextWrapper,
     private val soundBtnClick: MediaPlayer?,
-    private val updateCallback: () -> Unit
+    private val rewardedAd: RewardedAd?,
+    private val gameTypeSelectCallback: () -> Unit
 ) {
     fun onCreate() = buildHamMenu()
 
     private fun buildHamMenu() {
-
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
         val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
@@ -55,53 +52,38 @@ class BoomMenuHandler(
             override fun onClicked(index: Int, boomButton: BoomButton?) {
                 super.onClicked(index, boomButton)
 
-                val gameType = when (index) {
-                    0 -> TAP_COLOR
-                    1 -> FIND_PAIR
-                    2 -> LEFT_RIGHT
-                    else -> ROCK_PAPER
-                }
+                val gameType = indexToGameTypeMap.getOrDefault(index, TAP_COLOR)
+                val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
-                context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                    edit().putInt(GAME_TYPE, gameType).commit()
-                }
+                if (!isGameLocked) {
+                    // game is unlocked, so select the game
+                    context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
+                        edit().putInt(GAME_TYPE, gameType).commit()
+                    }
+                    refreshGameTitle()
 
-                when (index) {
-                    0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
-                    1 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
-                    2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
-                    3 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
-                    else -> gameTitle.text = "???"
-                }
+                    gameTypeSelectCallback.invoke()
+                } else {
+                    // game is locked, show popup of ads
+                    
 
-                updateCallback.invoke()
+                }
             }
         }
     }
 
-    /** get the current language setting*/
-    private fun currentLanguage(): MyLanguageEnum {
-        val languageIndex = context.getSharedPreferences(
-            MainMenuActivity.Constants.SELECTED_LANGUAGE,
-            Context.MODE_PRIVATE
-        ).getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
-
-        return MyLanguageEnum.fromIndex(languageIndex)
-    }
-
     private fun addBuilderBMB(text: String, subText: String, gameType: Int = TAP_COLOR) {
-        val drawableIcon = if (ISettingChange.isGameLocked(
-                context,
-                gameType
-            )
-        ) R.drawable.menu_video_ads else R.drawable.menu_unlock
+        val drawableIcon = when {
+            ISettingChange.isGameLocked(context, gameType) -> R.drawable.menu_video_ads
+            else -> R.drawable.menu_unlock
+        }
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
             .imagePadding(Rect(20, 40, 20, 40))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
-//            .normalColor(Color.LTGRAY)        // color of button can be set here
+            //.normalColor(Color.LTGRAY)        // color of button can be set here
             .shadowColor(Color.BLACK)
             .subNormalText(subText)
             .pieceColor(Color.WHITE).apply {
@@ -146,12 +128,11 @@ class BoomMenuHandler(
         refreshGameTitle()
     }
 
-    private fun getTranslatedText(cateEnum: MainMenuCataEnum) =
-        ISettingChange.translatedMenuText(
-            context.resources,
-            currentLanguage(),
-            cateEnum
-        )
+    private fun getTranslatedText(cateEnum: MainMenuCataEnum) = ISettingChange.translatedMenuText(
+        context.resources,
+        ISettingChange.currentLanguage(context),
+        cateEnum
+    )
 
     private fun refreshGameTitle() =
         context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR)
@@ -164,4 +145,14 @@ class BoomMenuHandler(
                     else -> gameTitle.text = "???"
                 }
             }
+
+    companion object {
+        private val indexToGameTypeMap =
+            mapOf(
+                0 to TAP_COLOR,
+                1 to FIND_PAIR,
+                2 to LEFT_RIGHT,
+                3 to ROCK_PAPER
+            )
+    }
 }

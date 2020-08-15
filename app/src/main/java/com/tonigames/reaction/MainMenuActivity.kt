@@ -17,6 +17,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.rewarded.RewardedAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
@@ -34,7 +35,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var soundBtnClick: MediaPlayer? = null
+
     private var interstitialAd: InterstitialAd? = null
+    private var rewardedAd: RewardedAd? = null
+
     private var bmbMenuHandler: BoomMenuHandler? = null
     private lateinit var fireBaseAccess: FireBaseAccess
 
@@ -50,7 +54,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             gameTitle,
             this,
             soundBtnClick,
-            updateCallback = { refreshHighestScore() }
+            rewardedAd,
+            gameTypeSelectCallback = { refreshHighScore() }
         ).also { it.onCreate() }
 
         imageBtnLogo?.setOnClickListener {
@@ -66,6 +71,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
             loadAd(AdRequest.Builder().build())
         }
+
+        rewardedAd = RewardedAd(this, resources.getString(R.string.ads_interstitial_unit_id))
 
         fireBaseAccess = Secure.getString(contentResolver, Secure.ANDROID_ID).run {
             FireBaseAccess(this, textViewRank)
@@ -142,7 +149,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         super.onResume()
         initSounds()
 
-        refreshHighestScore()
+        refreshHighScore()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -173,6 +180,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     class Constants {
         companion object {
             const val GAME_TYPE: String = "GameType"
+            
             const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
             const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
             const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
@@ -208,18 +216,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         soundBtnClick = it
     }
 
-    /** get the current language setting*/
-    private fun currentLanguage(): MyLanguageEnum {
-        val languageIndex = getSharedPreferences(
-            Constants.SELECTED_LANGUAGE,
-            Context.MODE_PRIVATE
-        ).getInt(Constants.SELECTED_LANGUAGE, 0)
-
-        return MyLanguageEnum.fromIndex(languageIndex)
-    }
-
-    private fun refreshHighestScore() {
-
+    private fun refreshHighScore() {
         getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
             val gameType = when (this) {
                 TAP_COLOR -> HIGH_SCORE_TAP_COLOR
@@ -234,7 +231,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     override fun onLanguageChanged() {
-        val currLanguage: MyLanguageEnum = currentLanguage()
+        val currLanguage = ISettingChange.currentLanguage(this)
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
         val ranking = translatedMenuText(resources, currLanguage, MainMenuCataEnum.Ranking)
 
