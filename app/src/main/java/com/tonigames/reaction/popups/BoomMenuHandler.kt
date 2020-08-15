@@ -98,7 +98,7 @@ class BoomMenuHandler(
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .imagePadding(Rect(20, 20, 20, 20))
+            .imagePadding(Rect(20, 40, 20, 40))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
 //            .normalColor(Color.LTGRAY)        // color of button can be set here
