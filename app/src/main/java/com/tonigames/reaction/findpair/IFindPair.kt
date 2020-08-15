@@ -231,6 +231,7 @@ interface IFindPairFragment {
             R.drawable.ship,
             R.drawable.skate_shoes,
             R.drawable.slipper,
+            R.drawable.iphone_sound,
             R.drawable.smart_watch,
             R.drawable.smoke,
             R.drawable.snake,
@@ -269,6 +270,7 @@ interface IFindPairFragment {
             R.drawable.toilet,
             R.drawable.tourism,
             R.drawable.town,
+            R.drawable.audio_headphone,
             R.drawable.tractor,
             R.drawable.train,
             R.drawable.trampoline,
@@ -284,6 +286,7 @@ interface IFindPairFragment {
             R.drawable.under_construction,
             R.drawable.unicorn,
             R.drawable.usa,
+            R.drawable.chat_msg,
             R.drawable.usa_flag,
             R.drawable.vegetable,
             R.drawable.video_cameras,
@@ -299,7 +302,14 @@ interface IFindPairFragment {
             R.drawable.football_boots,
             R.drawable.virus,
             R.drawable.vacuum,
-            R.drawable.wine
+            R.drawable.wine,
+            R.drawable.walkman,
+            R.drawable.sales_sign,
+            R.drawable.airpods,
+            R.drawable.car_wash,
+            R.drawable.car_tanking,
+            R.drawable.telescope,
+            R.drawable.lab_chemistry
         )
     }
 }
