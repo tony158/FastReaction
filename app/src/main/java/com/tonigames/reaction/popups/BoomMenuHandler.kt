@@ -46,10 +46,10 @@ class BoomMenuHandler(
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
-        addBuilderBMB(tapColorTitle, tapColorSubtitle, TAP_COLOR)
-        addBuilderBMB(leftRightTitle, leftRightSubtitle, LEFT_RIGHT)
-        addBuilderBMB(findPairTitle, findPairSubtitle, FIND_PAIR)
-        addBuilderBMB(rockPaperTitle, rockPaperSubtitle, ROCK_PAPER)
+        addBuilderBMB(tapColorTitle, tapColorSubtitle, TAP_COLOR)       // 0
+        addBuilderBMB(findPairTitle, findPairSubtitle, FIND_PAIR)       // 1
+        addBuilderBMB(leftRightTitle, leftRightSubtitle, LEFT_RIGHT)    // 2
+        addBuilderBMB(rockPaperTitle, rockPaperSubtitle, ROCK_PAPER)    // 3
 
         boomMenu.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
@@ -70,7 +70,8 @@ class BoomMenuHandler(
                     0 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                     1 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
                     2 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
-                    else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
+                    3 -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
+                    else -> gameTitle.text = "???"
                 }
 
                 updateCallback.invoke()
@@ -156,8 +157,9 @@ class BoomMenuHandler(
                 when (this) {
                     TAP_COLOR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)
                     FIND_PAIR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindPair)
+                    LEFT_RIGHT -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                     ROCK_PAPER -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
-                    else -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
+                    else -> gameTitle.text = "???"
                 }
             }
 }
