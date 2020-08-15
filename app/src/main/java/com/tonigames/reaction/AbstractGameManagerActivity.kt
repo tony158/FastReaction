@@ -8,11 +8,13 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.jeevandeshmukh.glidetoastlib.GlideToast
 
 abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
@@ -39,11 +41,7 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
     }
 
     // get the high score from Persistence
-    fun getHighScore(highScoreType: String): Int {
-        return getSharedPreferences(highScoreType, Context.MODE_PRIVATE).run {
-            getInt(highScoreType, 0)
-        }
-    }
+    fun getHighScore(highScoreType: String) = ISettingChange.getHighScore(this, highScoreType)
 
     //when score is higher than the current highest score, then save it
     fun saveHighScore(score: Int, highScoreType: String) {
@@ -84,6 +82,29 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
         soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
         soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
+    }
+
+    fun showSuccessToast(duration: Int = GlideToast.LENGTHMEDIUM) = GlideToast.makeToast(
+        this,
+        "Correct!!",
+        duration,
+        GlideToast.SUCCESSTOAST,
+        GlideToast.BOTTOM
+    ).show()
+
+    fun configDialog(
+        dialog: MaterialDialog,
+        title: String = "",
+        score: Int = 0,
+        highScore: Int = 0
+    ) {
+        dialog.cancelable(false)
+        dialog.cancelOnTouchOutside(false)
+        dialog.cornerRadius(10f)
+
+        dialog.findViewById<TextView>(R.id.title).text = title
+        dialog.findViewById<TextView>(R.id.scoreGameOver).text = score.toString()
+        dialog.findViewById<TextView>(R.id.highScoreGameOver).text = highScore.toString()
     }
 
     @Suppress("DEPRECATION")

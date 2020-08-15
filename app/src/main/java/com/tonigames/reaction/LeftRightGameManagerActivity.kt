@@ -2,7 +2,6 @@ package com.tonigames.reaction
 
 import android.animation.Animator
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -10,8 +9,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
@@ -54,20 +51,10 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
             }
     }
 
-    private fun tryLoadAds() {
-        interstitialAd?.let { ads ->
-            ads.adListener = object : AdListener() {
-                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
-            }
-            ads.takeIf { it.isLoaded }?.show()
-        }
-    }
-
     override fun onResume() {
         super.onResume()
 
         mRoundCnt = -1
-        initMedia()
     }
 
     override fun onStop() {
@@ -76,9 +63,6 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         mRoundCnt = -1
         mLastImg = Int.MIN_VALUE
         mLastState = ViewOutState.Invalid
-
-        releaseMedia()
-        mDialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
@@ -87,18 +71,6 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         mRoundCnt = -1
         mLastImg = Int.MIN_VALUE
         mLastState = ViewOutState.Invalid
-
-        releaseMedia()
-        mDialogPopup?.dismiss()
-    }
-
-    private fun releaseMedia() =
-        listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-
-    private fun initMedia() {
-        soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
-        soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
-        soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
     }
 
     override fun onResult(lastImg: Int, state: ViewOutState) {
@@ -129,13 +101,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            cornerRadius(8f)
-            findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text =
-                getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
+            configDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_LEFT_RIGHT))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -173,13 +139,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
 
         if (mRoundCnt >= 0) {
-            GlideToast.makeToast(
-                this,
-                "Right!!",
-                GlideToast.LENGTHSHORT,
-                GlideToast.SUCCESSTOAST,
-                GlideToast.BOTTOM
-            ).show()
+            showSuccessToast(GlideToast.LENGTHSHORT)
 
             soundPositive?.takeIf { it.isPlaying }?.stop()
             soundPositive?.start()

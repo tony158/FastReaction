@@ -34,13 +34,7 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
     override fun onCorrectSelection() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSelection }
 
-        GlideToast.makeToast(
-            this,
-            "Correct!!",
-            GlideToast.LENGTHSHORT,
-            GlideToast.SUCCESSTOAST,
-            GlideToast.BOTTOM
-        ).show()
+        showSuccessToast(GlideToast.LENGTHSHORT)
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
@@ -63,13 +57,7 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            cornerRadius(8f)
-            findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text =
-                getHighScore(HIGH_SCORE_ROCK_PAPER).toString()
+            configDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_ROCK_PAPER))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

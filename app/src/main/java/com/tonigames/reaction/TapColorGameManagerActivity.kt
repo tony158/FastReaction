@@ -12,7 +12,8 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.jeevandeshmukh.glidetoastlib.GlideToast.*
+import com.jeevandeshmukh.glidetoastlib.GlideToast
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.tapcolor.FragmentInteractionListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
@@ -51,7 +52,7 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
     override fun onCorrectColorSelected() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
 
-        makeToast(this, "Correct!!", LENGTHSHORT, SUCCESSTOAST, BOTTOM).show()
+        showSuccessToast(GlideToast.LENGTHMEDIUM)
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
@@ -76,18 +77,9 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
         }
     }
 
-    private fun getHighScore(): Int {
-        return getSharedPreferences(
-            MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR,
-            Context.MODE_PRIVATE
-        ).run {
-            getInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, 0)
-        }
-    }
-
     //when score is higher than the current highest score, then save it
     private fun saveHighScore(score: Int) {
-        getHighScore()
+        getHighScore(HIGH_SCORE_TAP_COLOR)
             .takeIf { score > it }
             ?.run {
                 getSharedPreferences(
@@ -105,12 +97,7 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            cornerRadius(8f)
-            findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
+            configDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_TAP_COLOR))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -118,7 +105,10 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
                         override fun onAnimationEnd(animation: Animator?) {
                             soundBtnClick?.start()
 
-                            Intent(this@TapColorGameManagerActivity, MainMenuActivity::class.java).run {
+                            Intent(
+                                this@TapColorGameManagerActivity,
+                                MainMenuActivity::class.java
+                            ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(this)
                             }

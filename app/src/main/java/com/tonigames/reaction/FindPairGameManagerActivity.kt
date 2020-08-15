@@ -47,7 +47,7 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInter
     override fun onCorrectPairSelected() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectPairSelected }
 
-        makeToast(this, "Correct!!", LENGTHMEDIUM, SUCCESSTOAST, BOTTOM).show()
+        showSuccessToast()
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
@@ -79,13 +79,7 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInter
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            cancelable(false)
-            cancelOnTouchOutside(false)
-            cornerRadius(8f)
-            findViewById<TextView>(R.id.title).text = msg
-            findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text =
-                getHighScore(HIGH_SCORE_FIND_PAIR).toString()
+            configDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_FIND_PAIR))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -93,7 +87,10 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInter
                         override fun onAnimationEnd(animation: Animator?) {
                             soundBtnClick?.start()
 
-                            Intent(this@FindPairGameManagerActivity, MainMenuActivity::class.java).run {
+                            Intent(
+                                this@FindPairGameManagerActivity,
+                                MainMenuActivity::class.java
+                            ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                                 startActivity(this)
                             }
