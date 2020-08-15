@@ -1,16 +1,8 @@
 package com.tonigames.reaction
 
 import android.animation.Animator
-import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
-import android.media.MediaPlayer
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -18,11 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast
-import com.tonigames.reaction.ISettingChange.Companion.getHighScore
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.rockpaper.ResultListener
 import com.tonigames.reaction.rockpaper.RockPaperFragment

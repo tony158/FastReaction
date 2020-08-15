@@ -14,8 +14,6 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
