@@ -8,20 +8,19 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="0dp"
-        android:orientation="horizontal"
-        android:paddingTop="0dp"
-        android:paddingBottom="0dp">
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="20dp"
             android:background="@drawable/menu_sad"
-            android:fontFamily="casual"
-            android:textSize="18sp" />
+            android:fontFamily="casual" />
 
         <TextView
             android:id="@+id/title"
@@ -42,8 +41,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="center|center_horizontal"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/scoreTitle"
@@ -52,7 +50,7 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
             android:text="Score:"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/scoreGameOver"
@@ -61,7 +59,7 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
             android:text=""
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,8 +67,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:gravity="center|center_horizontal"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/highScoreTitle"
@@ -79,7 +76,7 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
             android:text="Highest score:"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/highScoreGameOver"
@@ -88,13 +85,16 @@
             android:layout_marginEnd="10dp"
             android:fontFamily="casual"
             android:text=""
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
         android:background="@android:color/transparent"
         android:gravity="center|center_horizontal"
         android:orientation="horizontal">
