@@ -28,6 +28,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mRoundCnt = -1
         mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
             .also {
                 supportFragmentManager
@@ -40,6 +41,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
     override fun handleContinueClicked() {
         super.handleContinueClicked()
 
+        mRoundCnt = -1
         mLastImg = Int.MIN_VALUE
         mLastState = ViewOutState.Invalid
 

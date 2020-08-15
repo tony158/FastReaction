@@ -60,16 +60,16 @@ class BoomMenuHandler(
                 val gameType = indexToGameTypeMap.getOrDefault(index, TAP_COLOR)
                 val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
-                if (!isGameLocked) {
-                    context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                        edit().putInt(GAME_TYPE, gameType).commit()
-                    }
-                    refreshGameTitle()
-                    gameTypeSelectCallback.invoke()
-                } else {
-                    // game is locked, show popup of ads
-
+//                if (!isGameLocked) {
+                context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
+                    edit().putInt(GAME_TYPE, gameType).commit()
                 }
+                refreshGameTitle()
+                gameTypeSelectCallback.invoke()
+//                } else {
+//                    // game is locked, show popup of ads
+//
+//                }
             }
         }
     }
@@ -87,6 +87,7 @@ class BoomMenuHandler(
             .normalText(text)
             //.normalColor(Color.LTGRAY)        // color of button can be set here
             .subNormalText(subText)
+            .shadowColor(Color.BLACK)
             .pieceColor(Color.WHITE).apply {
                 boomMenu.addBuilder(this)
             }
