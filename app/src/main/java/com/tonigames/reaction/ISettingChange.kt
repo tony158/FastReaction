@@ -120,6 +120,14 @@ interface ISettingChange {
                 getInt(gameType, 0)
             }
 
+        fun saveHighScore(context: Context, score: Int, highScoreType: String) {
+            getHighScore(context, highScoreType).takeIf { score > it }?.run {
+                context.getSharedPreferences(highScoreType, Context.MODE_PRIVATE).edit()
+                    .putInt(highScoreType, score)
+                    .commit()
+            }
+        }
+
         fun isGameLocked(context: Context, gameType: Int): Boolean {
             val lockedType = when (gameType) {
                 FIND_PAIR -> MainMenuActivity.Constants.LOCKED_FIND_PAIR

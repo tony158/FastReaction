@@ -77,19 +77,6 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
         }
     }
 
-    //when score is higher than the current highest score, then save it
-    private fun saveHighScore(score: Int) {
-        getHighScore(HIGH_SCORE_TAP_COLOR)
-            .takeIf { score > it }
-            ?.run {
-                getSharedPreferences(
-                    MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, Context.MODE_PRIVATE
-                ).edit()
-                    .putInt(MainMenuActivity.Constants.HIGH_SCORE_TAP_COLOR, score)
-                    .commit()
-            }
-    }
-
     override fun onFailedToSolve(msg: String) {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onFailedToSolve }
 
@@ -127,6 +114,6 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
             }
         }
 
-        saveHighScore(mRoundCnt)
+        saveHighScore(mRoundCnt, HIGH_SCORE_TAP_COLOR)
     }
 }

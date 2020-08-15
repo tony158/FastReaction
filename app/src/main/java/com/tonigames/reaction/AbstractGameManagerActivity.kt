@@ -44,13 +44,8 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
     fun getHighScore(highScoreType: String) = ISettingChange.getHighScore(this, highScoreType)
 
     //when score is higher than the current highest score, then save it
-    fun saveHighScore(score: Int, highScoreType: String) {
-        getHighScore(highScoreType).takeIf { score > it }?.run {
-            getSharedPreferences(highScoreType, Context.MODE_PRIVATE).edit()
-                .putInt(highScoreType, score)
-                .commit()
-        }
-    }
+    fun saveHighScore(score: Int, highScoreType: String) =
+        ISettingChange.saveHighScore(this, score, highScoreType)
 
     override fun onResume() {
         super.onResume()
