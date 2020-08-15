@@ -101,8 +101,10 @@ class BoomMenuHandler(
             .imagePadding(Rect(20, 20, 20, 20))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
+//            .normalColor(Color.LTGRAY)        // color of button can be set here
+            .shadowColor(Color.BLACK)
             .subNormalText(subText)
-            .pieceColor(Color.BLACK).apply {
+            .pieceColor(Color.WHITE).apply {
                 boomMenu.addBuilder(this)
             }
             .listener {
