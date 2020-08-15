@@ -28,7 +28,7 @@ import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
 
 class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
-
+    
     private var interstitialAd: InterstitialAd? = null
 
     private var mRoundCnt: Int = 0
@@ -96,12 +96,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
             else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "test2")
         }.also {
             supportFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                 .replace(R.id.fragment_container, it)
                 .commit()
         }
@@ -177,9 +172,7 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
 
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
-                override fun onAdClosed() {
-                    ads.loadAd(AdRequest.Builder().build())
-                }
+                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
             }
 
             ads.takeIf { it.isLoaded }?.show()
@@ -208,9 +201,8 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         mDialogPopup?.dismiss()
     }
 
-    private fun releaseMedia() {
+    private fun releaseMedia() =
         listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-    }
 
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)

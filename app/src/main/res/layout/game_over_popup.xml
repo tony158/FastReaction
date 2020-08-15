@@ -110,7 +110,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:background="@drawable/bg_button_border"
-            android:drawableRight="@drawable/ic_pause_to_play"
+            android:drawableLeft="@drawable/menu_home"
             android:fontFamily="casual"
             android:scaleType="fitCenter"
             android:text="Menu" />
@@ -124,7 +124,7 @@
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:background="@drawable/bg_button_border"
-            android:drawableRight="@drawable/ic_play_to_stop"
+            android:drawableLeft="@drawable/menu_resume"
             android:fontFamily="casual"
             android:scaleType="fitCenter"
             android:text="Continue" />

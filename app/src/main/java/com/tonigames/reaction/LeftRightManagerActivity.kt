@@ -24,7 +24,7 @@ import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import com.tonigames.reaction.leftorright.ResultListener
 import com.tonigames.reaction.leftorright.ViewOutState
 
-class ManagerActivity : AppCompatActivity(), ResultListener {
+class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
     private var interstitialAd: InterstitialAd? = null
 
     private var soundBtnClick: MediaPlayer? = null
@@ -100,9 +100,7 @@ class ManagerActivity : AppCompatActivity(), ResultListener {
     private fun tryLoadAds() {
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
-                override fun onAdClosed() {
-                    ads.loadAd(AdRequest.Builder().build())
-                }
+                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
             }
             ads.takeIf { it.isLoaded }?.show()
         }
@@ -199,7 +197,7 @@ class ManagerActivity : AppCompatActivity(), ResultListener {
                             soundBtnClick?.start()
 
                             Intent(
-                                this@ManagerActivity,
+                                this@LeftRightManagerActivity,
                                 MainMenuActivity::class.java
                             ).run {
                                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

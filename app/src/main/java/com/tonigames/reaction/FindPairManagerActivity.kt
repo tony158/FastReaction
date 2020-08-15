@@ -114,12 +114,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
         }.also {
             supportFragmentManager
                 .beginTransaction()
-                .setCustomAnimations(
-                    R.anim.enter_from_right,
-                    R.anim.exit_to_left,
-                    R.anim.enter_from_left,
-                    R.anim.exit_to_right
-                )
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                 .replace(R.id.fragment_container, it)
                 .commit()
         }
@@ -176,9 +171,7 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
 
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
-                override fun onAdClosed() {
-                    ads.loadAd(AdRequest.Builder().build())
-                }
+                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
             }
 
             ads.takeIf { it.isLoaded }?.show()

@@ -20,12 +20,15 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.ISettingChange.Companion.getHighScore
 import com.tonigames.reaction.rockpaper.ResultListener
 import com.tonigames.reaction.rockpaper.RockPaperFragment
 
 class RockPaperManagerActivity : AppCompatActivity(), ResultListener {
+
+    private var interstitialAd: InterstitialAd? = null
 
     private var mRoundCnt: Int = 0
     private var mCurrFragment: Fragment? = null
@@ -49,6 +52,11 @@ class RockPaperManagerActivity : AppCompatActivity(), ResultListener {
                     .replace(R.id.fragment_container, it)
                     .commit()
             }
+
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
     }
 
     private fun initMedia() {
@@ -76,17 +84,10 @@ class RockPaperManagerActivity : AppCompatActivity(), ResultListener {
             .also {
                 supportFragmentManager
                     .beginTransaction()
-                    .setCustomAnimations(
-                        R.anim.enter_from_right,
-                        R.anim.exit_to_left,
-                        R.anim.enter_from_left,
-                        R.anim.exit_to_right
-                    )
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
                     .replace(R.id.fragment_container, it)
                     .commit()
             }
-
-        Log.wtf("", "test")
     }
 
     override fun onFailedToSolve(msg: String) {
@@ -136,10 +137,36 @@ class RockPaperManagerActivity : AppCompatActivity(), ResultListener {
         saveHighScore(mRoundCnt)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        releaseMedia()
+        mDialogPopup?.dismiss()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        mRoundCnt = 0
+        releaseMedia()
+        mDialogPopup?.dismiss()
+    }
+
+    private fun releaseMedia() =
+        listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
+
     private fun handleContinueClicked() {
         mRoundCnt = 0
-//        mCurrFragment?.clearAllToggles()
+
         mDialogPopup?.dismiss()
+
+        interstitialAd?.let { ads ->
+            ads.adListener = object : AdListener() {
+                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
+            }
+
+            ads.takeIf { it.isLoaded }?.show()
+        }
     }
 
     //when score is higher than the current highest score, then save it

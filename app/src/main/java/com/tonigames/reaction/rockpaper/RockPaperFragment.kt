@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_rock_paper.*
 import kotlinx.android.synthetic.main.fragment_rock_paper.progressBar
 import kotlinx.android.synthetic.main.fragment_rock_paper.tvRoundCnt
 
-private const val DURATION = 2000L
+private const val DURATION = 1800L
 
 class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
 

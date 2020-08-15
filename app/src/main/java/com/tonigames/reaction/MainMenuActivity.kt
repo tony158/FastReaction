@@ -14,7 +14,6 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.rewarded.RewardedAd
@@ -25,18 +24,17 @@ import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FI
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
-import com.tonigames.reaction.popups.MyLanguageEnum
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var soundBtnClick: MediaPlayer? = null
 
-    private var interstitialAd: InterstitialAd? = null
     private var rewardedAd: RewardedAd? = null
 
     private var bmbMenuHandler: BoomMenuHandler? = null
@@ -66,11 +64,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSettingButton()
 
         bindEventHandlerStartButton()
-
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
-        }
 
         rewardedAd = RewardedAd(this, resources.getString(R.string.ads_interstitial_unit_id))
 
@@ -126,23 +119,24 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         )) {
             TAP_COLOR -> TapColorManagerActivity::class.java
             FIND_PAIR -> FindPairManagerActivity::class.java
+            LEFT_RIGHT -> LeftRightManagerActivity::class.java
             ROCK_PAPER -> RockPaperManagerActivity::class.java
-            else -> ManagerActivity::class.java
+            else -> TapColorManagerActivity::class.java
         }
 
-        interstitialAd?.adListener = object : AdListener() {
-            override fun onAdClosed() {
-                interstitialAd?.loadAd(AdRequest.Builder().build())
-                startActivity(Intent(this@MainMenuActivity, targetActivity))
-            }
-        }
-
-        val isAdLoaded = interstitialAd?.isLoaded ?: false
-        if (isAdLoaded) {
-            interstitialAd?.show()
-        } else {
-            startActivity(Intent(this@MainMenuActivity, targetActivity))
-        }
+//        interstitialAd?.adListener = object : AdListener() {
+//            override fun onAdClosed() {
+//                interstitialAd?.loadAd(AdRequest.Builder().build())
+        startActivity(Intent(this@MainMenuActivity, targetActivity))
+//            }
+//        }
+//
+//        val isAdLoaded = interstitialAd?.isLoaded ?: false
+//        if (isAdLoaded) {
+//            interstitialAd?.show()
+//        } else {
+//            startActivity(Intent(this@MainMenuActivity, targetActivity))
+//        }
     }
 
     override fun onResume() {
@@ -180,7 +174,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     class Constants {
         companion object {
             const val GAME_TYPE: String = "GameType"
-            
+
             const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
             const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
             const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"

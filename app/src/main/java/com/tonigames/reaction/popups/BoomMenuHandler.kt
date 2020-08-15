@@ -60,16 +60,16 @@ class BoomMenuHandler(
                 val gameType = indexToGameTypeMap.getOrDefault(index, TAP_COLOR)
                 val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
-                if (!isGameLocked) {
-                    context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                        edit().putInt(GAME_TYPE, gameType).commit()
-                    }
-                    refreshGameTitle()
-                    gameTypeSelectCallback.invoke()
-                } else {
-                    // game is locked, show popup of ads
-
+//                if (!isGameLocked) {
+                context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
+                    edit().putInt(GAME_TYPE, gameType).commit()
                 }
+                refreshGameTitle()
+                gameTypeSelectCallback.invoke()
+//                } else {
+//                    // game is locked, show popup of ads
+//
+//                }
             }
         }
     }
