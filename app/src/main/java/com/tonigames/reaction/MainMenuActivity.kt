@@ -14,25 +14,28 @@ import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
+    private var interstitialAd: InterstitialAd? = null
     private var soundBtnClick: MediaPlayer? = null
-
     private var rewardedAd: RewardedAd? = null
 
     private var bmbMenuHandler: BoomMenuHandler? = null
@@ -122,19 +125,19 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             else -> TapColorManagerActivity::class.java
         }
 
-//        interstitialAd?.adListener = object : AdListener() {
-//            override fun onAdClosed() {
-//                interstitialAd?.loadAd(AdRequest.Builder().build())
-        startActivity(Intent(this@MainMenuActivity, targetActivity))
-//            }
-//        }
-//
-//        val isAdLoaded = interstitialAd?.isLoaded ?: false
-//        if (isAdLoaded) {
-//            interstitialAd?.show()
-//        } else {
-//            startActivity(Intent(this@MainMenuActivity, targetActivity))
-//        }
+        interstitialAd?.adListener = object : AdListener() {
+            override fun onAdClosed() {
+                interstitialAd?.loadAd(AdRequest.Builder().build())
+                startActivity(Intent(this@MainMenuActivity, targetActivity))
+            }
+        }
+
+        val isAdLoaded = interstitialAd?.isLoaded ?: false
+        if (isAdLoaded) {
+            interstitialAd?.show()
+        } else {
+            startActivity(Intent(this@MainMenuActivity, targetActivity))
+        }
     }
 
     override fun onResume() {
@@ -213,8 +216,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             val gameType = when (this) {
                 TAP_COLOR -> HIGH_SCORE_TAP_COLOR
                 FIND_PAIR -> HIGH_SCORE_FIND_PAIR
+                LEFT_RIGHT -> HIGH_SCORE_LEFT_RIGHT
                 ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
-                else -> HIGH_SCORE_LEFT_RIGHT
+                else -> HIGH_SCORE_TAP_COLOR
             }
 
             score.text = getHighScore(gameType).toString()
