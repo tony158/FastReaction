@@ -27,17 +27,9 @@ import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
 
-class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener {
-    
-    private var interstitialAd: InterstitialAd? = null
+class TapColorManagerActivity : AbstractManagerActivity(), FragmentInteractionListener {
 
-    private var mRoundCnt: Int = 0
     private var mCurrFragment: Fragment? = null
-    private var mDialogPopup: MaterialDialog? = null
-
-    private var soundBtnClick: MediaPlayer? = null
-    private var soundNegative: MediaPlayer? = null
-    private var soundPositive: MediaPlayer? = null
 
     companion object {
         val RoundColorCount: Map<Int, Int> =
@@ -47,10 +39,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_tap_color_manager)
-
-        initMedia()
 
         val colorCnt = RoundColorCount.getOrDefault(
             if (mRoundCnt % RoundColorCount.size == 0) 1 else mRoundCnt % RoundColorCount.size,
@@ -66,11 +54,6 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
                 .beginTransaction()
                 .replace(R.id.fragment_container, it)
                 .commit()
-        }
-
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
         }
     }
 
@@ -164,60 +147,5 @@ class TapColorManagerActivity : AppCompatActivity(), FragmentInteractionListener
         }
 
         saveHighScore(mRoundCnt)
-    }
-
-    private fun handleContinueClicked() {
-        mRoundCnt = 0
-        mDialogPopup?.dismiss()
-
-        interstitialAd?.let { ads ->
-            ads.adListener = object : AdListener() {
-                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
-            }
-
-            ads.takeIf { it.isLoaded }?.show()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        mRoundCnt = 0
-        initMedia()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        mRoundCnt = 0
-        releaseMedia()
-        mDialogPopup?.dismiss()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        releaseMedia()
-        mDialogPopup?.dismiss()
-    }
-
-    private fun releaseMedia() =
-        listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-
-    private fun initMedia() {
-        soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
-        soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
-        soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
-    }
-
-    @Suppress("DEPRECATION")
-    private fun vibrate() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(120)
-        }
     }
 }

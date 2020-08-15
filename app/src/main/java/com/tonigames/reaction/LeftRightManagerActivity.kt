@@ -1,15 +1,9 @@
 package com.tonigames.reaction
 
 import android.animation.Animator
-import android.content.Context
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import android.media.MediaPlayer
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.widget.Button
 import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -18,32 +12,21 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import com.tonigames.reaction.leftorright.ResultListener
 import com.tonigames.reaction.leftorright.ViewOutState
 
-class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
-    private var interstitialAd: InterstitialAd? = null
-
-    private var soundBtnClick: MediaPlayer? = null
-    private var soundNegative: MediaPlayer? = null
-    private var soundPositive: MediaPlayer? = null
+class LeftRightManagerActivity : AbstractManagerActivity(), ResultListener {
 
     private var mCurrFragment: LeftOrRightFragment? = null
-    private var mDialogPopup: MaterialDialog? = null
 
-    private var mRoundCnt: Int = -1
     private var mLastState: ViewOutState = ViewOutState.Invalid
     private var mLastImg: Int = Int.MIN_VALUE
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_left_or_right_manager)
-
-        initMedia()
 
         mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
             .also {
@@ -52,41 +35,13 @@ class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
                     .replace(R.id.fragment_container, it)
                     .commit()
             }
-
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
-        }
     }
 
-    // get the high score from Persistence
-    private fun getHighScore(): Int {
-        return getSharedPreferences(
-            MainMenuActivity.Constants.HIGH_SCORE_LEFT_RIGHT,
-            Context.MODE_PRIVATE
-        ).run {
-            getInt(MainMenuActivity.Constants.HIGH_SCORE_LEFT_RIGHT, 0)
-        }
-    }
+    override fun handleContinueClicked() {
+        super.handleContinueClicked()
 
-    //when score is higher than the current highest score, then save it
-    private fun saveHighScore(score: Int) {
-        getHighScore().takeIf { score > it }?.run {
-            getSharedPreferences(
-                MainMenuActivity.Constants.HIGH_SCORE_LEFT_RIGHT,
-                Context.MODE_PRIVATE
-            ).edit()
-                .putInt(MainMenuActivity.Constants.HIGH_SCORE_LEFT_RIGHT, score)
-                .commit()
-        }
-    }
-
-    private fun handleContinueClicked() {
-        mRoundCnt = -1
         mLastImg = Int.MIN_VALUE
         mLastState = ViewOutState.Invalid
-
-        mDialogPopup?.dismiss()
 
         mCurrFragment = LeftOrRightFragment.newInstance(mRoundCnt.toString(), mLastImg.toString())
             .also {
@@ -138,30 +93,19 @@ class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
     private fun releaseMedia() =
         listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
 
-
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
         soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
         soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
     }
 
-    @Suppress("DEPRECATION")
-    private fun vibrate() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(120)
-        }
-    }
+    override fun onResult(lastImg: Int, state: ViewOutState) {
 
-    override fun onResult(currImg: Int, currState: ViewOutState) {
-
-        if ((currImg == mLastImg && currState == mLastState) ||
-            (currImg != mLastImg && currState != mLastState)
+        if ((lastImg == mLastImg && state == mLastState) ||
+            (lastImg != mLastImg && state != mLastState)
         ) {
-            mLastState = currState
-            mLastImg = currImg
+            mLastState = state
+            mLastImg = lastImg
 
             onSuccess()
         } else {
@@ -188,7 +132,8 @@ class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
             cornerRadius(8f)
             findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
+            findViewById<TextView>(R.id.highScoreGameOver).text =
+                getHighScore(HIGH_SCORE_LEFT_RIGHT).toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -219,12 +164,11 @@ class LeftRightManagerActivity : AppCompatActivity(), ResultListener {
             }
         }
 
-        saveHighScore(mRoundCnt)
+        saveHighScore(mRoundCnt, HIGH_SCORE_LEFT_RIGHT)
     }
 
     private fun onSuccess() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
-
 
         if (mRoundCnt >= 0) {
             GlideToast.makeToast(

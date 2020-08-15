@@ -21,19 +21,12 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast.*
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.findpair.*
 
-class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener {
+class FindPairManagerActivity : AbstractManagerActivity(), FindPairInteractionListener {
 
-    private var interstitialAd: InterstitialAd? = null
-
-    private var mRoundCnt: Int = 0
     private var mCurrFragment: AbstractFindPairFragment? = null
-    private var mDialogPopup: MaterialDialog? = null
-
-    private var soundBtnClick: MediaPlayer? = null
-    private var soundNegative: MediaPlayer? = null
-    private var soundPositive: MediaPlayer? = null
 
     companion object {
         val RoundImgRowCount: Map<Int, Int> =
@@ -43,10 +36,6 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        setContentView(R.layout.activity_find_pair_manager)
-
-        initMedia()
 
         val imgRowCnt = RoundImgRowCount.getOrDefault(
             if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
@@ -61,33 +50,6 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.fragment_container, it)
-                .commit()
-        }
-
-        interstitialAd = InterstitialAd(this).apply {
-            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
-        }
-    }
-
-    // get the high score from Persistence
-    private fun getHighScore(): Int {
-        return getSharedPreferences(
-            MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-            Context.MODE_PRIVATE
-        ).run {
-            getInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, 0)
-        }
-    }
-
-    //when score is higher than the current highest score, then save it
-    private fun saveHighScore(score: Int) {
-        getHighScore().takeIf { score > it }?.run {
-            getSharedPreferences(
-                MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR,
-                Context.MODE_PRIVATE
-            ).edit()
-                .putInt(MainMenuActivity.Constants.HIGH_SCORE_FIND_PAIR, score)
                 .commit()
         }
     }
@@ -132,7 +94,8 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             cornerRadius(8f)
             findViewById<TextView>(R.id.title).text = msg
             findViewById<TextView>(R.id.scoreGameOver).text = mRoundCnt.toString()
-            findViewById<TextView>(R.id.highScoreGameOver).text = getHighScore().toString()
+            findViewById<TextView>(R.id.highScoreGameOver).text =
+                getHighScore(HIGH_SCORE_FIND_PAIR).toString()
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -160,63 +123,12 @@ class FindPairManagerActivity : AppCompatActivity(), FindPairInteractionListener
             }
         }
 
-        saveHighScore(mRoundCnt)
+        saveHighScore(mRoundCnt, HIGH_SCORE_FIND_PAIR)
     }
 
-
-    private fun handleContinueClicked() {
-        mRoundCnt = 0
+    override fun handleContinueClicked() {
         mCurrFragment?.clearAllToggles()
-        mDialogPopup?.dismiss()
 
-        interstitialAd?.let { ads ->
-            ads.adListener = object : AdListener() {
-                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
-            }
-
-            ads.takeIf { it.isLoaded }?.show()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        mRoundCnt = 0
-        initMedia()
-    }
-
-    override fun onStop() {
-        super.onStop()
-
-        mRoundCnt = 0
-        releaseMedia()
-        mDialogPopup?.dismiss()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        releaseMedia()
-        mDialogPopup?.dismiss()
-    }
-
-    private fun releaseMedia() =
-        listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-
-
-    private fun initMedia() {
-        soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
-        soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
-        soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
-    }
-
-    @Suppress("DEPRECATION")
-    private fun vibrate() {
-        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(120, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(120)
-        }
+        super.handleContinueClicked()
     }
 }
