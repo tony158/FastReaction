@@ -76,19 +76,19 @@ class BoomMenuHandler(
 
     private fun addBuilderBMB(text: String, subText: String, gameType: Int = TAP_COLOR) {
         val drawableIcon = when {
-            ISettingChange.isGameLocked(context, gameType) -> R.drawable.menu_video_ads
-            else -> R.drawable.menu_unlock
+            ISettingChange.isGameLocked(context, gameType) -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
         }
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .imagePadding(Rect(20, 40, 20, 40))
+            .imagePadding(Rect(20, 20, 20, 20))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(text)
-            //.normalColor(Color.LTGRAY)        // color of button can be set here
+//            .normalColor(Color.GRAY)        // color of button can be set here
             .subNormalText(subText)
             .shadowColor(Color.BLACK)
-            .pieceColor(Color.WHITE).apply {
+            .pieceColor(Color.BLACK).apply {
                 boomMenu.addBuilder(this)
             }
             .listener {
