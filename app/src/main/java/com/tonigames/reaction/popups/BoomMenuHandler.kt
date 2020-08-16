@@ -112,12 +112,8 @@ class BoomMenuHandler(
             //.normalColor(Color.GRAY)        // color of button can be set here
             .subNormalText(subTitle)
             .shadowColor(Color.BLACK)
-            .pieceColor(Color.BLACK).apply {
-                boomMenu.addBuilder(this)
-            }
-            .listener {
-                soundBtnClick?.start()
-            }
+            .pieceColor(Color.BLACK).apply { boomMenu.addBuilder(this) }
+            .listener { soundBtnClick?.start() }
     }
 
     fun refreshBoomMenu() {
