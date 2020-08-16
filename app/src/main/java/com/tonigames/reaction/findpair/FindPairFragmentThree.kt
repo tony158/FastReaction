@@ -12,7 +12,7 @@ import android.widget.ToggleButton
 import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_find_pair_three.*
 
-private const val DURATION = 2400L
+private const val DURATION = 2500L
 
 class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pair_three) {
 

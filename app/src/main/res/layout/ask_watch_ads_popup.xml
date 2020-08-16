@@ -9,16 +9,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imgView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@drawable/menu_ads_small"
             android:fontFamily="casual" />
     </LinearLayout>
@@ -34,10 +32,10 @@
             android:id="@+id/scoreGameOver"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="casual"
             android:text="@string/gameLocked_msg_english"
             android:textSize="16sp" />
@@ -59,12 +57,15 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginBottom="2dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:background="@drawable/bg_button_border"
             android:drawableLeft="@drawable/menu_accept"
             android:fontFamily="casual"
+            android:paddingStart="4dp"
             android:scaleType="fitCenter"
             android:text="Yes,OK" />
 
@@ -74,11 +75,14 @@
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="2dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:background="@drawable/bg_button_border"
             android:drawableLeft="@drawable/menu_refuse"
             android:fontFamily="casual"
+            android:paddingStart="4dp"
             android:scaleType="fitCenter"
             android:text="No,thanks" />
     </LinearLayout>

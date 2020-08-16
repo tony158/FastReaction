@@ -13,7 +13,7 @@ import com.tonigames.reaction.R
 import kotlinx.android.synthetic.main.fragment_find_pair_two.*
 import kotlinx.android.synthetic.main.fragment_find_pair_two.progressBar
 
-private const val DURATION = 1800L
+private const val DURATION = 1900L
 
 class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair_two) {
 
@@ -72,10 +72,10 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
         @JvmStatic
         fun newInstance(param1: String, param2: String) = FindPairFragmentTwo()
             .apply {
-            arguments = Bundle().apply {
-                putString(roundArgument, param1)
-                putString(extraArgument, param2)
+                arguments = Bundle().apply {
+                    putString(roundArgument, param1)
+                    putString(extraArgument, param2)
+                }
             }
-        }
     }
 }

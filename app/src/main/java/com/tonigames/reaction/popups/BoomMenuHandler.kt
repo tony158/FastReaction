@@ -198,7 +198,7 @@ class BoomMenuHandler(
             }
 
     private fun loadRewardAds(gameType: Int) {
-        showSuccessToast("Trying to load video ads, please wait a few seconds!")
+        showWaitingInfoToast()
 
         rewardedAd?.loadAd(
             context.resources.getString(R.string.ads_reward_unit_id),
@@ -218,7 +218,7 @@ class BoomMenuHandler(
             }
 
             override fun onRewardedVideoAdLeftApplication() {
-                Log.w("BoomMenuHandler", "onRewardedVideoAdLeftApplication")
+                Log.i("BoomMenuHandler", "onRewardedVideoAdLeftApplication")
             }
 
             override fun onRewardedVideoAdLoaded() {
@@ -226,7 +226,7 @@ class BoomMenuHandler(
             }
 
             override fun onRewardedVideoAdOpened() {
-                Log.w("BoomMenuHandler", "onRewardedVideoAdOpened")
+                Log.i("BoomMenuHandler", "onRewardedVideoAdOpened")
             }
 
             override fun onRewardedVideoCompleted() {
@@ -241,7 +241,7 @@ class BoomMenuHandler(
             }
 
             override fun onRewardedVideoStarted() {
-                Log.w("BoomMenuHandler", "onRewardedVideoStarted!")
+                Log.i("BoomMenuHandler", "onRewardedVideoStarted!")
             }
 
             override fun onRewardedVideoAdFailedToLoad(p0: Int) {
@@ -250,24 +250,19 @@ class BoomMenuHandler(
         }
     }
 
-    fun showSuccessToast(msg: String = "") = Toasty.error(
-        context, msg,
-        Toast.LENGTH_LONG,
-        true
-    ).show();
+    private fun showSuccessToast(msg: String = "") =
+        Toasty.success(context, msg, Toast.LENGTH_LONG, true).show();
 
-    fun showFailureToast(msg: String = "") = Toasty.error(
-        context, msg,
+    private fun showFailureToast(msg: String = "") =
+        Toasty.warning(context, msg, Toast.LENGTH_LONG, true).show()
+
+    private fun showWaitingInfoToast() = Toasty.normal(
+        context,
+        R.string.wait_loading_video_english,
         Toast.LENGTH_LONG,
+        ContextCompat.getDrawable(context, R.drawable.menu_info_medium),
         true
     ).show()
-
-    //        Toasty.Config.getInstance()
-    //        .tintIcon(true) // optional (apply textColor also to the icon)
-    //        .setToastTypeface(DEFAULT_BOLD) // optional
-    //        .setTextSize(18) // optional
-    //        .allowQueue(true) // optional (prevents several Toastys from queuing)
-    //        .apply(); // required
 
     companion object {
         private val indexToGameTypeMap =
