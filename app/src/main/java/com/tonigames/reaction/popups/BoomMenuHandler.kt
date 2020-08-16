@@ -1,17 +1,14 @@
 package com.tonigames.reaction.popups
 
-import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
 import android.graphics.Rect
-import android.graphics.Typeface.DEFAULT_BOLD
 import android.media.MediaPlayer
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -25,12 +22,8 @@ import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.ISettingChange
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.SELECTED_GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.MainMenuCataEnum
@@ -73,8 +66,8 @@ class BoomMenuHandler(
                 val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
                 if (!isGameLocked) {
-                    context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).edit()
-                        .putInt(GAME_TYPE, gameType).commit()
+                    context.getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).edit()
+                        .putInt(SELECTED_GAME_TYPE, gameType).commit()
 
                     refreshGameTitle()
                     gameTypeSelectCallback.invoke()
@@ -186,7 +179,8 @@ class BoomMenuHandler(
     )
 
     private fun refreshGameTitle() =
-        context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR)
+        context.getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE)
+            .getInt(SELECTED_GAME_TYPE, TAP_COLOR)
             .run {
                 when (this) {
                     TAP_COLOR -> gameTitle.text = getTranslatedText(MainMenuCataEnum.TapColor)

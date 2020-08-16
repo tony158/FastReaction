@@ -20,7 +20,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.SELECTED_GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
@@ -116,8 +116,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun gotoNextActivity() {
-        val targetActivity = when (getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(
-            GAME_TYPE,
+        val targetActivity = when (getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(
+            SELECTED_GAME_TYPE,
             TAP_COLOR
         )) {
             TAP_COLOR -> TapColorGameManagerActivity::class.java
@@ -176,7 +176,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
     class Constants {
         companion object {
-            const val GAME_TYPE: String = "GameType"
+            const val SELECTED_GAME_TYPE: String = "GameType"
 
             const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
             const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
@@ -214,7 +214,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun refreshHighScore() {
-        getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).getInt(GAME_TYPE, TAP_COLOR).run {
+        getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(SELECTED_GAME_TYPE, TAP_COLOR).run {
             val gameType = when (this) {
                 TAP_COLOR -> HIGH_SCORE_TAP_COLOR
                 FIND_PAIR -> HIGH_SCORE_FIND_PAIR
