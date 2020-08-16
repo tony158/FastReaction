@@ -5,7 +5,12 @@ import android.content.ContextWrapper
 import android.content.res.Resources
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 interface ISettingChange {
@@ -128,18 +133,27 @@ interface ISettingChange {
             }
         }
 
-        fun isGameLocked(context: Context, gameType: Int): Boolean {
-            val lockedType = when (gameType) {
-                FIND_PAIR -> MainMenuActivity.Constants.LOCKED_FIND_PAIR
-                LEFT_RIGHT -> MainMenuActivity.Constants.LOCKED_LEFT_RIGHT
-                ROCK_PAPER -> MainMenuActivity.Constants.LOCKED_ROCK_PAPER
-                else -> MainMenuActivity.Constants.LOCKED_TAP_COLOR
-            }
+        private val gameTypeToLockTypeMap = mapOf<Int, String>(
+            TAP_COLOR to LOCKED_TAP_COLOR,
+            FIND_PAIR to LOCKED_FIND_PAIR,
+            LEFT_RIGHT to LOCKED_LEFT_RIGHT,
+            ROCK_PAPER to LOCKED_ROCK_PAPER
+        )
 
-            return when (lockedType) {
-                MainMenuActivity.Constants.LOCKED_TAP_COLOR -> false
+        fun unlockGame(context: Context, gameType: Int) {
+            val lockType = gameTypeToLockTypeMap.getOrDefault(gameType, LOCKED_TAP_COLOR)
+
+            context.getSharedPreferences(lockType, Context.MODE_PRIVATE)
+                .edit().putBoolean(lockType, false).commit()
+        }
+
+        fun isGameLocked(context: Context, gameType: Int): Boolean {
+            return when (val lockedType =
+                gameTypeToLockTypeMap.getOrDefault(gameType, LOCKED_TAP_COLOR)) //
+            {
+                LOCKED_TAP_COLOR -> false
                 else -> context.getSharedPreferences(
-                    MainMenuActivity.Constants.GAME_TYPE,
+                    lockedType,
                     Context.MODE_PRIVATE
                 ).getBoolean(lockedType, true)
             }

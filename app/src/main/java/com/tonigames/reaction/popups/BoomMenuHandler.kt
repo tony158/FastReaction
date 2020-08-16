@@ -1,12 +1,17 @@
 package com.tonigames.reaction.popups
 
+import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.Typeface.DEFAULT_BOLD
 import android.media.MediaPlayer
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -14,7 +19,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.reward.RewardItem
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.reward.RewardedVideoAdListener
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
@@ -23,10 +27,15 @@ import com.tonigames.reaction.ISettingChange
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
+import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
+import es.dmoral.toasty.Toasty
 
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
@@ -38,7 +47,6 @@ class BoomMenuHandler(
 ) {
     fun onCreate() {
         buildHamMenu()
-        rewardedAd?.rewardedVideoAdListener = createRewardAdsCallback()
     }
 
     private fun buildHamMenu() {
@@ -77,7 +85,8 @@ class BoomMenuHandler(
                         val dialog = this
                         findViewById<Button>(R.id.btnAcceptAds).setOnClickListener {
                             dialog.dismiss()
-                            loadRewardAds()
+
+                            loadRewardAds(gameType)
                         }
 
                         findViewById<Button>(R.id.btnRefuseAds).setOnClickListener {
@@ -111,7 +120,7 @@ class BoomMenuHandler(
             }
     }
 
-    fun onLanguageChanged() {
+    fun refreshBoomMenu() {
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
         val findPairTitle = getTranslatedText(MainMenuCataEnum.FindPair)
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
@@ -122,24 +131,49 @@ class BoomMenuHandler(
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
+        val tapColorLocked = ISettingChange.isGameLocked(context, TAP_COLOR)
+        val findPairLocked = ISettingChange.isGameLocked(context, FIND_PAIR)
+        val leftRightLocked = ISettingChange.isGameLocked(context, LEFT_RIGHT)
+        val rockPaperLocked = ISettingChange.isGameLocked(context, ROCK_PAPER)
+
+        val drawableTapColor = when {
+            tapColorLocked -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
+        }
         with(boomMenu.getBuilder(0) as HamButton.Builder) {
             this.normalText(tapColorTitle)
             this.subNormalText(tapColorSubtitle)
+            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableTapColor))
         }
 
+        val drawableFindPair = when {
+            findPairLocked -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
+        }
         with(boomMenu.getBuilder(1) as HamButton.Builder) {
             this.normalText(findPairTitle)
             this.subNormalText(findPairSubtitle)
+            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableFindPair))
         }
 
+        val drawableLeftRight = when {
+            leftRightLocked -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
+        }
         with(boomMenu.getBuilder(2) as HamButton.Builder) {
             this.normalText(leftRightTitle)
             this.subNormalText(leftRightSubtitle)
+            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableLeftRight))
         }
 
+        val drawableRockPaper = when {
+            rockPaperLocked -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
+        }
         with(boomMenu.getBuilder(3) as HamButton.Builder) {
             this.normalText(rockPaperTitle)
             this.subNormalText(rockPaperSubtitle)
+            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableRockPaper))
         }
 
         refreshGameTitle()
@@ -163,60 +197,77 @@ class BoomMenuHandler(
                 }
             }
 
-    private fun loadRewardAds() {
-        val adLoadCallback = object : RewardedAdLoadCallback() {
-            override fun onRewardedAdLoaded() {
-                // Ad successfully loaded.
-                val test = ""
-            }
+    private fun loadRewardAds(gameType: Int) {
+        showSuccessToast("Trying to load video ads, please wait a few seconds!")
 
-            override fun onRewardedAdFailedToLoad(error: Int) {
-                // Ad failed to load.
-                val test = ""
-            }
-        }
         rewardedAd?.loadAd(
             context.resources.getString(R.string.ads_reward_unit_id),
             AdRequest.Builder().build()
         )
+
+        rewardedAd?.rewardedVideoAdListener = createRewardAdsCallback(gameType)
     }
 
-    private fun createRewardAdsCallback(): RewardedVideoAdListener {
+    private fun createRewardAdsCallback(gameType: Int): RewardedVideoAdListener {
         return object : RewardedVideoAdListener {
             override fun onRewardedVideoAdClosed() {
-                val test = ""
+                val isGameLocked = ISettingChange.isGameLocked(context, gameType)
+                if (isGameLocked) {
+                    showFailureToast("Video is not completed yet!!")
+                }
             }
 
             override fun onRewardedVideoAdLeftApplication() {
-                val test = ""
+                Log.w("BoomMenuHandler", "onRewardedVideoAdLeftApplication")
             }
 
             override fun onRewardedVideoAdLoaded() {
-                val test = ""
                 rewardedAd?.takeIf { it.isLoaded }?.show()
             }
 
             override fun onRewardedVideoAdOpened() {
-                val test = ""
+                Log.w("BoomMenuHandler", "onRewardedVideoAdOpened")
             }
 
             override fun onRewardedVideoCompleted() {
-                val test = ""
+                showSuccessToast("The game will be unlocked!")
+
+                ISettingChange.unlockGame(context, gameType)
+                refreshBoomMenu()
             }
 
             override fun onRewarded(p0: RewardItem?) {
-                val test = ""
+                showSuccessToast("The game is unlocked now, have fun!!")
             }
 
             override fun onRewardedVideoStarted() {
-                val test = ""
+                Log.w("BoomMenuHandler", "onRewardedVideoStarted!")
             }
 
             override fun onRewardedVideoAdFailedToLoad(p0: Int) {
-                val test = ""
+                showFailureToast("Failed to load video, please try again after a minute!")
             }
         }
     }
+
+    fun showSuccessToast(msg: String = "") = Toasty.error(
+        context, msg,
+        Toast.LENGTH_LONG,
+        true
+    ).show();
+
+    fun showFailureToast(msg: String = "") = Toasty.error(
+        context, msg,
+        Toast.LENGTH_LONG,
+        true
+    ).show()
+
+    //        Toasty.Config.getInstance()
+    //        .tintIcon(true) // optional (apply textColor also to the icon)
+    //        .setToastTypeface(DEFAULT_BOLD) // optional
+    //        .setTextSize(18) // optional
+    //        .allowQueue(true) // optional (prevents several Toastys from queuing)
+    //        .apply(); // required
 
     companion object {
         private val indexToGameTypeMap =

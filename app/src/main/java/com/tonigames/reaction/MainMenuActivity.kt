@@ -19,7 +19,6 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
-import com.google.android.gms.ads.rewarded.RewardedAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
@@ -241,6 +240,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         textViewHighScore.text = highScore
         textViewRanking.text = ranking
 
-        bmbMenuHandler?.onLanguageChanged()
+        bmbMenuHandler?.refreshBoomMenu()
     }
 }
