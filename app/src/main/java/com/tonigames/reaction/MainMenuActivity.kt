@@ -146,6 +146,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSounds()
 
         refreshHighScore()
+        bmbMenuHandler?.refreshLockState()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -21,6 +21,10 @@ import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
@@ -29,6 +33,8 @@ import com.tonigames.reaction.ISettingChange
 import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
 import es.dmoral.toasty.Toasty
+
+private const val UNLOCK_GAME_SCORE_THRESHOLD = 20
 
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
@@ -39,6 +45,7 @@ class BoomMenuHandler(
     private val gameTypeSelectCallback: () -> Unit
 ) {
     fun onCreate() {
+        refreshLockState()
         buildHamMenu()
     }
 
@@ -257,6 +264,26 @@ class BoomMenuHandler(
         ContextCompat.getDrawable(context, R.drawable.menu_info_medium),
         true
     ).show()
+
+    fun refreshLockState() {
+        val findPairLocked = ISettingChange.isGameLocked(context, FIND_PAIR)
+        val leftRightLocked = ISettingChange.isGameLocked(context, LEFT_RIGHT)
+        val rockPaperLocked = ISettingChange.isGameLocked(context, ROCK_PAPER)
+
+        val tapColorHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_TAP_COLOR)
+        val findPairHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_FIND_PAIR)
+        val leftRightHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_LEFT_RIGHT)
+
+        if (findPairLocked && tapColorHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
+            ISettingChange.unlockGame(context, FIND_PAIR)
+        }
+        if (leftRightLocked && findPairHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
+            ISettingChange.unlockGame(context, LEFT_RIGHT)
+        }
+        if (rockPaperLocked && leftRightHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
+            ISettingChange.unlockGame(context, ROCK_PAPER)
+        }
+    }
 
     companion object {
         private val indexToGameTypeMap =
