@@ -110,6 +110,7 @@
             android:background="@drawable/bg_button_border"
             android:drawableLeft="@drawable/menu_home"
             android:fontFamily="casual"
+            android:paddingStart="4dp"
             android:scaleType="fitCenter"
             android:text="Home" />
 
