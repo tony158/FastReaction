@@ -11,6 +11,7 @@ import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 
 private const val DEFAULT_TEXT = "......"
+private const val RANKING_LIMIT = 500
 
 class RefreshRankingTask(
     private var android_id: String,
@@ -29,21 +30,26 @@ class RefreshRankingTask(
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
         if (params.isEmpty()) return "param is null"
-        val sortedList = params[0]?.children?.toMutableList() ?: mutableListOf()
+        val sortedList = params[0]?.children?.toList()?.reversed() ?: listOf()
         if (sortedList.isEmpty()) return "param is null"
 
-        var ranking = 0
+        var ranking = 1
+        var found = false
         for (dataSnapshot in sortedList) {
-            if (android_id == dataSnapshot.key) break
+            if (android_id == dataSnapshot.key) {
+                found = true
+                break
+            }
+
             ranking++
         }
 
-        return "${sortedList.size - ranking} / ${sortedList.size}"
+        return if (found) "$ranking" else "> $RANKING_LIMIT"
     }
 
-    override fun onPostExecute(result: String) {
-        super.onPostExecute(result)
-        ranking?.text = result
+    override fun onPostExecute(rankingResult: String) {
+        super.onPostExecute(rankingResult)
+        ranking?.text = rankingResult
     }
 }
 
@@ -83,7 +89,9 @@ class FireBaseAccess(
 
         database.getReference(refName).child(android_id).setValue(highScoreDto)
             .addOnCompleteListener {
-                database.getReference(refName).orderByChild("score") // sorted here
+                database.getReference(refName)
+                    .orderByChild("score")  // sorted here
+                    .limitToLast(RANKING_LIMIT)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
 
