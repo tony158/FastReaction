@@ -9,7 +9,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.findpair.*
 
 class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInteractionListener {

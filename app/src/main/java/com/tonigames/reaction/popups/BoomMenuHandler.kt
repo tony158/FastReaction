@@ -20,12 +20,12 @@ import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
+import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
+import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.ISettingChange
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.SELECTED_GAME_TYPE
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
 import es.dmoral.toasty.Toasty

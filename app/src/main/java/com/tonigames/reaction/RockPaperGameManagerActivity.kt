@@ -10,7 +10,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.jeevandeshmukh.glidetoastlib.GlideToast
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.rockpaper.ResultListener
 import com.tonigames.reaction.rockpaper.RockPaperFragment
 

@@ -5,9 +5,10 @@ import android.icu.util.Calendar
 import android.os.AsyncTask
 import android.widget.TextView
 import com.google.firebase.database.*
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 
 private const val DEFAULT_TEXT = "......"
 
@@ -60,8 +61,9 @@ class FireBaseAccess(
         val refName = when (gameType) {
             TAP_COLOR -> TapColorDTO::class.java.simpleName
             FIND_PAIR -> FindPairDTO::class.java.simpleName
+            LEFT_RIGHT -> LeftRightDTO::class.java.simpleName
             ROCK_PAPER -> RockPaperDTO::class.java.simpleName
-            else -> LeftRightDTO::class.java.simpleName
+            else -> TapColorDTO::class.java.simpleName
         }
 
         //first delete the record and then add

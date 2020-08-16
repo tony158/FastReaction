@@ -13,6 +13,7 @@ import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
+import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.popups.MyLanguageEnum
@@ -106,9 +107,9 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     /** get the current language setting*/
     fun currentLanguage(): MyLanguageEnum {
         val languageIndex = context?.getSharedPreferences(
-            MainMenuActivity.Constants.SELECTED_LANGUAGE,
+            SELECTED_LANGUAGE,
             Context.MODE_PRIVATE
-        )?.getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0) ?: MyLanguageEnum.English.ordinal
+        )?.getInt(SELECTED_LANGUAGE, 0) ?: MyLanguageEnum.English.ordinal
 
         return MyLanguageEnum.fromIndex(languageIndex)
     }

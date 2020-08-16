@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.LayoutRes
+import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
 import com.tonigames.reaction.MainMenuActivity
 import com.tonigames.reaction.R
 
@@ -59,10 +60,10 @@ class LanguageSettingAdapter(
 
     fun setSelectedLanguage(selectedLanguageIndex: Int) {
         context.getSharedPreferences(
-            MainMenuActivity.Constants.SELECTED_LANGUAGE,
+            SELECTED_LANGUAGE,
             Context.MODE_PRIVATE
         )?.edit()
-            ?.putInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, selectedLanguageIndex)    //
+            ?.putInt(SELECTED_LANGUAGE, selectedLanguageIndex)    //
             ?.commit()
 
         languageDataList.clear()
@@ -74,10 +75,10 @@ class LanguageSettingAdapter(
     private fun initDataList(): MutableList<LanguageSettingModel> {
 
         var selectedIndex = context.getSharedPreferences(
-            MainMenuActivity.Constants.SELECTED_LANGUAGE,
+            SELECTED_LANGUAGE,
             Context.MODE_PRIVATE
         )
-            .getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
+            .getInt(SELECTED_LANGUAGE, 0)
             .run {
                 this.coerceAtMost(MAX_LANGUAGE_COUNT).coerceAtLeast(0)
             }

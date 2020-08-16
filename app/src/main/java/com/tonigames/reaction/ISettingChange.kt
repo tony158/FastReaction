@@ -3,14 +3,15 @@ package com.tonigames.reaction
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LOCKED_TAP_COLOR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
+import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.LOCKED_FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.LOCKED_LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.LOCKED_ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.LOCKED_TAP_COLOR
+import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
+import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 interface ISettingChange {
@@ -120,9 +121,9 @@ interface ISettingChange {
                 }
         }
 
-        fun getHighScore(context: Context, gameType: String = "") =
-            context.getSharedPreferences(gameType, Context.MODE_PRIVATE).run {
-                getInt(gameType, 0)
+        fun getHighScore(context: Context, highScoreType: String = "") =
+            context.getSharedPreferences(highScoreType, Context.MODE_PRIVATE).run {
+                getInt(highScoreType, 0)
             }
 
         fun saveHighScore(context: Context, score: Int, highScoreType: String) {
@@ -132,6 +133,13 @@ interface ISettingChange {
                     .commit()
             }
         }
+
+        val gameTypeToHighScoreTypeMap = mapOf<Int, String>(
+            TAP_COLOR to Constants.HIGH_SCORE_TAP_COLOR,
+            FIND_PAIR to Constants.HIGH_SCORE_FIND_PAIR,
+            LEFT_RIGHT to Constants.HIGH_SCORE_LEFT_RIGHT,
+            ROCK_PAPER to Constants.HIGH_SCORE_ROCK_PAPER
+        )
 
         private val gameTypeToLockTypeMap = mapOf<Int, String>(
             TAP_COLOR to LOCKED_TAP_COLOR,
@@ -162,15 +170,38 @@ interface ISettingChange {
         /** get the current language from preference */
         fun currentLanguage(context: ContextWrapper): MyLanguageEnum {
             val languageIndex = context.getSharedPreferences(
-                MainMenuActivity.Constants.SELECTED_LANGUAGE,
+                SELECTED_LANGUAGE,
                 Context.MODE_PRIVATE
-            ).getInt(MainMenuActivity.Constants.SELECTED_LANGUAGE, 0)
+            ).getInt(SELECTED_LANGUAGE, 0)
 
             return MyLanguageEnum.fromIndex(languageIndex)
         }
     }
 
     fun onLanguageChanged()
+}
+
+class Constants {
+    companion object {
+        const val SELECTED_GAME_TYPE: String = "GameType"
+
+        const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
+        const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
+        const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
+        const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
+
+        const val LOCKED_TAP_COLOR: String = "LockedTapColor"
+        const val LOCKED_FIND_PAIR: String = "LockedFindPair"
+        const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
+        const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
+
+        const val TAP_COLOR: Int = 0
+        const val FIND_PAIR: Int = 1
+        const val LEFT_RIGHT: Int = 2
+        const val ROCK_PAPER: Int = 3
+
+        const val SELECTED_LANGUAGE = "SelectedLanguage"
+    }
 }
 
 enum class MainMenuCataEnum {

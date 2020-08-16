@@ -19,16 +19,14 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
+import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
+import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
+import com.tonigames.reaction.Constants.Companion.TAP_COLOR
+import com.tonigames.reaction.ISettingChange.Companion.gameTypeToHighScoreTypeMap
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.SELECTED_GAME_TYPE
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.TAP_COLOR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.ROCK_PAPER
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
@@ -116,16 +114,17 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun gotoNextActivity() {
-        val targetActivity = when (getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(
-            SELECTED_GAME_TYPE,
-            TAP_COLOR
-        )) {
-            TAP_COLOR -> TapColorGameManagerActivity::class.java
-            FIND_PAIR -> FindPairGameManagerActivity::class.java
-            LEFT_RIGHT -> LeftRightGameManagerActivity::class.java
-            ROCK_PAPER -> RockPaperGameManagerActivity::class.java
-            else -> TapColorGameManagerActivity::class.java
-        }
+        val targetActivity =
+            when (getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(
+                SELECTED_GAME_TYPE,
+                TAP_COLOR
+            )) {
+                TAP_COLOR -> TapColorGameManagerActivity::class.java
+                FIND_PAIR -> FindPairGameManagerActivity::class.java
+                LEFT_RIGHT -> LeftRightGameManagerActivity::class.java
+                ROCK_PAPER -> RockPaperGameManagerActivity::class.java
+                else -> TapColorGameManagerActivity::class.java
+            }
 
         interstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
@@ -172,30 +171,8 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         }
     }
 
-    private fun getHighScore(gameType: String = "") = ISettingChange.getHighScore(this, gameType)
-
-    class Constants {
-        companion object {
-            const val SELECTED_GAME_TYPE: String = "GameType"
-
-            const val HIGH_SCORE_TAP_COLOR: String = "HighScoreTapColor"
-            const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
-            const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
-            const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
-
-            const val LOCKED_TAP_COLOR: String = "LockedTapColor"
-            const val LOCKED_FIND_PAIR: String = "LockedFindPair"
-            const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
-            const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
-
-            const val TAP_COLOR: Int = 0
-            const val FIND_PAIR: Int = 1
-            const val LEFT_RIGHT: Int = 2
-            const val ROCK_PAPER: Int = 3
-
-            const val SELECTED_LANGUAGE = "SelectedLanguage"
-        }
-    }
+    private fun getHighScore(highScoreType: String = "") =
+        ISettingChange.getHighScore(this, highScoreType)
 
     override fun onStop() {
         super.onStop()
@@ -214,17 +191,14 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun refreshHighScore() {
-        getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(SELECTED_GAME_TYPE, TAP_COLOR).run {
-            val gameType = when (this) {
-                TAP_COLOR -> HIGH_SCORE_TAP_COLOR
-                FIND_PAIR -> HIGH_SCORE_FIND_PAIR
-                LEFT_RIGHT -> HIGH_SCORE_LEFT_RIGHT
-                ROCK_PAPER -> HIGH_SCORE_ROCK_PAPER
-                else -> HIGH_SCORE_TAP_COLOR
-            }
+        getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).getInt(
+            SELECTED_GAME_TYPE,
+            TAP_COLOR
+        ).run {
+            val highScoreType = gameTypeToHighScoreTypeMap.getOrDefault(this, HIGH_SCORE_TAP_COLOR)
 
-            score.text = getHighScore(gameType).toString()
-            fireBaseAccess.updateScore(this, getHighScore(gameType))
+            score.text = getHighScore(highScoreType).toString()
+            fireBaseAccess.updateScore(this, getHighScore(highScoreType))
         }
     }
 

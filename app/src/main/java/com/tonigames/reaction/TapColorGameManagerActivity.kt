@@ -11,7 +11,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.jeevandeshmukh.glidetoastlib.GlideToast
-import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.tapcolor.FragmentInteractionListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
