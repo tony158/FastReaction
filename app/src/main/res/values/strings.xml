@@ -36,7 +36,7 @@
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
     <string name="gameLocked_msg_english">To unlock this game, you need to get high score 50 in last game,
-        or watch a short ads video to unlock it</string>
+        or watch a short ads video</string>
     <string name="reward_load_failed_msg_english">Failed to load ads, please try again later</string>
     <string name="reward_earned_msg_english">Game is unlocked now!</string>
     <string name="wait_loading_video_english">Wait a few seconds please, trying to load video!</string>

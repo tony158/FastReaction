@@ -65,9 +65,9 @@
             android:background="@drawable/bg_button_border"
             android:drawableLeft="@drawable/menu_accept"
             android:fontFamily="casual"
-            android:paddingStart="4dp"
+            android:paddingStart="8dp"
             android:scaleType="fitCenter"
-            android:text="Yes,OK" />
+            android:text="Yes,watch" />
 
         <Button
             android:id="@+id/btnRefuseAds"
@@ -82,7 +82,7 @@
             android:background="@drawable/bg_button_border"
             android:drawableLeft="@drawable/menu_refuse"
             android:fontFamily="casual"
-            android:paddingStart="4dp"
+            android:paddingStart="8dp"
             android:scaleType="fitCenter"
             android:text="No,thanks" />
     </LinearLayout>

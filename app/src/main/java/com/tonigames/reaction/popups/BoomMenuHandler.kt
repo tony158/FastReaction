@@ -34,7 +34,7 @@ import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
 import es.dmoral.toasty.Toasty
 
-private const val UNLOCK_GAME_SCORE_THRESHOLD = 20
+private const val UNLOCK_GAME_SCORE_THRESHOLD = 50
 
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
