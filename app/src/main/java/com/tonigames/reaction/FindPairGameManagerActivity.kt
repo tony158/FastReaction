@@ -5,12 +5,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.jeevandeshmukh.glidetoastlib.GlideToast.*
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.findpair.*
 
@@ -79,7 +77,7 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInter
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_FIND_PAIR))
+            configGameOverDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_FIND_PAIR))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

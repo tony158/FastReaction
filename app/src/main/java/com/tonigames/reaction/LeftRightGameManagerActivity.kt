@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
@@ -101,7 +100,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_LEFT_RIGHT))
+            configGameOverDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_LEFT_RIGHT))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

@@ -60,21 +60,22 @@ class BoomMenuHandler(
                 val gameType = indexToGameTypeMap.getOrDefault(index, TAP_COLOR)
                 val isGameLocked = ISettingChange.isGameLocked(context, gameType)
 
-//                if (!isGameLocked) {
-                context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).apply {
-                    edit().putInt(GAME_TYPE, gameType).commit()
+                if (!isGameLocked) {
+                    context.getSharedPreferences(GAME_TYPE, Context.MODE_PRIVATE).edit()
+                        .putInt(GAME_TYPE, gameType).commit()
+
+                    refreshGameTitle()
+                    gameTypeSelectCallback.invoke()
+                } else {
+                    // game is locked, show popup of ads
+
+
                 }
-                refreshGameTitle()
-                gameTypeSelectCallback.invoke()
-//                } else {
-//                    // game is locked, show popup of ads
-//
-//                }
             }
         }
     }
 
-    private fun addBuilderBMB(text: String, subText: String, gameType: Int = TAP_COLOR) {
+    private fun addBuilderBMB(title: String, subTitle: String, gameType: Int = TAP_COLOR) {
         val drawableIcon = when {
             ISettingChange.isGameLocked(context, gameType) -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
@@ -84,9 +85,9 @@ class BoomMenuHandler(
         HamButton.Builder()
             .imagePadding(Rect(20, 20, 20, 20))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
-            .normalText(text)
-//            .normalColor(Color.GRAY)        // color of button can be set here
-            .subNormalText(subText)
+            .normalText(title)
+            //.normalColor(Color.GRAY)        // color of button can be set here
+            .subNormalText(subTitle)
             .shadowColor(Color.BLACK)
             .pieceColor(Color.BLACK).apply {
                 boomMenu.addBuilder(this)

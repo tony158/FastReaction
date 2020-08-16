@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -57,7 +56,7 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_ROCK_PAPER))
+            configGameOverDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_ROCK_PAPER))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

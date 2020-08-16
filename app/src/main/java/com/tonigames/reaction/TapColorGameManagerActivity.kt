@@ -2,11 +2,9 @@ package com.tonigames.reaction
 
 import android.animation.Animator
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
@@ -84,7 +82,7 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_TAP_COLOR))
+            configGameOverDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_TAP_COLOR))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

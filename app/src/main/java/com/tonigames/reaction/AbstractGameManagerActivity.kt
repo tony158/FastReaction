@@ -87,7 +87,7 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
         GlideToast.BOTTOM
     ).show()
 
-    fun configDialog(
+    fun configGameOverDialog(
         dialog: MaterialDialog,
         title: String = "",
         score: Int = 0,
