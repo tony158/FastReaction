@@ -106,7 +106,7 @@ class BoomMenuHandler(
 
         @Suppress("DEPRECATION")
         HamButton.Builder()
-            .imagePadding(Rect(20, 20, 20, 20))
+            .imagePadding(Rect(20, 30, 20, 30))
             .normalImageDrawable(ContextCompat.getDrawable(context, drawableIcon))
             .normalText(title)
             //.normalColor(Color.GRAY)        // color of button can be set here
@@ -274,15 +274,21 @@ class BoomMenuHandler(
         val findPairHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_FIND_PAIR)
         val leftRightHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_LEFT_RIGHT)
 
+        var hasGameUnlocked = false
         if (findPairLocked && tapColorHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
             ISettingChange.unlockGame(context, FIND_PAIR)
+            hasGameUnlocked = true
         }
         if (leftRightLocked && findPairHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
             ISettingChange.unlockGame(context, LEFT_RIGHT)
+            hasGameUnlocked = true
         }
         if (rockPaperLocked && leftRightHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
             ISettingChange.unlockGame(context, ROCK_PAPER)
+            hasGameUnlocked = true
         }
+
+        if (hasGameUnlocked) refreshBoomMenu()
     }
 
     companion object {
