@@ -17,6 +17,8 @@ import com.daimajia.androidanimations.library.YoYo
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
 import com.tonigames.reaction.MainMenuActivity.Constants.Companion.GAME_TYPE
@@ -36,7 +38,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainMenuActivity : AppCompatActivity(), ISettingChange {
     private var interstitialAd: InterstitialAd? = null
     private var soundBtnClick: MediaPlayer? = null
-    private var rewardedAd: RewardedAd? = null
+    private var rewardedAd: RewardedVideoAd? = null
 
     private var bmbMenuHandler: BoomMenuHandler? = null
     private lateinit var fireBaseAccess: FireBaseAccess
@@ -45,6 +47,9 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this, resources.getString(R.string.ads_reward_unit_id))
+        rewardedAd = MobileAds.getRewardedVideoAdInstance(this)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
@@ -65,8 +70,6 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
         initSettingButton()
 
         bindEventHandlerStartButton()
-
-        rewardedAd = RewardedAd(this, resources.getString(R.string.ads_interstitial_unit_id))
 
         fireBaseAccess = Secure.getString(contentResolver, Secure.ANDROID_ID).run {
             FireBaseAccess(this, textViewRank)
@@ -224,6 +227,10 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
             score.text = getHighScore(gameType).toString()
             fireBaseAccess.updateScore(this, getHighScore(gameType))
         }
+    }
+
+    private fun showWatchAdsPopup() {
+
     }
 
     override fun onLanguageChanged() {

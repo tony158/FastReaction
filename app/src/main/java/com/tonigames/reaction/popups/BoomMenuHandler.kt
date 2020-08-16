@@ -1,18 +1,19 @@
 package com.tonigames.reaction.popups
 
-import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Color
 import android.graphics.Rect
 import android.media.MediaPlayer
+import android.widget.Button
 import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.core.content.ContextCompat
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.customview.customView
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.rewarded.RewardItem
-import com.google.android.gms.ads.rewarded.RewardedAd
-import com.google.android.gms.ads.rewarded.RewardedAdCallback
+import com.google.android.gms.ads.reward.RewardItem
+import com.google.android.gms.ads.reward.RewardedVideoAd
+import com.google.android.gms.ads.reward.RewardedVideoAdListener
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
@@ -32,10 +33,13 @@ class BoomMenuHandler(
     private val gameTitle: TextView,
     private val context: ContextWrapper,
     private val soundBtnClick: MediaPlayer?,
-    private val rewardedAd: RewardedAd?,
+    private val rewardedAd: RewardedVideoAd?,
     private val gameTypeSelectCallback: () -> Unit
 ) {
-    fun onCreate() = buildHamMenu()
+    fun onCreate() {
+        buildHamMenu()
+        rewardedAd?.rewardedVideoAdListener = createRewardAdsCallback()
+    }
 
     private fun buildHamMenu() {
         val tapColorTitle = getTranslatedText(MainMenuCataEnum.TapColor)
@@ -68,8 +72,18 @@ class BoomMenuHandler(
                     gameTypeSelectCallback.invoke()
                 } else {
                     // game is locked, show popup of ads
+                    MaterialDialog(context).customView(R.layout.ask_watch_ads_popup).show {
+                        cornerRadius(10f)
+                        val dialog = this
+                        findViewById<Button>(R.id.btnAcceptAds).setOnClickListener {
+                            dialog.dismiss()
+                            loadRewardAds()
+                        }
 
-
+                        findViewById<Button>(R.id.btnRefuseAds).setOnClickListener {
+                            dialog.dismiss()
+                        }
+                    }
                 }
             }
         }
@@ -153,34 +167,55 @@ class BoomMenuHandler(
         val adLoadCallback = object : RewardedAdLoadCallback() {
             override fun onRewardedAdLoaded() {
                 // Ad successfully loaded.
+                val test = ""
             }
 
             override fun onRewardedAdFailedToLoad(error: Int) {
                 // Ad failed to load.
+                val test = ""
             }
         }
-        rewardedAd?.loadAd(AdRequest.Builder().build(), adLoadCallback)
+        rewardedAd?.loadAd(
+            context.resources.getString(R.string.ads_reward_unit_id),
+            AdRequest.Builder().build()
+        )
     }
 
-    private fun showRewardAds() {
-        val adCallback = object : RewardedAdCallback() {
-            override fun onRewardedAdOpened() {
-                // Ad opened.
+    private fun createRewardAdsCallback(): RewardedVideoAdListener {
+        return object : RewardedVideoAdListener {
+            override fun onRewardedVideoAdClosed() {
+                val test = ""
             }
 
-            override fun onRewardedAdClosed() {
-                // Ad closed.
+            override fun onRewardedVideoAdLeftApplication() {
+                val test = ""
             }
 
-            override fun onUserEarnedReward(@NonNull reward: RewardItem) {
-                // User earned reward.
+            override fun onRewardedVideoAdLoaded() {
+                val test = ""
+                rewardedAd?.takeIf { it.isLoaded }?.show()
             }
 
-            override fun onRewardedAdFailedToShow(msg: Int) {
-                // Ad failed to display.
+            override fun onRewardedVideoAdOpened() {
+                val test = ""
+            }
+
+            override fun onRewardedVideoCompleted() {
+                val test = ""
+            }
+
+            override fun onRewarded(p0: RewardItem?) {
+                val test = ""
+            }
+
+            override fun onRewardedVideoStarted() {
+                val test = ""
+            }
+
+            override fun onRewardedVideoAdFailedToLoad(p0: Int) {
+                val test = ""
             }
         }
-        rewardedAd?.show(context as Activity, adCallback)   // ??????? convert
     }
 
     companion object {
