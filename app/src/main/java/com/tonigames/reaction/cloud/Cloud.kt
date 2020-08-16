@@ -30,13 +30,14 @@ class RefreshRankingTask(
 
     override fun doInBackground(vararg params: DataSnapshot?): String {
         if (params.isEmpty()) return "param is null"
-        val sortedList = params[0]?.children?.toList()?.reversed() ?: listOf()
+        val sortedList = params[0]?.children?.toList() ?: listOf()
         if (sortedList.isEmpty()) return "param is null"
 
         var ranking = 1
         var found = false
-        for (dataSnapshot in sortedList) {
-            if (android_id == dataSnapshot.key) {
+
+        for (i in (sortedList.size - 1) downTo 0) {
+            if (android_id == sortedList[i].key) {
                 found = true
                 break
             }
