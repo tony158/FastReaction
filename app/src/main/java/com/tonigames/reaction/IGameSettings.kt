@@ -14,7 +14,7 @@ import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
 import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 import com.tonigames.reaction.popups.MyLanguageEnum
 
-interface ISettingChange {
+interface IGameSettings {
 
     companion object {
         private val englishMap = mapOf(

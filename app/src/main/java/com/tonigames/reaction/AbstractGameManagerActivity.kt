@@ -41,11 +41,11 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
     }
 
     // get the high score from Persistence
-    fun getHighScore(highScoreType: String) = ISettingChange.getHighScore(this, highScoreType)
+    fun getHighScore(highScoreType: String) = IGameSettings.getHighScore(this, highScoreType)
 
     //when score is higher than the current highest score, then save it
     fun saveHighScore(score: Int, highScoreType: String) =
-        ISettingChange.saveHighScore(this, score, highScoreType)
+        IGameSettings.saveHighScore(this, score, highScoreType)
 
     override fun onResume() {
         super.onResume()

@@ -23,13 +23,12 @@ import com.nightonke.boommenu.OnBoomListenerAdapter
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
-import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
 import com.tonigames.reaction.Constants.Companion.TAP_COLOR
-import com.tonigames.reaction.ISettingChange
+import com.tonigames.reaction.IGameSettings
 import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
 import es.dmoral.toasty.Toasty
@@ -70,7 +69,7 @@ class BoomMenuHandler(
                 super.onClicked(index, boomButton)
 
                 val gameType = indexToGameTypeMap.getOrDefault(index, TAP_COLOR)
-                val isGameLocked = ISettingChange.isGameLocked(context, gameType)
+                val isGameLocked = IGameSettings.isGameLocked(context, gameType)
 
                 if (!isGameLocked) {
                     context.getSharedPreferences(SELECTED_GAME_TYPE, Context.MODE_PRIVATE).edit()
@@ -100,7 +99,7 @@ class BoomMenuHandler(
 
     private fun addBuilderBMB(title: String, subTitle: String, gameType: Int = TAP_COLOR) {
         val drawableIcon = when {
-            ISettingChange.isGameLocked(context, gameType) -> R.drawable.menu_locked
+            IGameSettings.isGameLocked(context, gameType) -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
 
@@ -127,10 +126,10 @@ class BoomMenuHandler(
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
 
-        val tapColorLocked = ISettingChange.isGameLocked(context, TAP_COLOR)
-        val findPairLocked = ISettingChange.isGameLocked(context, FIND_PAIR)
-        val leftRightLocked = ISettingChange.isGameLocked(context, LEFT_RIGHT)
-        val rockPaperLocked = ISettingChange.isGameLocked(context, ROCK_PAPER)
+        val tapColorLocked = IGameSettings.isGameLocked(context, TAP_COLOR)
+        val findPairLocked = IGameSettings.isGameLocked(context, FIND_PAIR)
+        val leftRightLocked = IGameSettings.isGameLocked(context, LEFT_RIGHT)
+        val rockPaperLocked = IGameSettings.isGameLocked(context, ROCK_PAPER)
 
         val drawableTapColor = when {
             tapColorLocked -> R.drawable.menu_locked
@@ -175,9 +174,9 @@ class BoomMenuHandler(
         refreshGameTitle()
     }
 
-    private fun getTranslatedText(cateEnum: MainMenuCataEnum) = ISettingChange.translatedMenuText(
+    private fun getTranslatedText(cateEnum: MainMenuCataEnum) = IGameSettings.translatedMenuText(
         context.resources,
-        ISettingChange.currentLanguage(context),
+        IGameSettings.currentLanguage(context),
         cateEnum
     )
 
@@ -208,9 +207,9 @@ class BoomMenuHandler(
     private fun createRewardAdsCallback(gameType: Int): RewardedVideoAdListener {
         return object : RewardedVideoAdListener {
             override fun onRewardedVideoAdClosed() {
-                val isGameLocked = ISettingChange.isGameLocked(context, gameType)
+                val isGameLocked = IGameSettings.isGameLocked(context, gameType)
                 if (isGameLocked) {
-                    showFailureToast("Video is not completed yet!!")
+                    showFailureToast("Video is not completed yet!")
                 }
             }
 
@@ -229,12 +228,12 @@ class BoomMenuHandler(
             override fun onRewardedVideoCompleted() {
                 showSuccessToast("The game will be unlocked!")
 
-                ISettingChange.unlockGame(context, gameType)
+                IGameSettings.unlockGame(context, gameType)
                 refreshBoomMenu()
             }
 
             override fun onRewarded(p0: RewardItem?) {
-                showSuccessToast("The game is unlocked now, have fun!!")
+                showSuccessToast("The game is unlocked now, have fun!")
             }
 
             override fun onRewardedVideoStarted() {
@@ -262,25 +261,25 @@ class BoomMenuHandler(
     ).show()
 
     fun refreshLockState() {
-        val findPairLocked = ISettingChange.isGameLocked(context, FIND_PAIR)
-        val leftRightLocked = ISettingChange.isGameLocked(context, LEFT_RIGHT)
-        val rockPaperLocked = ISettingChange.isGameLocked(context, ROCK_PAPER)
+        val findPairLocked = IGameSettings.isGameLocked(context, FIND_PAIR)
+        val leftRightLocked = IGameSettings.isGameLocked(context, LEFT_RIGHT)
+        val rockPaperLocked = IGameSettings.isGameLocked(context, ROCK_PAPER)
 
-        val tapColorHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_TAP_COLOR)
-        val findPairHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_FIND_PAIR)
-        val leftRightHighScore = ISettingChange.getHighScore(context, HIGH_SCORE_LEFT_RIGHT)
+        val tapColorHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_TAP_COLOR)
+        val findPairHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_FIND_PAIR)
+        val leftRightHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_LEFT_RIGHT)
 
         var hasGameUnlocked = false
         if (findPairLocked && tapColorHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
-            ISettingChange.unlockGame(context, FIND_PAIR)
+            IGameSettings.unlockGame(context, FIND_PAIR)
             hasGameUnlocked = true
         }
         if (leftRightLocked && findPairHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
-            ISettingChange.unlockGame(context, LEFT_RIGHT)
+            IGameSettings.unlockGame(context, LEFT_RIGHT)
             hasGameUnlocked = true
         }
         if (rockPaperLocked && leftRightHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
-            ISettingChange.unlockGame(context, ROCK_PAPER)
+            IGameSettings.unlockGame(context, ROCK_PAPER)
             hasGameUnlocked = true
         }
 

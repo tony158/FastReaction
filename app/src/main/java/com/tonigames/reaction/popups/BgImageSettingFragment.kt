@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.ListView
 import androidx.fragment.app.DialogFragment
-import com.tonigames.reaction.ISettingChange
+import com.tonigames.reaction.IGameSettings
 
 import com.tonigames.reaction.R
 
-class BgImageSettingFragment(private val settingListener: ISettingChange) : DialogFragment() {
+class BgImageSettingFragment(private val settingListener: IGameSettings) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -25,14 +25,14 @@ import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
 import com.tonigames.reaction.Constants.Companion.TAP_COLOR
-import com.tonigames.reaction.ISettingChange.Companion.gameTypeToHighScoreTypeMap
-import com.tonigames.reaction.ISettingChange.Companion.translatedMenuText
+import com.tonigames.reaction.IGameSettings.Companion.gameTypeToHighScoreTypeMap
+import com.tonigames.reaction.IGameSettings.Companion.translatedMenuText
 import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainMenuActivity : AppCompatActivity(), ISettingChange {
+class MainMenuActivity : AppCompatActivity(), IGameSettings {
     private var interstitialAd: InterstitialAd? = null
     private var soundBtnClick: MediaPlayer? = null
     private var rewardedAd: RewardedVideoAd? = null
@@ -47,6 +47,10 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
 
         MobileAds.initialize(this, resources.getString(R.string.ads_reward_unit_id))
         rewardedAd = MobileAds.getRewardedVideoAdInstance(this)
+        interstitialAd = InterstitialAd(this).apply {
+            adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
+            loadAd(AdRequest.Builder().build())
+        }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
@@ -173,7 +177,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     private fun getHighScore(highScoreType: String = "") =
-        ISettingChange.getHighScore(this, highScoreType)
+        IGameSettings.getHighScore(this, highScoreType)
 
     override fun onStop() {
         super.onStop()
@@ -208,7 +212,7 @@ class MainMenuActivity : AppCompatActivity(), ISettingChange {
     }
 
     override fun onLanguageChanged() {
-        val currLanguage = ISettingChange.currentLanguage(this)
+        val currLanguage = IGameSettings.currentLanguage(this)
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
         val ranking = translatedMenuText(resources, currLanguage, MainMenuCataEnum.Ranking)
 

@@ -11,10 +11,10 @@ import androidx.fragment.app.DialogFragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
-import com.tonigames.reaction.ISettingChange
+import com.tonigames.reaction.IGameSettings
 import com.tonigames.reaction.R
 
-class LanguageSettingFragment(private val settingListener: ISettingChange) : DialogFragment() {
+class LanguageSettingFragment(private val settingListener: IGameSettings) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
