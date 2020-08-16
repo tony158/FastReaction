@@ -10,6 +10,8 @@
     <string name="score_rank_text">Score rank:</string>
     <string name="more_app_menu">more_app_menu</string>
     <string name="game_type">game_type</string>
+    <string name="ads_ok">OK,fine</string>
+    <string name="ads_not_ok">No,thanks</string>
 
     <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
 
@@ -39,7 +41,7 @@
         or watch a short ads video</string>
     <string name="reward_load_failed_msg_english">Failed to load ads, please try again later</string>
     <string name="reward_earned_msg_english">Game is unlocked now!</string>
-    <string name="wait_loading_video_english">Wait a few seconds please, trying to load video!</string>
+    <string name="wait_loading_video_english">Wait a few seconds please, trying to load video......</string>
 
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>

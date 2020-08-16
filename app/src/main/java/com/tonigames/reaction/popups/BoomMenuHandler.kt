@@ -83,12 +83,14 @@ class BoomMenuHandler(
                         cornerRadius(10f)
                         val dialog = this
                         findViewById<Button>(R.id.btnAcceptAds).setOnClickListener {
+                            soundBtnClick?.start()
                             dialog.dismiss()
 
                             loadRewardAds(gameType)
                         }
 
                         findViewById<Button>(R.id.btnRefuseAds).setOnClickListener {
+                            soundBtnClick?.start()
                             dialog.dismiss()
                         }
                     }
@@ -256,7 +258,7 @@ class BoomMenuHandler(
         context,
         R.string.wait_loading_video_english,
         Toast.LENGTH_LONG,
-        ContextCompat.getDrawable(context, R.drawable.menu_info_medium),
+        ContextCompat.getDrawable(context, R.drawable.menu_clock),
         true
     ).show()
 
