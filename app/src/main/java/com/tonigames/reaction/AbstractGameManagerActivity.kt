@@ -79,7 +79,7 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
         soundNegative = MediaPlayer.create(this, R.raw.negative_beeps)
     }
 
-    fun showSuccessToast(duration: Int = GlideToast.LENGTHMEDIUM) = GlideToast.makeToast(
+    fun showSuccessToast(duration: Int = GlideToast.LENGTHSHORT) = GlideToast.makeToast(
         this,
         "Correct!!",
         duration,

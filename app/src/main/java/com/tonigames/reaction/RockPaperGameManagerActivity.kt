@@ -33,7 +33,7 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
     override fun onCorrectSelection() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSelection }
 
-        showSuccessToast(GlideToast.LENGTHSHORT)
+        showSuccessToast()
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()

@@ -100,7 +100,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configGameOverDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_LEFT_RIGHT))
+            configGameOverDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_LEFT_RIGHT))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -138,7 +138,7 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onSuccess }
 
         if (mRoundCnt >= 0) {
-            showSuccessToast(GlideToast.LENGTHSHORT)
+            showSuccessToast()
 
             soundPositive?.takeIf { it.isPlaying }?.stop()
             soundPositive?.start()

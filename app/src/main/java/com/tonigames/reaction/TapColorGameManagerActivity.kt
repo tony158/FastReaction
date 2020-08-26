@@ -50,7 +50,7 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
     override fun onCorrectColorSelected() {
         mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
 
-        showSuccessToast(GlideToast.LENGTHMEDIUM)
+        showSuccessToast()
 
         soundPositive?.takeIf { it.isPlaying }?.stop()
         soundPositive?.start()
