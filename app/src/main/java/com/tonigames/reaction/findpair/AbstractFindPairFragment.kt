@@ -12,10 +12,10 @@ import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
-import com.tonigames.reaction.findpair.IFindPairFragment.Companion.allDrawables
+import com.tonigames.reaction.findpair.IImageFragment.Companion.allDrawables
 
 abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
-    IFindPairFragment {
+    IImageFragment {
 
     protected val roundArgument: String = "Round"
     protected val extraArgument: String = "Extra"
