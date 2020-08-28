@@ -12,7 +12,7 @@ import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.findpair.*
 
-class FindPairGameManagerActivity : AbstractGameManagerActivity(), FindPairInteractionListener {
+class FindPairGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
 
     private var mCurrFragment: AbstractFindPairFragment? = null
 

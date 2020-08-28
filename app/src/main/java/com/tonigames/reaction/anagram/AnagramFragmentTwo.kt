@@ -1,32 +1,55 @@
 package com.tonigames.reaction.anagram
 
+import android.animation.Animator
+import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tonigames.reaction.R
+import com.tonigames.reaction.findpair.AnswerSelectListener
+import kotlinx.android.synthetic.main.fragment_find_pair_two.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+private const val DURATION = 2200L
 
-class AnagramFragmentTwo(contentLayoutId: Int) : AbstractAnagramFragment(contentLayoutId) {
-    private var param1: String? = null
-    private var param2: String? = null
+class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    override var seekBarAnimator: Animator? = null
+    override var gameOverListener: AnswerSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_anagram_two, container, false)
+        val view = inflater.inflate(R.layout.fragment_anagram_two, container, false)
+
+        return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tvRoundCnt?.run {
+            setTextColor(Color.parseColor("#FFA07A"))
+            text = paramRound.toString()
+        }
+
+        seekBarAnimator = initSeekBarAnimator(
+            reduceDuration(DURATION, paramRound),
+            progressBar,
+            gameOverListener
+        ).also {
+            it.start()
+        }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) = AnagramFragmentTwo()
+            .apply {
+                arguments = Bundle().apply {
+                    putString(roundArgument, param1)
+                    putString(extraArgument, param2)
+                }
+            }
     }
 }

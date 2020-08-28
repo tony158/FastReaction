@@ -17,8 +17,8 @@ import com.tonigames.reaction.findpair.IImageFragment.Companion.allDrawables
 abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
     IImageFragment {
 
-    protected val roundArgument: String = "Round"
-    protected val extraArgument: String = "Extra"
+    val roundArgument: String = "Round"
+    val extraArgument: String = "Extra"
 
     var paramRound: Int = 0
     var paramExtra: String? = null
@@ -29,7 +29,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     private var allImageButtons: List<ImageButton> = listOf()
     private val checkedToggles: MutableList<ToggleButton> = mutableListOf()
 
-    abstract var gameOverListener: FindPairInteractionListener?
+    abstract var gameOverListener: AnswerSelectListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,7 +127,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is FindPairInteractionListener) {
+        if (context is AnswerSelectListener) {
             gameOverListener = context
         }
     }
@@ -141,7 +141,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
     fun initSeekBarAnimator(
         animationTime: Long,
         progressBar: SeekBar? = null,
-        onFinishListener: FindPairInteractionListener? = null
+        onFinishListener: AnswerSelectListener? = null
     ): Animator {
         progressBar?.max = 100
         progressBar?.progress = 0

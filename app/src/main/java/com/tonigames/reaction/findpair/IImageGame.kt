@@ -3,7 +3,7 @@ package com.tonigames.reaction.findpair
 import com.tonigames.reaction.R
 import java.util.*
 
-interface FindPairInteractionListener {
+interface AnswerSelectListener {
     fun onCorrectPairSelected()
 
     // wrong answer or time's up

@@ -19,7 +19,7 @@ class FindPairFragmentFour : AbstractFindPairFragment(R.layout.fragment_find_pai
 
     override var seekBarAnimator: Animator? = null
     override var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>> = mapOf()
-    override var gameOverListener: FindPairInteractionListener? = null
+    override var gameOverListener: AnswerSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
