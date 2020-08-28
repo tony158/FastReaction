@@ -10,38 +10,37 @@
     <string name="score_rank_text">Score rank:</string>
     <string name="more_app_menu">more_app_menu</string>
     <string name="game_type">game_type</string>
-    <string name="ads_ok">OK,fine</string>
+    <string name="ads_ok">Open by ads</string>
     <string name="ads_not_ok">No,thanks</string>
 
     <string name="ads_app_id">ca-app-pub-6275033303840302~7276774812</string>
 
-    <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
-    <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
-    <string name="ads_reward_unit_id">ca-app-pub-6275033303840302/2967032123</string>
-
     <!--
-        &lt;!&ndash;test id&ndash;&gt;
-        <string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-        &lt;!&ndash;test id&ndash;&gt;
-        <string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
-        &lt;!&ndash;test id&ndash;&gt;
-        <string name="ads_reward_unit_id">ca-app-pub-3940256099942544/5224354917</string>
+        <string name="ads_banner_unit_id">ca-app-pub-6275033303840302/9739286622</string>
+        <string name="ads_interstitial_unit_id">ca-app-pub-6275033303840302/9519794777</string>
+        <string name="ads_reward_unit_id">ca-app-pub-6275033303840302/2967032123</string>
     -->
+
+    <!--test id-->
+    <string name="ads_banner_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!--test id-->
+    <string name="ads_interstitial_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!--test id-->
+    <string name="ads_reward_unit_id">ca-app-pub-3940256099942544/5224354917</string>
 
     <!-- main menu text start -->
     <string name="tap_color_english">Tap Color</string>
     <string name="find_pair_english">Find Pair</string>
     <string name="left_or_right_english">Left or Right</string>
     <string name="rock_paper_english">Rock Paper Scissors</string>
-    <string name="tap_color_description_english">Tap on correct  Color</string>
+    <string name="tap_color_description_english">Tap on correct Color</string>
     <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
     <string name="rock_paper_description_english">Select gesture to win</string>
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>
-    <string name="gameLocked_msg_english">To unlock this game, you need to get high score 50 in last game,
-        or watch a short ads video</string>
+    <string name="gameLocked_msg_english">To unlock this game, you need to get high score 40 in last game</string>
     <string name="reward_load_failed_msg_english">Failed to load ads, please try again later</string>
     <string name="reward_earned_msg_english">Game is unlocked now!</string>
     <string name="wait_loading_video_english">Wait a few seconds please, trying to load video......</string>

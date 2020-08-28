@@ -33,7 +33,7 @@ import com.tonigames.reaction.MainMenuCataEnum
 import com.tonigames.reaction.R
 import es.dmoral.toasty.Toasty
 
-private const val UNLOCK_GAME_SCORE_THRESHOLD = 50
+private const val UNLOCK_GAME_SCORE_THRESHOLD = 40
 
 class BoomMenuHandler(
     private val boomMenu: BoomMenuButton,
@@ -249,7 +249,7 @@ class BoomMenuHandler(
     }
 
     private fun showSuccessToast(msg: String = "") =
-        Toasty.success(context, msg, Toast.LENGTH_LONG, true).show();
+        Toasty.success(context, msg, Toast.LENGTH_LONG, true).show()
 
     private fun showFailureToast(msg: String = "") =
         Toasty.warning(context, msg, Toast.LENGTH_LONG, true).show()
