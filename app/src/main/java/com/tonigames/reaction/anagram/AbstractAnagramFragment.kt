@@ -65,7 +65,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
                 try {
                     onFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
-                    Log.d("FindPairFragment", e.message ?: "exception")
+                    Log.d("AbstractAnagramFragment", e.message ?: "exception")
                 }
             }
         }

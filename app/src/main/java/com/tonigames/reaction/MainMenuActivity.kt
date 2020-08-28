@@ -21,6 +21,7 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
+import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.SELECTED_GAME_TYPE
@@ -127,6 +128,7 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
                 FIND_PAIR -> FindPairGameManagerActivity::class.java
                 LEFT_RIGHT -> LeftRightGameManagerActivity::class.java
                 ROCK_PAPER -> RockPaperGameManagerActivity::class.java
+                IMAGE_ANAGRAM -> ImageAnagramManagerActivity::class.java
                 else -> TapColorGameManagerActivity::class.java
             }
 
