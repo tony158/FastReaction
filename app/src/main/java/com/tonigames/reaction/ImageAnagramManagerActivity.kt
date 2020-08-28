@@ -22,7 +22,20 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), AnswerSelectL
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_image_anagram_manager)
+
+        val imgRowCnt = FindPairGameManagerActivity.RoundImgRowCount.getOrDefault(
+            if (mRoundCnt % FindPairGameManagerActivity.RoundImgRowCount.size == 0) 1 else mRoundCnt % FindPairGameManagerActivity.RoundImgRowCount.size,
+            2
+        )
+
+        mCurrFragment = when (imgRowCnt) {
+            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "")
+        }.also {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.fragment_container, it)
+                .commit()
+        }
     }
 
     override fun onCorrectPairSelected() {
