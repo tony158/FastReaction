@@ -27,7 +27,7 @@ interface ILeftOrRight {
         return (roundCnt ?: 0).run {
             when {
                 this > 20 -> (duration * 0.9).toLong()
-                this > 40 -> (duration * 0.85).toLong()
+                this > 35 -> (duration * 0.85).toLong()
                 else -> duration
             }
         }
