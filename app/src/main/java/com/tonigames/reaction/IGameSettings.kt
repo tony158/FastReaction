@@ -3,8 +3,10 @@ package com.tonigames.reaction
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
+import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.LOCKED_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LOCKED_FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LOCKED_LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.LOCKED_ROCK_PAPER
@@ -22,10 +24,14 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_english,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_english,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_english,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_english,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_english,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+
             MainMenuCataEnum.HighScore to R.string.high_score_english,
             MainMenuCataEnum.Ranking to R.string.score_rank_english,
             MainMenuCataEnum.Coin to R.string.score_coin_english
@@ -36,10 +42,12 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_german,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_german,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_right_german,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_german,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_german,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_german,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_german,
+
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
             MainMenuCataEnum.Coin to R.string.score_coin_german
@@ -138,14 +146,16 @@ interface IGameSettings {
             TAP_COLOR to Constants.HIGH_SCORE_TAP_COLOR,
             FIND_PAIR to Constants.HIGH_SCORE_FIND_PAIR,
             LEFT_RIGHT to Constants.HIGH_SCORE_LEFT_RIGHT,
-            ROCK_PAPER to Constants.HIGH_SCORE_ROCK_PAPER
+            ROCK_PAPER to Constants.HIGH_SCORE_ROCK_PAPER,
+            IMAGE_ANAGRAM to Constants.HIGH_SCORE_ANAGRAM
         )
 
         private val gameTypeToLockTypeMap = mapOf<Int, String>(
             TAP_COLOR to LOCKED_TAP_COLOR,
             FIND_PAIR to LOCKED_FIND_PAIR,
             LEFT_RIGHT to LOCKED_LEFT_RIGHT,
-            ROCK_PAPER to LOCKED_ROCK_PAPER
+            ROCK_PAPER to LOCKED_ROCK_PAPER,
+            IMAGE_ANAGRAM to LOCKED_ANAGRAM
         )
 
         fun unlockGame(context: Context, gameType: Int) {
@@ -189,16 +199,19 @@ class Constants {
         const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
         const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
         const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
+        const val HIGH_SCORE_ANAGRAM: String = "HighScoreAnagram"
 
         const val LOCKED_TAP_COLOR: String = "LockedTapColor"
         const val LOCKED_FIND_PAIR: String = "LockedFindPair"
         const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
         const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
+        const val LOCKED_ANAGRAM: String = "LockedAnagram"
 
         const val TAP_COLOR: Int = 0
         const val FIND_PAIR: Int = 1
         const val LEFT_RIGHT: Int = 2
         const val ROCK_PAPER: Int = 3
+        const val IMAGE_ANAGRAM: Int = 4
 
         const val SELECTED_LANGUAGE = "SelectedLanguage"
     }
@@ -209,11 +222,13 @@ enum class MainMenuCataEnum {
     FindPair,
     LeftOrRight,
     RockPaper,
+    ImageAnagram,
 
     TapColorSubtitle,
     FindPairSubtitle,
     LeftOrRightSubtitle,
     RockPaperSubtitle,
+    AnagramSubtitle,
 
     HighScore,
     Ranking,

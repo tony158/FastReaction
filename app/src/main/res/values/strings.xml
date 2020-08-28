@@ -33,10 +33,14 @@
     <string name="find_pair_english">Find Pair</string>
     <string name="left_or_right_english">Left or Right</string>
     <string name="rock_paper_english">Rock Paper Scissors</string>
+    <string name="anagram_english">Image Anagram</string>
+
     <string name="tap_color_description_english">Tap on correct Color</string>
     <string name="find_pair_description_english">Find a pair of things</string>
     <string name="left_or_right_description_english">Same shape,swipe to same direction</string>
     <string name="rock_paper_description_english">Select gesture to win</string>
+    <string name="anagram_description_english">Find same set of images</string>
+
     <string name="high_score_english">High score</string>
     <string name="score_rank_english">Ranking</string>
     <string name="score_coin_english">Coin</string>

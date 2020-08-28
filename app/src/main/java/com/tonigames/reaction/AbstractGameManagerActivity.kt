@@ -71,8 +71,7 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
     private fun releaseMedia() =
         listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-
-
+    
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
         soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
