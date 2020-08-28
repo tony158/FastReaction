@@ -30,4 +30,11 @@ data class RockPaperDTO(
     val visit_at: Date? = null
 )
 
+data class ImageAnagramDTO(
+    val user_id: String,
+    val user_name: String,
+    val score: Int,
+    val visit_at: Date? = null
+)
+
 data class AdsEnabled(val enabled: Boolean = false)

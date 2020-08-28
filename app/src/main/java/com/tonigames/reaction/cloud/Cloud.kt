@@ -6,12 +6,13 @@ import android.os.AsyncTask
 import android.widget.TextView
 import com.google.firebase.database.*
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.TAP_COLOR
 
 private const val DEFAULT_TEXT = "......"
-private const val RANKING_LIMIT = 500
+private const val MINIMUM_RANKING = 500
 
 class RefreshRankingTask(
     private var android_id: String,
@@ -45,7 +46,7 @@ class RefreshRankingTask(
             ranking++
         }
 
-        return if (found) "$ranking" else "> $RANKING_LIMIT"
+        return if (found) "$ranking" else "> $MINIMUM_RANKING"
     }
 
     override fun onPostExecute(rankingResult: String) {
@@ -70,6 +71,7 @@ class FireBaseAccess(
             FIND_PAIR -> FindPairDTO::class.java.simpleName
             LEFT_RIGHT -> LeftRightDTO::class.java.simpleName
             ROCK_PAPER -> RockPaperDTO::class.java.simpleName
+            IMAGE_ANAGRAM -> ImageAnagramDTO::class.java.simpleName
             else -> TapColorDTO::class.java.simpleName
         }
 
@@ -85,6 +87,7 @@ class FireBaseAccess(
             TAP_COLOR -> TapColorDTO(android_id, deviceName, score, Calendar.getInstance().time)
             FIND_PAIR -> FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
             ROCK_PAPER -> RockPaperDTO(android_id, deviceName, score, Calendar.getInstance().time)
+            IMAGE_ANAGRAM -> ImageAnagramDTO(android_id, deviceName, score, Calendar.getInstance().time)
             else -> LeftRightDTO(android_id, deviceName, score, Calendar.getInstance().time)
         }
 
@@ -92,7 +95,7 @@ class FireBaseAccess(
             .addOnCompleteListener {
                 database.getReference(refName)
                     .orderByChild("score")  // sorted here
-                    .limitToLast(RANKING_LIMIT)
+                    .limitToLast(MINIMUM_RANKING)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
 
