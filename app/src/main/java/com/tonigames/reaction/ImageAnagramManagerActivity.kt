@@ -10,7 +10,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.anagram.AbstractAnagramFragment
 import com.tonigames.reaction.anagram.AnagramFragmentTwo
-import com.tonigames.reaction.findpair.*
+import com.tonigames.reaction.common.AnswerSelectListener
 
 class ImageAnagramManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
     private var mCurrFragment: AbstractAnagramFragment? = null
@@ -38,8 +38,8 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), AnswerSelectL
         }
     }
 
-    override fun onCorrectSetSelected() {
-        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSetSelected }
+    override fun onCorrectAnswer() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectAnswer }
 
         showSuccessToast()
 

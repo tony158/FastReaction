@@ -26,8 +26,8 @@ interface ILeftOrRight {
     fun reduceDuration(duration: Long, roundCnt: Int?): Long {
         return (roundCnt ?: 0).run {
             when {
-                this > 20 -> (duration * 0.9).toLong()
-                this > 35 -> (duration * 0.85).toLong()
+                this > 16 -> (duration * 0.92).toLong()
+                this > 32 -> (duration * 0.84).toLong()
                 else -> duration
             }
         }

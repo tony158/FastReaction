@@ -11,10 +11,11 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_ROCK_PAPER
+import com.tonigames.reaction.common.AnswerSelectListener
 import com.tonigames.reaction.rockpaper.ResultListener
 import com.tonigames.reaction.rockpaper.RockPaperFragment
 
-class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListener {
+class RockPaperGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
 
     private var mCurrFragment: Fragment? = null
 
@@ -30,8 +31,8 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
             }
     }
 
-    override fun onCorrectSelection() {
-        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSelection }
+    override fun onCorrectAnswer() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectAnswer }
 
         showSuccessToast()
 
@@ -56,7 +57,7 @@ class RockPaperGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configGameOverDialog( this, msg, mRoundCnt, getHighScore(HIGH_SCORE_ROCK_PAPER))
+            configGameOverDialog(this, msg, mRoundCnt, getHighScore(HIGH_SCORE_ROCK_PAPER))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(

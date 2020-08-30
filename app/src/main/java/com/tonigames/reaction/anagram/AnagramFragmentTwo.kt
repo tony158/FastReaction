@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
-import com.tonigames.reaction.findpair.AnswerSelectListener
+import com.tonigames.reaction.common.AnswerSelectListener
 import kotlinx.android.synthetic.main.fragment_anagram_two.*
 
-private const val DURATION = 2200L
+private const val DURATION = 5000L
 
 class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
 

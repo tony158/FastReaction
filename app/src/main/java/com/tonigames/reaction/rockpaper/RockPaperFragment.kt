@@ -15,6 +15,8 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
+import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.rockpaper.IRockPaper.Companion.answerCheckMap
 import kotlinx.android.synthetic.main.fragment_rock_paper.*
 import kotlinx.android.synthetic.main.fragment_rock_paper.progressBar
@@ -22,13 +24,13 @@ import kotlinx.android.synthetic.main.fragment_rock_paper.tvRoundCnt
 
 private const val DURATION = 1700L
 
-class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
+class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, ISeekBar {
 
     private var seekBarAnimator: Animator? = null
     private var mRoundCnt: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
     private var buttonLayoutMap: Map<Int, ImageButton> = mapOf()
-    private var gameOverListener: ResultListener? = null
+    private var gameOverListener: AnswerSelectListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,9 +77,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
 
         seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, mRoundCnt), progressBar, gameOverListener
-        ).also {
-            it.start()
-        }
+        ).also { it.start() }
     }
 
     private fun bindButtonListeners(buttons: List<Button>) {
@@ -92,7 +92,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
                                 val selectedImg = buttonLayoutMap[theButton.id]?.tag ?: ""
 
                                 if (imageBtnAnsQuestion.tag == answerCheckMap[selectedImg]) {
-                                    gameOverListener?.onCorrectSelection()
+                                    gameOverListener?.onCorrectAnswer()
                                 } else {
                                     toggleBtnAns1.isChecked = false
                                     toggleBtnAns2.isChecked = false
@@ -110,39 +110,10 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
         })
     }
 
-    private fun initSeekBarAnimator(
-        animationTime: Long,
-        progressBar: SeekBar? = null,
-        resultListener: ResultListener? = null
-    ): Animator {
-        progressBar?.max = 100
-        progressBar?.progress = 0
-
-        return ValueAnimator.ofInt(0, 100).apply {
-            duration = animationTime
-            interpolator = LinearInterpolator()
-
-            addUpdateListener { animation ->
-                (animation.animatedValue as Int).also { progressBar?.progress = it }
-            }
-
-            addListener(object : DefaultAnimatorListener() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    try {
-                        progressBar?.progress = 100
-                        resultListener?.onFailedToSolve("Time's up!")
-                    } catch (e: Exception) {
-                        Log.wtf("RockPaperFragment", e.message ?: "exception")
-                    }
-                }
-            })
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is ResultListener) {
+        if (context is AnswerSelectListener) {
             gameOverListener = context
         }
     }

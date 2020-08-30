@@ -1,21 +1,19 @@
 package com.tonigames.reaction.findpair
 
 import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.animation.LinearInterpolator
 import android.widget.*
-import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
+import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.IImageFragment.Companion.allDrawables
 
 abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
-    IImageFragment {
+    IImageFragment, ISeekBar {
 
     val roundArgument: String = "Round"
     val extraArgument: String = "Extra"
@@ -51,10 +49,10 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 allImageButtons = buttonLayoutMap.values.map { pair -> pair.second }
             }
 
-        initImages()
+        initImageButtons()
     }
 
-    private fun initImages() {
+    private fun initImageButtons() {
         if (allImageButtons.isNullOrEmpty() || allDrawables.isNullOrEmpty()) return
 
         val drawables: List<Int> = allDrawables.shuffled()
@@ -106,7 +104,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 val img2 = buttonLayoutMap[checkedToggles[1].id]?.second?.tag
 
                 if ((img1 != null && img2 != null) && (img1 == img2)) {
-                    gameOverListener?.onCorrectSetSelected()
+                    gameOverListener?.onCorrectAnswer()
                 } else {
                     gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                 }
@@ -136,32 +134,5 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
         super.onDetach()
 
         gameOverListener = null
-    }
-
-    fun initSeekBarAnimator(
-        animationTime: Long,
-        progressBar: SeekBar? = null,
-        onFinishListener: AnswerSelectListener? = null
-    ): Animator {
-        progressBar?.max = 100
-        progressBar?.progress = 0
-
-        return ValueAnimator.ofInt(0, 100).apply {
-            duration = animationTime
-            interpolator = LinearInterpolator()
-
-            addUpdateListener { animation ->
-                (animation.animatedValue as Int).also { progressBar?.progress = it }
-            }
-
-            doOnEnd {
-                progressBar?.progress = 100
-                try {
-                    onFinishListener?.onFailedToSolve("Time's up")
-                } catch (e: Exception) {
-                    Log.d("FindPairFragment", e.message ?: "exception")
-                }
-            }
-        }
     }
 }

@@ -10,6 +10,7 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
+import com.tonigames.reaction.common.AnswerSelectListener
 import com.tonigames.reaction.findpair.*
 
 class FindPairGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
@@ -42,8 +43,8 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectL
         }
     }
 
-    override fun onCorrectSetSelected() {
-        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSetSelected }
+    override fun onCorrectAnswer() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectAnswer }
 
         showSuccessToast()
 

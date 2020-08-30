@@ -1,20 +1,17 @@
 package com.tonigames.reaction.anagram
 
 import android.animation.Animator
-import android.animation.ValueAnimator
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.animation.LinearInterpolator
 import android.widget.ImageButton
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import android.widget.ToggleButton
-import androidx.core.animation.doOnEnd
-import com.tonigames.reaction.findpair.AnswerSelectListener
+import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.IImageFragment
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 
-abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentLayoutId), IImageFragment {
+abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentLayoutId), IImageFragment, ISeekBar {
 
     protected val roundArgument: String = "Round"
     protected val extraArgument: String = "Extra"
@@ -86,7 +83,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
                 ansToggleToImgMap.keys.forEach { if (it != selected) it.isChecked = false } // uncheck the others
 
                 if (diff.isNullOrEmpty()) {
-                    gameOverListener?.onCorrectSetSelected()
+                    gameOverListener?.onCorrectAnswer()
                 } else {
                     gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                 }
@@ -96,30 +93,11 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
 
     fun clearAllToggles() = ansToggleToImgMap.keys.forEach { it.isChecked = false }
 
-    fun initSeekBarAnimator(
-        animationTime: Long,
-        progressBar: SeekBar? = null,
-        onFinishListener: AnswerSelectListener? = null
-    ): Animator {
-        progressBar?.max = 100
-        progressBar?.progress = 0
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-        return ValueAnimator.ofInt(0, 100).apply {
-            duration = animationTime
-            interpolator = LinearInterpolator()
-
-            addUpdateListener { animation ->
-                (animation.animatedValue as Int).also { progressBar?.progress = it }
-            }
-
-            doOnEnd {
-                progressBar?.progress = 100
-                try {
-                    onFinishListener?.onFailedToSolve("Time's up")
-                } catch (e: Exception) {
-                    Log.d("AbstractAnagramFragment", e.message ?: "exception")
-                }
-            }
+        if (context is AnswerSelectListener) {
+            gameOverListener = context
         }
     }
 }

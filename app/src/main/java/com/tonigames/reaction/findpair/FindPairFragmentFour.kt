@@ -11,6 +11,7 @@ import android.widget.RelativeLayout
 import android.widget.ToggleButton
 
 import com.tonigames.reaction.R
+import com.tonigames.reaction.common.AnswerSelectListener
 import kotlinx.android.synthetic.main.fragment_find_pair_four.*
 
 private const val DURATION = 3200L
