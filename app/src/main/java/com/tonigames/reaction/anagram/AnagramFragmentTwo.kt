@@ -37,8 +37,7 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
         ansToggleToImgMap = mapOf(
             toggleBtn1 to setOf(imgAns11, imgAns12),
             toggleBtn2 to setOf(imgAns21, imgAns22),
-            toggleBtn3 to setOf(imgAns31, imgAns32),
-            toggleBtn4 to setOf(imgAns41, imgAns42)
+            toggleBtn3 to setOf(imgAns31, imgAns32)
         )
     }
 
@@ -48,16 +47,12 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
 
         val wrongAnsRow1 = ansToggleToImgMap.getValue(restAnsToggles[0]).toList()
         val wrongAnsRow2 = ansToggleToImgMap.getValue(restAnsToggles[1]).toList()
-        val wrongAnsRow3 = ansToggleToImgMap.getValue(restAnsToggles[2]).toList()
 
         wrongAnsRow1[0].setImageResource(quizImages[0])
         wrongAnsRow1[1].setImageResource(restOfImages.random()!!)
 
         wrongAnsRow2[0].setImageResource(quizImages[1])
         wrongAnsRow2[1].setImageResource(restOfImages.random()!!)
-
-        wrongAnsRow3[0].setImageResource(restOfImages.random()!!)
-        wrongAnsRow3[1].setImageResource(restOfImages.random()!!)
     }
 
     override fun onResume() {
