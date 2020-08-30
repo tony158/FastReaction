@@ -1,15 +1,11 @@
 package com.tonigames.reaction.leftorright
 
 import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.view.animation.LinearInterpolator
 import android.widget.RelativeLayout
-import android.widget.SeekBar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
@@ -77,7 +73,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
             Techniques.RotateInDownLeft
         ).random().also {
             if (mRoundCnt >= 0) {
-                YoYo.with(it).duration(380L).playOn(imageContainer)
+                YoYo.with(it).duration(220L).playOn(imageContainer)
             } else {
                 val endListener = object : DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -85,7 +81,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     }
                 }
 
-                YoYo.with(it).duration(400L).withListener(endListener).playOn(imageContainer)
+                YoYo.with(it).duration(360L).withListener(endListener).playOn(imageContainer)
             }
         }
 
@@ -97,35 +93,6 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                 progressBar,
                 mResultListener
             ).also { it.start() }
-        }
-    }
-
-    private fun initSeekBarAnimator(
-        animationTime: Long,
-        progressBar: SeekBar? = null,
-        resultListener: ResultListener? = null
-    ): Animator {
-        progressBar?.max = 100
-        progressBar?.progress = 0
-
-        return ValueAnimator.ofInt(0, 100).apply {
-            duration = animationTime
-            interpolator = LinearInterpolator()
-
-            addUpdateListener { animation ->
-                (animation.animatedValue as Int).also { progressBar?.progress = it }
-            }
-
-            addListener(object : DefaultAnimatorListener() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    try {
-                        progressBar?.progress = 100
-                        resultListener?.onTimeUp()
-                    } catch (e: Exception) {
-                        Log.wtf("LeftOrRightFragment", e.message ?: "exception")
-                    }
-                }
-            })
         }
     }
 
@@ -189,7 +156,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             mAnimator = imgContainer.animate().also {
                 it.translationX((xMoveBy).toFloat())
-                it.duration = 120L
+                it.duration = 100L
                 it.setListener(listener)
                 it.start()
             }

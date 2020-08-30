@@ -1,6 +1,8 @@
 package com.tonigames.reaction.leftorright
 
 import com.tonigames.reaction.R
+import com.tonigames.reaction.common.GameFinishListener
+import com.tonigames.reaction.common.ISeekBar
 import java.util.*
 
 enum class ViewOutState(val state: Int) {
@@ -10,13 +12,11 @@ enum class ViewOutState(val state: Int) {
     RightOut(3)
 }
 
-interface ResultListener {
+interface ResultListener : GameFinishListener {
     fun onResult(lastImg: Int, state: ViewOutState)
-
-    fun onTimeUp()
 }
 
-interface ILeftOrRight {
+interface ILeftOrRight : ISeekBar {
     fun <E> List<E>.random(): E? = if (size > 0) get(Random().nextInt(size)) else null
 
     fun randomImage(): Int {

@@ -73,7 +73,6 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
     }
 
     override fun onResult(lastImg: Int, state: ViewOutState) {
-
         if ((lastImg == mLastImg && state == mLastState) ||
             (lastImg != mLastImg && state != mLastState)
         ) {
@@ -88,7 +87,11 @@ class LeftRightGameManagerActivity : AbstractGameManagerActivity(), ResultListen
         }
     }
 
-    override fun onTimeUp() {
+    override fun onCorrectAnswer() {
+        // nothing to do here, "onResult()" handle result check
+    }
+
+    override fun onFailedToSolve(msg: String) {
         onFailure("Time's up!")
         mLastState = ViewOutState.Invalid
     }
