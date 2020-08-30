@@ -17,22 +17,12 @@ import kotlin.random.Random
 class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
     private var mCurrFragment: AbstractAnagramFragment? = null
 
-    companion object {
-        val RoundImgRowCount: Map<Int, Int> =
-            mapOf(1 to 2, 2 to 2, 3 to 2, 4 to 2, 5 to 3, 6 to 3, 7 to 3, 8 to 4, 9 to 4, 10 to 4)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
-            2
-        )
-
         mCurrFragment = when (Random.nextInt(0, 100) % 2) {
-            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "AnagramFragmentThree")
-            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "AnagramFragmentTwo")
+            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -51,14 +41,9 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
 
         ++mRoundCnt
 
-        val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
-            2
-        )
-
         mCurrFragment = when (Random.nextInt(0, 100) % 2) {
-            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "AnagramFragmentThree")
-            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "AnagramFragmentTwo")
+            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager
                 .beginTransaction()
