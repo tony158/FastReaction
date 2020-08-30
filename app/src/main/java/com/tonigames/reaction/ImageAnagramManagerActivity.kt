@@ -9,8 +9,10 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.anagram.AbstractAnagramFragment
+import com.tonigames.reaction.anagram.AnagramFragmentThree
 import com.tonigames.reaction.anagram.AnagramFragmentTwo
 import com.tonigames.reaction.common.GameFinishListener
+import kotlin.random.Random
 
 class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
     private var mCurrFragment: AbstractAnagramFragment? = null
@@ -28,8 +30,9 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
             2
         )
 
-        mCurrFragment = when (imgRowCnt) {
-            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "")
+        mCurrFragment = when (Random.nextInt(0, 100) % 2) {
+            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "AnagramFragmentThree")
+            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "AnagramFragmentTwo")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -53,8 +56,9 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
             2
         )
 
-        mCurrFragment = when (imgRowCnt) {
-            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "")
+        mCurrFragment = when (Random.nextInt(0, 100) % 2) {
+            0 -> AnagramFragmentThree.newInstance(mRoundCnt.toString(), "AnagramFragmentThree")
+            else -> AnagramFragmentTwo.newInstance(mRoundCnt.toString(), "AnagramFragmentTwo")
         }.also {
             supportFragmentManager
                 .beginTransaction()

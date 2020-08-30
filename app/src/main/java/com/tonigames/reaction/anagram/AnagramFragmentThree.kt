@@ -10,11 +10,11 @@ import android.widget.ImageButton
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
-import kotlinx.android.synthetic.main.fragment_anagram_two.*
+import kotlinx.android.synthetic.main.fragment_anagram_three.*
 
-private const val DURATION = 3200L
+private const val DURATION = 3800L
 
-class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
+class AnagramFragmentThree() : AbstractAnagramFragment(R.layout.fragment_anagram_three) {
 
     override var seekBarAnimator: Animator? = null
     override var gameOverListener: GameFinishListener? = null
@@ -26,18 +26,18 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_anagram_two, container, false)
+        return inflater.inflate(R.layout.fragment_anagram_three, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        quizImageBtnList = listOf(quizImgBtn1, quizImgBtn2)
+        quizImageBtnList = listOf(quizImgBtn1, quizImgBtn2, quizImgBtn3)
 
         ansToggleToImgMap = mapOf(
-            toggleBtn1 to setOf(imgAns11, imgAns12),
-            toggleBtn2 to setOf(imgAns21, imgAns22),
-            toggleBtn3 to setOf(imgAns31, imgAns32)
+            toggleBtn1 to setOf(imgAns11, imgAns12, imgAns13),
+            toggleBtn2 to setOf(imgAns21, imgAns22, imgAns23),
+            toggleBtn3 to setOf(imgAns31, imgAns32, imgAns33)
         )
     }
 
@@ -50,9 +50,11 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
 
         wrongAnsRow1[0].setImageResource(quizImages[0])
         wrongAnsRow1[1].setImageResource(restOfImages.random()!!)
+        wrongAnsRow1[2].setImageResource(restOfImages.random()!!)
 
-        wrongAnsRow2[0].setImageResource(quizImages[1])
-        wrongAnsRow2[1].setImageResource(restOfImages.random()!!)
+        wrongAnsRow2[0].setImageResource(quizImages[0])
+        wrongAnsRow2[1].setImageResource(quizImages[1])
+        wrongAnsRow2[2].setImageResource(restOfImages.random()!!)
     }
 
     override fun onResume() {
@@ -73,7 +75,7 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
 
     companion object {
         @JvmStatic
-        fun newInstance(param1: String, param2: String) = AnagramFragmentTwo()
+        fun newInstance(param1: String, param2: String) = AnagramFragmentThree()
             .apply {
                 arguments = Bundle().apply {
                     putString(roundArgument, param1)
