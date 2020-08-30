@@ -215,8 +215,9 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         ).run {
             val highScoreType = gameTypeToHighScoreTypeMap.getOrDefault(this, HIGH_SCORE_TAP_COLOR)
 
-            score.text = getHighScore(highScoreType).toString()
-            fireBaseAccess.updateScore(this, getHighScore(highScoreType))
+            val highScore = getHighScore(highScoreType)
+            score.text = highScore.toString()
+            fireBaseAccess.updateScore(this, highScore)
         }
     }
 

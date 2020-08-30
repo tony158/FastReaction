@@ -23,8 +23,8 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val imgRowCnt = FindPairGameManagerActivity.RoundImgRowCount.getOrDefault(
-            if (mRoundCnt % FindPairGameManagerActivity.RoundImgRowCount.size == 0) 1 else mRoundCnt % FindPairGameManagerActivity.RoundImgRowCount.size,
+        val imgRowCnt = RoundImgRowCount.getOrDefault(
+            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
             2
         )
 
@@ -71,7 +71,7 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
         vibrate()
 
         mDialogPopup = MaterialDialog(this).customView(R.layout.game_over_popup).show {
-            configGameOverDialog(this, msg, mRoundCnt, getHighScore(Constants.HIGH_SCORE_ANAGRAM))
+            configGameOverDialog(this, msg, mRoundCnt, getHighScore(Constants.HIGH_SCORE_IMAGE_ANAGRAM))
 
             findViewById<Button>(R.id.btnGoHome).setOnClickListener { theButton ->
                 YoYo.with(Techniques.Pulse).duration(200).withListener(
@@ -102,7 +102,7 @@ class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishLis
             }
         }
 
-        saveHighScore(mRoundCnt, Constants.HIGH_SCORE_FIND_PAIR)
+        saveHighScore(mRoundCnt, Constants.HIGH_SCORE_IMAGE_ANAGRAM)
     }
 
     override fun handleContinueClicked() {

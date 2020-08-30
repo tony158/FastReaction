@@ -6,7 +6,7 @@ import android.content.res.Resources
 import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
-import com.tonigames.reaction.Constants.Companion.LOCKED_ANAGRAM
+import com.tonigames.reaction.Constants.Companion.LOCKED_IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LOCKED_FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LOCKED_LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.LOCKED_ROCK_PAPER
@@ -147,7 +147,7 @@ interface IGameSettings {
             FIND_PAIR to Constants.HIGH_SCORE_FIND_PAIR,
             LEFT_RIGHT to Constants.HIGH_SCORE_LEFT_RIGHT,
             ROCK_PAPER to Constants.HIGH_SCORE_ROCK_PAPER,
-            IMAGE_ANAGRAM to Constants.HIGH_SCORE_ANAGRAM
+            IMAGE_ANAGRAM to Constants.HIGH_SCORE_IMAGE_ANAGRAM
         )
 
         private val gameTypeToLockTypeMap = mapOf<Int, String>(
@@ -155,7 +155,7 @@ interface IGameSettings {
             FIND_PAIR to LOCKED_FIND_PAIR,
             LEFT_RIGHT to LOCKED_LEFT_RIGHT,
             ROCK_PAPER to LOCKED_ROCK_PAPER,
-            IMAGE_ANAGRAM to LOCKED_ANAGRAM
+            IMAGE_ANAGRAM to LOCKED_IMAGE_ANAGRAM
         )
 
         fun unlockGame(context: Context, gameType: Int) {
@@ -199,13 +199,13 @@ class Constants {
         const val HIGH_SCORE_FIND_PAIR: String = "HighScoreFindPair"
         const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
         const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
-        const val HIGH_SCORE_ANAGRAM: String = "HighScoreAnagram"
+        const val HIGH_SCORE_IMAGE_ANAGRAM: String = "HighScoreImageAnagram"
 
         const val LOCKED_TAP_COLOR: String = "LockedTapColor"
         const val LOCKED_FIND_PAIR: String = "LockedFindPair"
         const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
         const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
-        const val LOCKED_ANAGRAM: String = "LockedAnagram"
+        const val LOCKED_IMAGE_ANAGRAM: String = "LockedImageAnagram"
 
         const val TAP_COLOR: Int = 0
         const val FIND_PAIR: Int = 1
