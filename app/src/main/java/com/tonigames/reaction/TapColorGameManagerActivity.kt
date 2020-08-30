@@ -10,14 +10,13 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
-import com.tonigames.reaction.tapcolor.FragmentInteractionListener
+import com.tonigames.reaction.common.AnswerSelectListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
 
-class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInteractionListener {
+class TapColorGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
 
     private var mCurrFragment: Fragment? = null
 
@@ -47,8 +46,8 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), FragmentInter
         }
     }
 
-    override fun onCorrectColorSelected() {
-        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectColorSelected }
+    override fun onCorrectAnswer() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectAnswer }
 
         showSuccessToast()
 

@@ -6,13 +6,6 @@ import com.tonigames.reaction.R
 import com.tonigames.reaction.popups.MyLanguageEnum
 import java.util.*
 
-interface FragmentInteractionListener {
-    fun onCorrectColorSelected()
-
-    // wrong answer or time's up
-    fun onFailedToSolve(msg: String = "")
-}
-
 interface IColorFragment {
 
     enum class Color(val cc: Int) {

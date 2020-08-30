@@ -17,6 +17,7 @@ import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.AnswerSelectListener
 import com.tonigames.reaction.common.ISeekBar
+import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import com.tonigames.reaction.rockpaper.IRockPaper.Companion.answerCheckMap
 import kotlinx.android.synthetic.main.fragment_rock_paper.*
 import kotlinx.android.synthetic.main.fragment_rock_paper.progressBar
@@ -98,7 +99,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
                                     toggleBtnAns2.isChecked = false
                                     toggleBtnAns3.isChecked = false
 
-                                    gameOverListener?.onFailedToSolve("Wrong answer")
+                                    gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                                 }
                             } catch (e: Exception) {
                                 Log.d("onAnimationEnd", e.toString())

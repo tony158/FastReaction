@@ -1,25 +1,23 @@
 package com.tonigames.reaction.tapcolor
 
 import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.os.*
 import android.util.Log
 import android.view.View
-import android.view.animation.LinearInterpolator
 import android.widget.Button
-import android.widget.SeekBar
-import androidx.core.animation.doOnEnd
 import androidx.fragment.app.Fragment
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
 import com.tonigames.reaction.DefaultAnimatorListener
-import com.tonigames.reaction.MainMenuActivity
+import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.ISeekBar
+import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import com.tonigames.reaction.popups.MyLanguageEnum
 
 abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(contentLayoutId),
-    IColorFragment {
+    IColorFragment, ISeekBar {
 
     protected val roundArgument = "Round"
     protected val extraArgument = "Extra"
@@ -28,7 +26,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     var paramExtra: String? = null
 
     abstract var seekBarAnimator: Animator?
-    abstract var gameOverListener: FragmentInteractionListener?
+    abstract var gameOverListener: AnswerSelectListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +46,9 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
                                 seekBarAnimator?.pause()
 
                                 if (theButton == correctColorButton?.second) {
-                                    gameOverListener?.onCorrectColorSelected()
+                                    gameOverListener?.onCorrectAnswer()
                                 } else {
-                                    gameOverListener?.onFailedToSolve("Wrong answer")
+                                    gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                                 }
                             } catch (e: Exception) {
                                 Log.d("onAnimationEnd", e.toString())
@@ -77,33 +75,6 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
         return Pair(selectedColor, selectedButton)
     }
 
-    fun initSeekBarAnimator(
-        animationTime: Long,
-        progressBar: SeekBar? = null,
-        onFinishListener: FragmentInteractionListener? = null
-    ): Animator {
-        progressBar?.max = 100
-        progressBar?.progress = 0
-
-        return ValueAnimator.ofInt(0, 100).apply {
-            duration = animationTime
-            interpolator = LinearInterpolator()
-
-            addUpdateListener { animation ->
-                (animation.animatedValue as Int).also { progressBar?.progress = it }
-            }
-
-            doOnEnd {
-                progressBar?.progress = 100
-                try {
-                    onFinishListener?.onFailedToSolve("Time's up")
-                } catch (e: Exception) {
-                    Log.d("AbstractTapColorFragment", e.message ?: "exception")
-                }
-            }
-        }
-    }
-
     /** get the current language setting*/
     fun currentLanguage(): MyLanguageEnum {
         val languageIndex = context?.getSharedPreferences(
@@ -117,7 +88,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is FragmentInteractionListener) {
+        if (context is AnswerSelectListener) {
             gameOverListener = context
         }
     }
