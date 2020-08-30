@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        app:srcCompat="@drawable/svg_bermuda_square" />
+        app:srcCompat="@drawable/svg_repeating_triangles" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -68,23 +68,25 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageBtnQuestion11"
+                        android:id="@+id/quizImgBtn1"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
 
                     <ImageButton
-                        android:id="@+id/imageBtnQuestion12"
+                        android:id="@+id/quizImgBtn2"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
 
                 </LinearLayout>
@@ -113,23 +115,25 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageAnswer11"
+                        android:id="@+id/imgAns11"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
 
                     <ImageButton
-                        android:id="@+id/imageAnswer12"
+                        android:id="@+id/imgAns12"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
                 </LinearLayout>
 
@@ -163,23 +167,25 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageAnswer21"
+                        android:id="@+id/imgAns21"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
 
                     <ImageButton
-                        android:id="@+id/imageAnswer22"
+                        android:id="@+id/imgAns22"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
                 </LinearLayout>
 
@@ -213,28 +219,82 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageAnswer31"
+                        android:id="@+id/imgAns31"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
 
                     <ImageButton
-                        android:id="@+id/imageAnswer32"
+                        android:id="@+id/imgAns32"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_marginStart="2dp"
                         android:layout_marginEnd="2dp"
                         android:clickable="false"
                         android:enabled="false"
+                        android:scaleType="fitCenter"
                         android:text="" />
                 </LinearLayout>
 
                 <ToggleButton
                     android:id="@+id/toggleBtn3"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/image_toggle_selector"
+                    android:checked="false"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_horizontal|center_vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/image_anagram_bg">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/imgAns41"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:scaleType="fitCenter"
+                        android:text="" />
+
+                    <ImageButton
+                        android:id="@+id/imgAns42"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:scaleType="fitCenter"
+                        android:text="" />
+                </LinearLayout>
+
+                <ToggleButton
+                    android:id="@+id/toggleBtn4"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:background="@drawable/image_toggle_selector"

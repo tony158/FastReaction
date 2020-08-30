@@ -72,6 +72,7 @@
             android:layout_alignParentEnd="true"
             app:bmb_buttonEnum="ham"
             app:bmb_buttonPlaceEnum="buttonPlace_ham_5"
+            app:bmb_buttonVerticalMargin="8dp"
             app:bmb_piecePlaceEnum="piecePlace_ham_5" />
     </RelativeLayout>
 

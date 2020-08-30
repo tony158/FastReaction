@@ -68,7 +68,10 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper {
         super.onResume()
         tvRoundCnt?.run { text = mRoundCnt.toString() }
 
-        bindButtonListeners(listOf<ToggleButton>(toggleBtnAns1, toggleBtnAns2, toggleBtnAns3))
+        val toggleButtons = listOf(toggleBtnAns1, toggleBtnAns2, toggleBtnAns3)
+        toggleButtons.forEach { it?.isChecked = false }
+
+        bindButtonListeners(toggleButtons)
 
         seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, mRoundCnt), progressBar, gameOverListener

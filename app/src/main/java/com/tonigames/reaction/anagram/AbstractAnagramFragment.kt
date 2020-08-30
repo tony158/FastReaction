@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.animation.LinearInterpolator
+import android.widget.ImageButton
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import android.widget.ToggleButton
@@ -21,8 +22,10 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     var paramExtra: String? = null
 
     abstract var seekBarAnimator: Animator?
-    private val checkedToggles: MutableList<ToggleButton> = mutableListOf()
     abstract var gameOverListener: AnswerSelectListener?
+
+    abstract var quizImageBtnList: List<ImageButton>
+    abstract var ansToggleToImgMap: Map<ToggleButton, Set<ImageButton>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,14 +38,35 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     override fun onResume() {
         super.onResume()
 
-        checkedToggles.forEach { if (it.isChecked) it.isChecked = false }   //uncheck all
-        checkedToggles.clear()
+        ansToggleToImgMap.keys.forEach { it.isChecked = false }   //uncheck all
+
+        initImages()
+        bindToggleListeners()
     }
 
-    fun clearAllToggles() = checkedToggles.run {
-        this.forEach { it.isChecked = false }
-        this.clear()
+    abstract fun initImages()
+
+    private fun bindToggleListeners() {
+        ansToggleToImgMap.keys.forEach { toggle ->
+            toggle.setOnCheckedChangeListener { selected, _ ->
+                seekBarAnimator?.pause()
+
+                val selectedImgTags = ansToggleToImgMap.getOrDefault((selected as ToggleButton), setOf()).map { it.tag }.toSet()
+                val quizImgTags = quizImageBtnList.map { it.tag }.toSet()
+                val diff = selectedImgTags subtract quizImgTags
+
+                ansToggleToImgMap.keys.forEach { if (it != selected) it.isChecked = false } // uncheck the others
+
+                if (diff.isNullOrEmpty()) {
+                    gameOverListener?.onCorrectPairSelected()
+                } else {
+                    gameOverListener?.onFailedToSolve("Wrong selection!")
+                }
+            }
+        }
     }
+
+    fun clearAllToggles() = ansToggleToImgMap.keys.forEach { it.isChecked = false }
 
     fun initSeekBarAnimator(
         animationTime: Long,
