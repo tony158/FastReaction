@@ -11,7 +11,7 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.SELECTED_LANGUAGE
 import com.tonigames.reaction.DefaultAnimatorListener
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import com.tonigames.reaction.popups.MyLanguageEnum
@@ -26,7 +26,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     var paramExtra: String? = null
 
     abstract var seekBarAnimator: Animator?
-    abstract var gameOverListener: AnswerSelectListener?
+    abstract var gameOverListener: GameFinishListener?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +88,7 @@ abstract class AbstractTapColorFragment(contentLayoutId: Int) : Fragment(content
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is AnswerSelectListener) {
+        if (context is GameFinishListener) {
             gameOverListener = context
         }
     }

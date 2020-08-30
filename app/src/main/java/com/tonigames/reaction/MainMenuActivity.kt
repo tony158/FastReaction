@@ -10,6 +10,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings.Secure
+import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.daimajia.androidanimations.library.Techniques
@@ -32,6 +33,7 @@ import com.tonigames.reaction.cloud.FireBaseAccess
 import com.tonigames.reaction.popups.BoomMenuHandler
 import com.tonigames.reaction.popups.LanguageSettingFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 class MainMenuActivity : AppCompatActivity(), IGameSettings {
     private var interstitialAd: InterstitialAd? = null
@@ -50,7 +52,12 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         rewardedAd = MobileAds.getRewardedVideoAdInstance(this)
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
+
+            try {
+                loadAd(AdRequest.Builder().build())
+            } catch (e: Exception) {
+                Log.wtf("InterstitialAd", "excpetion occurred when loading interstitialAd!")
+            }
         }
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -134,7 +141,11 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
 
         interstitialAd?.adListener = object : AdListener() {
             override fun onAdClosed() {
-                interstitialAd?.loadAd(AdRequest.Builder().build())
+                try {
+                    interstitialAd?.loadAd(AdRequest.Builder().build())
+                } catch (e: Exception) {
+                    Log.wtf("InterstitialAd", "excpetion occurred when loading interstitialAd!")
+                }
                 startActivity(Intent(this@MainMenuActivity, targetActivity))
             }
         }

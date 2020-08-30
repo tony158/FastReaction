@@ -1,7 +1,6 @@
 package com.tonigames.reaction.rockpaper
 
 import android.animation.Animator
-import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -9,13 +8,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.LinearInterpolator
 import android.widget.*
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import com.tonigames.reaction.rockpaper.IRockPaper.Companion.answerCheckMap
@@ -31,7 +29,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
     private var mRoundCnt: Int = Int.MIN_VALUE
     private var mLastImg: Int = Int.MIN_VALUE
     private var buttonLayoutMap: Map<Int, ImageButton> = mapOf()
-    private var gameOverListener: AnswerSelectListener? = null
+    private var gameOverListener: GameFinishListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,7 +112,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is AnswerSelectListener) {
+        if (context is GameFinishListener) {
             gameOverListener = context
         }
     }

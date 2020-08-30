@@ -10,7 +10,7 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_find_pair_three.*
 
 private const val DURATION = 2500L
@@ -19,7 +19,7 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
 
     override var seekBarAnimator: Animator? = null
     override var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>> = mapOf()
-    override var gameOverListener: AnswerSelectListener? = null
+    override var gameOverListener: GameFinishListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

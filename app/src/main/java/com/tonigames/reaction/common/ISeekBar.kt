@@ -19,7 +19,7 @@ interface ISeekBar {
     fun initSeekBarAnimator(
         animationTime: Long,
         progressBar: SeekBar? = null,
-        answerSelectListener: AnswerSelectListener? = null
+        gameFinishListener: GameFinishListener? = null
     ): Animator {
         progressBar?.max = 100
         progressBar?.progress = 0
@@ -35,7 +35,7 @@ interface ISeekBar {
             doOnEnd {
                 progressBar?.progress = 100
                 try {
-                    answerSelectListener?.onFailedToSolve("Time's up")
+                    gameFinishListener?.onFailedToSolve("Time's up")
                 } catch (e: Exception) {
                     Log.d("ISeekBar", e.message ?: "exception")
                 }

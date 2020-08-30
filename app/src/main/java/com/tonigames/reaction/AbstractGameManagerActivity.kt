@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
@@ -15,6 +16,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.jeevandeshmukh.glidetoastlib.GlideToast
+import java.lang.Exception
 
 abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
@@ -34,7 +36,12 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
         interstitialAd = InterstitialAd(this).apply {
             adUnitId = resources.getString(R.string.ads_interstitial_unit_id)
-            loadAd(AdRequest.Builder().build())
+
+            try {
+                loadAd(AdRequest.Builder().build())
+            } catch (e: Exception) {
+                Log.wtf("InterstitialAd", "excpetion occurred when loading interstitialAd!")
+            }
         }
 
         initMedia()
@@ -71,7 +78,7 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
     private fun releaseMedia() =
         listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
-    
+
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
         soundPositive = MediaPlayer.create(this, R.raw.correct_beep)
@@ -117,7 +124,13 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
         interstitialAd?.let { ads ->
             ads.adListener = object : AdListener() {
-                override fun onAdClosed() = ads.loadAd(AdRequest.Builder().build())
+                override fun onAdClosed() {
+                    try {
+                        ads.loadAd(AdRequest.Builder().build())
+                    } catch (e: Exception) {
+                        Log.wtf("InterstitialAd", "excpetion occurred when loading interstitialAd!")
+                    }
+                }
             }
 
             ads.takeIf { it.isLoaded }?.show()

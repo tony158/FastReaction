@@ -11,12 +11,12 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
 
-class TapColorGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
+class TapColorGameManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
 
     private var mCurrFragment: Fragment? = null
 

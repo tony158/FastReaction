@@ -10,9 +10,9 @@ import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.anagram.AbstractAnagramFragment
 import com.tonigames.reaction.anagram.AnagramFragmentTwo
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 
-class ImageAnagramManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
+class ImageAnagramManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
     private var mCurrFragment: AbstractAnagramFragment? = null
 
     companion object {

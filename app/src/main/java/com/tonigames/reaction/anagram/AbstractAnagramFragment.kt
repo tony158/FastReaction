@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import android.widget.ToggleButton
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.IImageFragment
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
@@ -20,7 +20,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     var paramExtra: String? = null
 
     abstract var seekBarAnimator: Animator?
-    abstract var gameOverListener: AnswerSelectListener?
+    abstract var gameOverListener: GameFinishListener?
 
     abstract var quizImageBtnList: List<ImageButton>
     abstract var ansToggleToImgMap: Map<ToggleButton, Set<ImageButton>>
@@ -96,7 +96,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is AnswerSelectListener) {
+        if (context is GameFinishListener) {
             gameOverListener = context
         }
     }

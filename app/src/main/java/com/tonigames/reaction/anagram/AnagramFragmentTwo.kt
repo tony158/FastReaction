@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_anagram_two.*
 
 private const val DURATION = 5000L
@@ -17,7 +17,7 @@ private const val DURATION = 5000L
 class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
 
     override var seekBarAnimator: Animator? = null
-    override var gameOverListener: AnswerSelectListener? = null
+    override var gameOverListener: GameFinishListener? = null
 
     override var quizImageBtnList: List<ImageButton> = listOf()
     override var ansToggleToImgMap: Map<ToggleButton, Set<ImageButton>> = mutableMapOf()

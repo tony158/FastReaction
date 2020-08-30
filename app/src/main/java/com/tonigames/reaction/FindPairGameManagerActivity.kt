@@ -10,10 +10,10 @@ import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.findpair.*
 
-class FindPairGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectListener {
+class FindPairGameManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
 
     private var mCurrFragment: AbstractFindPairFragment? = null
 

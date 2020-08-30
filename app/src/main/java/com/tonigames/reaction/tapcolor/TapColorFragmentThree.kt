@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import com.tonigames.reaction.R
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_tap_color_three.*
 import kotlinx.android.synthetic.main.fragment_tap_color_three.btnColor1
 import kotlinx.android.synthetic.main.fragment_tap_color_three.btnColor2
@@ -20,7 +20,7 @@ private const val DURATION = 1500L
 class TapColorFragmentThree : AbstractTapColorFragment(R.layout.fragment_tap_color_three) {
 
     override var seekBarAnimator: Animator? = null
-    override var gameOverListener: AnswerSelectListener? = null
+    override var gameOverListener: GameFinishListener? = null
     override var correctColorButton: Pair<IColorFragment.Color?, Button>? = null
 
     override fun onCreateView(

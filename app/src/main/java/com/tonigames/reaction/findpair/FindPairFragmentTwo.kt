@@ -10,7 +10,7 @@ import android.widget.ImageButton
 import android.widget.RelativeLayout
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
-import com.tonigames.reaction.common.AnswerSelectListener
+import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_find_pair_two.*
 import kotlinx.android.synthetic.main.fragment_find_pair_two.progressBar
 
@@ -20,7 +20,7 @@ class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair
 
     override var seekBarAnimator: Animator? = null
     override var buttonLayoutMap: Map<Int, Pair<RelativeLayout, ImageButton>> = mapOf()
-    override var gameOverListener: AnswerSelectListener? = null
+    override var gameOverListener: GameFinishListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
