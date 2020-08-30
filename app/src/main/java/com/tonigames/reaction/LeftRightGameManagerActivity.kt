@@ -8,7 +8,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.customview.customView
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
-import com.jeevandeshmukh.glidetoastlib.GlideToast
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.leftorright.LeftOrRightFragment
 import com.tonigames.reaction.leftorright.ResultListener
