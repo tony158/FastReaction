@@ -42,8 +42,8 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), AnswerSelectL
         }
     }
 
-    override fun onCorrectPairSelected() {
-        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectPairSelected }
+    override fun onCorrectSetSelected() {
+        mDialogPopup?.takeIf { it.isShowing }?.run { return@onCorrectSetSelected }
 
         showSuccessToast()
 

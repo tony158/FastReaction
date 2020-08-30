@@ -106,7 +106,7 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 val img2 = buttonLayoutMap[checkedToggles[1].id]?.second?.tag
 
                 if ((img1 != null && img2 != null) && (img1 == img2)) {
-                    gameOverListener?.onCorrectPairSelected()
+                    gameOverListener?.onCorrectSetSelected()
                 } else {
                     gameOverListener?.onFailedToSolve("Wrong selection")
                 }

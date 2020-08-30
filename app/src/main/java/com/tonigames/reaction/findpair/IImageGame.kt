@@ -4,7 +4,7 @@ import com.tonigames.reaction.R
 import java.util.*
 
 interface AnswerSelectListener {
-    fun onCorrectPairSelected()
+    fun onCorrectSetSelected()
 
     // wrong answer or time's up
     fun onFailedToSolve(msg: String = "")

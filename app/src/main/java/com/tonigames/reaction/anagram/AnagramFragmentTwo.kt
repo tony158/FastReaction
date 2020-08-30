@@ -10,7 +10,6 @@ import android.widget.ImageButton
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
 import com.tonigames.reaction.findpair.AnswerSelectListener
-import com.tonigames.reaction.findpair.IImageFragment
 import kotlinx.android.synthetic.main.fragment_anagram_two.*
 
 private const val DURATION = 2200L
@@ -43,28 +42,8 @@ class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_t
         )
     }
 
-    override fun initImages() {
-        val drawables: List<Int> = IImageFragment.allDrawables.shuffled()
-        val quizImages = drawables.subList(0, quizImageBtnList.size)
-        val restOfImages = drawables.subList(quizImages.size, drawables.size)
+    override fun initWrongAnsRows(correctAnsToggle: ToggleButton, quizImages: List<Int>, restOfImages: List<Int>) {
 
-        quizImageBtnList.forEachIndexed { idx, imgBtn ->
-            imgBtn.setImageResource(quizImages[idx])
-            imgBtn.tag = quizImages[idx]
-        }
-
-        quizImages.shuffled()
-        val correctAnsToggle = ansToggleToImgMap.keys.toList().random()!!
-
-        ansToggleToImgMap.getValue(correctAnsToggle).shuffled().forEachIndexed { idx, imageBtn ->
-            imageBtn.setImageResource(quizImages[idx])
-            imageBtn.tag = quizImages[idx]
-        }
-
-        initWrongAnsRows(correctAnsToggle, quizImages, restOfImages)
-    }
-
-    private fun initWrongAnsRows(correctAnsToggle: ToggleButton, quizImages: List<Int>, restOfImages: List<Int>) {
         val restAnsToggles = (ansToggleToImgMap.keys subtract setOf(correctAnsToggle)).toList().shuffled()
 
         val wrongAnsRow1 = ansToggleToImgMap.getValue(restAnsToggles[0]).toList()

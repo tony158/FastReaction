@@ -40,11 +40,38 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
 
         ansToggleToImgMap.keys.forEach { it.isChecked = false }   //uncheck all
 
-        initImages()
+        initImageButtons()
         bindToggleListeners()
     }
 
-    abstract fun initImages()
+    private fun initImageButtons() {
+        //region init the quiz Images
+        val drawables: List<Int> = IImageFragment.allDrawables.shuffled()
+        val quizImages = drawables.subList(0, quizImageBtnList.size)
+        val restOfImages = drawables.subList(quizImages.size, drawables.size)
+
+        quizImageBtnList.forEachIndexed { idx, imgBtn ->
+            imgBtn.setImageResource(quizImages[idx])
+            imgBtn.tag = quizImages[idx]
+        }
+        //endregion
+
+        //region init correct Answer Images
+        quizImages.shuffled()
+        val correctAnsToggle = ansToggleToImgMap.keys.toList().random()!!
+
+        ansToggleToImgMap.getValue(correctAnsToggle).shuffled().forEachIndexed { idx, imageBtn ->
+            imageBtn.setImageResource(quizImages[idx])
+            imageBtn.tag = quizImages[idx]
+        }
+        //endregion
+
+        // region init wrong Answer images
+        initWrongAnsRows(correctAnsToggle, quizImages, restOfImages)
+        //endregion
+    }
+
+    abstract fun initWrongAnsRows(correctAnsToggle: ToggleButton, quizImages: List<Int>, restOfImages: List<Int>)
 
     private fun bindToggleListeners() {
         ansToggleToImgMap.keys.forEach { toggle ->
@@ -58,7 +85,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
                 ansToggleToImgMap.keys.forEach { if (it != selected) it.isChecked = false } // uncheck the others
 
                 if (diff.isNullOrEmpty()) {
-                    gameOverListener?.onCorrectPairSelected()
+                    gameOverListener?.onCorrectSetSelected()
                 } else {
                     gameOverListener?.onFailedToSolve("Wrong selection!")
                 }
