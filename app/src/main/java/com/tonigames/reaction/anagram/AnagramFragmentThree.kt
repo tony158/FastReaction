@@ -12,7 +12,7 @@ import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_anagram_three.*
 
-private const val DURATION = 3800L
+private const val DURATION = 3600L
 
 class AnagramFragmentThree() : AbstractAnagramFragment(R.layout.fragment_anagram_three) {
 
