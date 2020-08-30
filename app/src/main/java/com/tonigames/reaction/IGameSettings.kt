@@ -41,12 +41,14 @@ interface IGameSettings {
             MainMenuCataEnum.TapColor to R.string.tap_color_german,
             MainMenuCataEnum.FindPair to R.string.find_pair_german,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_german,
-            MainMenuCataEnum.RockPaper to R.string.rock_paper_right_german,
+            MainMenuCataEnum.RockPaper to R.string.rock_paper_german,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_german,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_german,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_german,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_german,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_german,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_description_german,
 
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
@@ -58,10 +60,14 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_french,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_french,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
+            MainMenuCataEnum.ImageAnagram to R.string.rock_paper_english,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_french,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_french,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_french,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_french,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_french,
+
             MainMenuCataEnum.HighScore to R.string.high_score_french,
             MainMenuCataEnum.Ranking to R.string.score_rank_french,
             MainMenuCataEnum.Coin to R.string.score_coin_french
@@ -72,10 +78,14 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_chinese,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_chinese,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_chinese,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_chinese,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_chinese,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_chinese,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_chinese,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_chinese,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_chinese,
+
             MainMenuCataEnum.HighScore to R.string.high_score_chinese,
             MainMenuCataEnum.Ranking to R.string.score_rank_chinese,
             MainMenuCataEnum.Coin to R.string.score_coin_chinese
@@ -86,10 +96,14 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_spanish,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_spanish,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_spanish,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_spanish,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_spanish,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+
             MainMenuCataEnum.HighScore to R.string.high_score_spanish,
             MainMenuCataEnum.Ranking to R.string.score_rank_spanish,
             MainMenuCataEnum.Coin to R.string.score_coin_spanish
@@ -100,10 +114,14 @@ interface IGameSettings {
             MainMenuCataEnum.FindPair to R.string.find_pair_portu,
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_portu,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
+            MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_portu,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_portu,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_portu,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+
             MainMenuCataEnum.HighScore to R.string.high_score_portu,
             MainMenuCataEnum.Ranking to R.string.score_rank_portu,
             MainMenuCataEnum.Coin to R.string.score_coin_portu
