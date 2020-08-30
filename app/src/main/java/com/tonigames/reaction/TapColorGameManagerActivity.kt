@@ -15,29 +15,20 @@ import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.tapcolor.TapColorFragmentFour
 import com.tonigames.reaction.tapcolor.TapColorFragmentThree
 import com.tonigames.reaction.tapcolor.TapColorFragmentTwo
+import kotlin.random.Random
 
 class TapColorGameManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
 
     private var mCurrFragment: Fragment? = null
 
-    companion object {
-        val RoundColorCount: Map<Int, Int> =
-            mapOf(1 to 2, 2 to 2, 3 to 2, 4 to 2, 5 to 3, 6 to 3, 7 to 3, 8 to 4, 9 to 4, 10 to 4)
-    }
-
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val colorCnt = RoundColorCount.getOrDefault(
-            if (mRoundCnt % RoundColorCount.size == 0) 1 else mRoundCnt % RoundColorCount.size,
-            2
-        )
-
-        mCurrFragment = when (colorCnt) {
-            4 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test4")
-            3 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test3")
-            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "test2")
+        mCurrFragment = when (Random.nextInt(0, 100) % 3) {
+            2 -> TapColorFragmentFour.newInstance(mRoundCnt.toString(), "Four")
+            1 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -56,16 +47,10 @@ class TapColorGameManagerActivity : AbstractGameManagerActivity(), GameFinishLis
 
         ++mRoundCnt
 
-        //determine how many color buttons the next fragment has
-        val colorCnt = RoundColorCount.getOrDefault(
-            if (mRoundCnt % RoundColorCount.size == 0) 1 else mRoundCnt % RoundColorCount.size,
-            2
-        )
-
-        mCurrFragment = when (colorCnt) {
-            4 -> TapColorFragmentFour.newInstance(mRoundCnt.toString(), "test4")
-            3 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "test3")
-            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "test2")
+        mCurrFragment = when (Random.nextInt(0, 100) % 3) {
+            2 -> TapColorFragmentFour.newInstance(mRoundCnt.toString(), "Four")
+            1 -> TapColorFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> TapColorFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)

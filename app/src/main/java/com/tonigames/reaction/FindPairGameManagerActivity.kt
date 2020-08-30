@@ -12,29 +12,20 @@ import com.daimajia.androidanimations.library.YoYo
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
 import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.findpair.*
+import kotlin.random.Random
 
 class FindPairGameManagerActivity : AbstractGameManagerActivity(), GameFinishListener {
 
     private var mCurrFragment: AbstractFindPairFragment? = null
 
-    companion object {
-        val RoundImgRowCount: Map<Int, Int> =
-            mapOf(1 to 2, 2 to 2, 3 to 2, 4 to 2, 5 to 3, 6 to 3, 7 to 3, 8 to 4, 9 to 4, 10 to 4)
-    }
-
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
-            2
-        )
-
-        mCurrFragment = when (imgRowCnt) {
-            4 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "")
-            3 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "")
-            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "")
+        mCurrFragment = when (Random.nextInt(0, 100) % 3) {
+            2 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "Four")
+            1 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager
                 .beginTransaction()
@@ -53,15 +44,10 @@ class FindPairGameManagerActivity : AbstractGameManagerActivity(), GameFinishLis
 
         ++mRoundCnt
 
-        val imgRowCnt = RoundImgRowCount.getOrDefault(
-            if (mRoundCnt % RoundImgRowCount.size == 0) 1 else mRoundCnt % RoundImgRowCount.size,
-            2
-        )
-
-        mCurrFragment = when (imgRowCnt) {
-            4 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "")
-            3 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "")
-            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "")
+        mCurrFragment = when (Random.nextInt(0, 100) % 3) {
+            2 -> FindPairFragmentFour.newInstance(mRoundCnt.toString(), "Four")
+            1 -> FindPairFragmentThree.newInstance(mRoundCnt.toString(), "Three")
+            else -> FindPairFragmentTwo.newInstance(mRoundCnt.toString(), "Two")
         }.also {
             supportFragmentManager
                 .beginTransaction()
