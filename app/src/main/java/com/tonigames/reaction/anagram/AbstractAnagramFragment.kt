@@ -12,6 +12,7 @@ import android.widget.ToggleButton
 import androidx.core.animation.doOnEnd
 import com.tonigames.reaction.findpair.AnswerSelectListener
 import com.tonigames.reaction.findpair.IImageFragment
+import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 
 abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentLayoutId), IImageFragment {
 
@@ -87,7 +88,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
                 if (diff.isNullOrEmpty()) {
                     gameOverListener?.onCorrectSetSelected()
                 } else {
-                    gameOverListener?.onFailedToSolve("Wrong selection!")
+                    gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                 }
             }
         }

@@ -108,11 +108,11 @@ abstract class AbstractFindPairFragment(contentLayoutId: Int) : Fragment(content
                 if ((img1 != null && img2 != null) && (img1 == img2)) {
                     gameOverListener?.onCorrectSetSelected()
                 } else {
-                    gameOverListener?.onFailedToSolve("Wrong selection")
+                    gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
                 }
             } else if (checkedToggles.size > 2) {
                 seekBarAnimator?.cancel()
-                gameOverListener?.onFailedToSolve("Wrong selection!")
+                gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
             }
         } else {
             checkedToggles.remove(theToggleButton)

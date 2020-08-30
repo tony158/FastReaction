@@ -3,6 +3,8 @@ package com.tonigames.reaction.findpair
 import com.tonigames.reaction.R
 import java.util.*
 
+const val WRONG_SELECTION_MSG = "Wrong selection!"
+
 interface AnswerSelectListener {
     fun onCorrectSetSelected()
 
