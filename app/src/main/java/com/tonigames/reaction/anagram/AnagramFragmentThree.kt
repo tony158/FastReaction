@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import android.widget.ToggleButton
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_anagram_three.*
 
-private const val DURATION = 3600L
+private const val DURATION = 3650L
 
 class AnagramFragmentThree : AbstractAnagramFragment(R.layout.fragment_anagram_three) {
 
@@ -20,7 +21,7 @@ class AnagramFragmentThree : AbstractAnagramFragment(R.layout.fragment_anagram_t
     override var gameOverListener: GameFinishListener? = null
 
     override var quizImageBtnList: List<ImageButton> = listOf()
-    override var ansToggleToImgMap: Map<ToggleButton, Set<ImageButton>> = mutableMapOf()
+    override var ansToggleToImgMap: Map<ToggleButton, Pair<RelativeLayout, Set<ImageButton>>> = mutableMapOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,9 +36,9 @@ class AnagramFragmentThree : AbstractAnagramFragment(R.layout.fragment_anagram_t
         quizImageBtnList = listOf(quizImgBtn1, quizImgBtn2, quizImgBtn3)
 
         ansToggleToImgMap = mapOf(
-            toggleBtn1 to setOf(imgAns11, imgAns12, imgAns13),
-            toggleBtn2 to setOf(imgAns21, imgAns22, imgAns23),
-            toggleBtn3 to setOf(imgAns31, imgAns32, imgAns33)
+            toggleBtn1 to Pair(layoutRow1, setOf(imgAns11, imgAns12, imgAns13)),
+            toggleBtn2 to Pair(layoutRow2, setOf(imgAns21, imgAns22, imgAns23)),
+            toggleBtn3 to Pair(layoutRow3, setOf(imgAns31, imgAns32, imgAns33))
         )
     }
 
@@ -45,8 +46,8 @@ class AnagramFragmentThree : AbstractAnagramFragment(R.layout.fragment_anagram_t
 
         val restAnsToggles = (ansToggleToImgMap.keys subtract setOf(correctAnsToggle)).toList().shuffled()
 
-        val wrongAnsRow1 = ansToggleToImgMap.getValue(restAnsToggles[0]).toList()
-        val wrongAnsRow2 = ansToggleToImgMap.getValue(restAnsToggles[1]).toList()
+        val wrongAnsRow1 = ansToggleToImgMap.getValue(restAnsToggles[0]).second.toList()
+        val wrongAnsRow2 = ansToggleToImgMap.getValue(restAnsToggles[1]).second.toList()
 
         wrongAnsRow1[0].setImageResource(quizImages[0])
         wrongAnsRow1[1].setImageResource(restOfImages.random()!!)

@@ -4,8 +4,12 @@ import android.animation.Animator
 import android.content.Context
 import android.os.Bundle
 import android.widget.ImageButton
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import android.widget.ToggleButton
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.IImageFragment
@@ -23,7 +27,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     abstract var gameOverListener: GameFinishListener?
 
     abstract var quizImageBtnList: List<ImageButton>
-    abstract var ansToggleToImgMap: Map<ToggleButton, Set<ImageButton>>
+    abstract var ansToggleToImgMap: Map<ToggleButton, Pair<RelativeLayout, Set<ImageButton>>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +62,7 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
         quizImages.shuffled()
         val correctAnsToggle = ansToggleToImgMap.keys.toList().random()!!
 
-        ansToggleToImgMap.getValue(correctAnsToggle).shuffled().forEachIndexed { idx, imageBtn ->
+        ansToggleToImgMap.getValue(correctAnsToggle).second.shuffled().forEachIndexed { idx, imageBtn ->
             imageBtn.setImageResource(quizImages[idx])
             imageBtn.tag = quizImages[idx]
         }
@@ -74,19 +78,27 @@ abstract class AbstractAnagramFragment(contentLayoutId: Int) : Fragment(contentL
     private fun bindToggleListeners() {
         ansToggleToImgMap.keys.forEach { toggle ->
             toggle.setOnCheckedChangeListener { selected, _ ->
-                seekBarAnimator?.pause()
 
-                val selectedImgTags = ansToggleToImgMap.getOrDefault((selected as ToggleButton), setOf()).map { it.tag }.toSet()
-                val quizImgTags = quizImageBtnList.map { it.tag }.toSet()
-                val diff = selectedImgTags subtract quizImgTags
+                YoYo.with(Techniques.Tada).duration(100).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            if (!selected.isChecked) return // handle only when checked is true
 
-                ansToggleToImgMap.keys.forEach { if (it != selected) it.isChecked = false } // uncheck the others
+                            seekBarAnimator?.pause()
 
-                if (diff.isNullOrEmpty()) {
-                    gameOverListener?.onCorrectAnswer()
-                } else {
-                    gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
-                }
+                            val selectedImgTags = ansToggleToImgMap.getValue((selected as ToggleButton)).second.map { it.tag }.toSet()
+                            val quizImgTags = quizImageBtnList.map { it.tag }.toSet()
+                            val diff = selectedImgTags subtract quizImgTags
+
+                            ansToggleToImgMap.keys.forEach { if (it != selected) it.isChecked = false } // uncheck the others
+
+                            if (diff.isNullOrEmpty()) {
+                                gameOverListener?.onCorrectAnswer()
+                            } else {
+                                gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
+                            }
+                        }
+                    }).playOn(ansToggleToImgMap.getValue(toggle).first)
             }
         }
     }
