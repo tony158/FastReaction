@@ -171,12 +171,9 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         return true
     }
 
-    private fun showLanguageSettingPP() =
-        LanguageSettingFragment(this).show(supportFragmentManager, "test11")
+    private fun showLanguageSettingPP() = LanguageSettingFragment(this).show(supportFragmentManager, "test11")
 
-
-    private fun showLeaderBoardPP() {
-    }
+    private fun showLeaderBoardPP() = Unit
 
     private fun openRatingLink() {
         val uri1 = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
@@ -189,8 +186,7 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         }
     }
 
-    private fun getHighScore(highScoreType: String = "") =
-        IGameSettings.getHighScore(this, highScoreType)
+    private fun getHighScore(highScoreType: String = "") = IGameSettings.getHighScore(this, highScoreType)
 
     override fun onStop() {
         super.onStop()
