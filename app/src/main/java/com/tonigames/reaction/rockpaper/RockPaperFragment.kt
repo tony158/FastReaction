@@ -69,8 +69,9 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
         super.onResume()
         tvRoundCnt?.run { text = mRoundCnt.toString() }
 
-        val toggleButtons = listOf(toggleBtnAns1, toggleBtnAns2, toggleBtnAns3)
-        toggleButtons.forEach { it?.isChecked = false }
+        val toggleButtons =
+            listOf(Pair(relativeLayout1, toggleBtnAns1), Pair(relativeLayout2, toggleBtnAns2), Pair(relativeLayout3, toggleBtnAns3))
+        toggleButtons.forEach { it.second.isChecked = false }
 
         bindButtonListeners(toggleButtons)
 
@@ -79,10 +80,10 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
         ).also { it.start() }
     }
 
-    private fun bindButtonListeners(buttons: List<Button>) {
-        buttons.forEach(fun(button: Button) {
-            button.setOnClickListener(fun(theButton: View) {
-                YoYo.with(Techniques.Pulse).duration(100).withListener(
+    private fun bindButtonListeners(buttons: List<Pair<RelativeLayout, Button>>) {
+        buttons.forEach(fun(pair: Pair<RelativeLayout, Button>) {
+            pair.second.setOnClickListener(fun(theButton: View) {
+                YoYo.with(Techniques.Tada).duration(100).withListener(
                     object : DefaultAnimatorListener() {
                         override fun onAnimationEnd(animation: Animator?) {
                             try {
@@ -104,7 +105,7 @@ class RockPaperFragment : Fragment(R.layout.fragment_rock_paper), IRockPaper, IS
                             }
                         }
                     }
-                ).playOn(theButton)
+                ).playOn(pair.first)
             })
         })
     }
