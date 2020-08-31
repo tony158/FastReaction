@@ -65,8 +65,8 @@
 
                 <ImageButton
                     android:id="@+id/quizImgBtn1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="104dp"
+                    android:layout_height="104dp"
                     android:clickable="false"
                     android:enabled="false"
                     android:scaleType="fitCenter"
@@ -74,8 +74,8 @@
 
                 <ImageButton
                     android:id="@+id/quizImgBtn2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="104dp"
+                    android:layout_height="104dp"
                     android:clickable="false"
                     android:enabled="false"
                     android:scaleType="fitCenter"
@@ -107,8 +107,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns11"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -116,8 +116,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns12"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -126,8 +126,8 @@
 
                 <ToggleButton
                     android:id="@+id/toggleBtn1"
-                    android:layout_width="180dp"
-                    android:layout_height="90dp"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/image_toggle_selector"
                     android:checked="false"
                     android:textOff=""
@@ -156,8 +156,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns21"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -165,8 +165,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns22"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -175,8 +175,8 @@
 
                 <ToggleButton
                     android:id="@+id/toggleBtn2"
-                    android:layout_width="180dp"
-                    android:layout_height="90dp"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/image_toggle_selector"
                     android:checked="false"
                     android:textOff=""
@@ -205,8 +205,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns31"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -214,8 +214,8 @@
 
                     <ImageButton
                         android:id="@+id/imgAns32"
-                        android:layout_width="90dp"
-                        android:layout_height="90dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:clickable="false"
                         android:enabled="false"
                         android:scaleType="fitCenter"
@@ -224,8 +224,8 @@
 
                 <ToggleButton
                     android:id="@+id/toggleBtn3"
-                    android:layout_width="180dp"
-                    android:layout_height="90dp"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/image_toggle_selector"
                     android:checked="false"
                     android:textOff=""

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_anagram_three.*
 
 private const val DURATION = 3600L
 
-class AnagramFragmentThree() : AbstractAnagramFragment(R.layout.fragment_anagram_three) {
+class AnagramFragmentThree : AbstractAnagramFragment(R.layout.fragment_anagram_three) {
 
     override var seekBarAnimator: Animator? = null
     override var gameOverListener: GameFinishListener? = null

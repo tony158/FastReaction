@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_anagram_two.*
 
 private const val DURATION = 2800L
 
-class AnagramFragmentTwo() : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
+class AnagramFragmentTwo : AbstractAnagramFragment(R.layout.fragment_anagram_two) {
 
     override var seekBarAnimator: Animator? = null
     override var gameOverListener: GameFinishListener? = null
