@@ -223,10 +223,6 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         }
     }
 
-    private fun showWatchAdsPopup() {
-
-    }
-
     override fun onLanguageChanged() {
         val currLanguage = IGameSettings.currentLanguage(this)
         val highScore = translatedMenuText(resources, currLanguage, MainMenuCataEnum.HighScore)
