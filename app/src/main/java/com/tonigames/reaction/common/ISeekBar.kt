@@ -7,6 +7,8 @@ import android.view.animation.LinearInterpolator
 import android.widget.SeekBar
 import androidx.core.animation.doOnEnd
 
+private const val TIMES_UP_MSG = "Time's up!"
+
 interface ISeekBar {
     fun reduceDuration(duration: Long, roundCnt: Int): Long {
         return when {
@@ -35,7 +37,7 @@ interface ISeekBar {
             doOnEnd {
                 progressBar?.progress = 100
                 try {
-                    gameFinishListener?.onFailedToSolve("Time's up")
+                    gameFinishListener?.onFailedToSolve(TIMES_UP_MSG)
                 } catch (e: Exception) {
                     Log.d("ISeekBar", e.message ?: "exception")
                 }
