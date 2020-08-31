@@ -77,9 +77,8 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
     }
 
     private fun releaseMedia() =
-        listOf(soundPositive, soundNegative, soundBtnClick).forEach {
-            it?.stop()
-            it?.release()
+        listOf(soundPositive, soundNegative, soundBtnClick).forEach { mp ->
+            mp?.release()
         }
 
     private fun initMedia() {

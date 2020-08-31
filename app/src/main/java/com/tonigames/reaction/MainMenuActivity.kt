@@ -202,7 +202,9 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
         releaseSounds()
     }
 
-    private fun releaseSounds() = soundBtnClick?.release()
+    private fun releaseSounds() = listOf(soundBtnClick).forEach { mp ->
+        mp?.release()
+    }
 
     private fun initSounds() = MediaPlayer.create(this, R.raw.button_click).also {
         soundBtnClick = it
