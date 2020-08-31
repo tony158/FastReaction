@@ -63,21 +63,24 @@ abstract class AbstractGameManagerActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        releaseMedia()
 
         mRoundCnt = 0
-        releaseMedia()
         mDialogPopup?.dismiss()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
         releaseMedia()
+
         mDialogPopup?.dismiss()
     }
 
     private fun releaseMedia() =
-        listOf(soundPositive, soundNegative, soundBtnClick).forEach { it?.release() }
+        listOf(soundPositive, soundNegative, soundBtnClick).forEach {
+            it?.stop()
+            it?.release()
+        }
 
     private fun initMedia() {
         soundBtnClick = MediaPlayer.create(this, R.raw.button_click)
