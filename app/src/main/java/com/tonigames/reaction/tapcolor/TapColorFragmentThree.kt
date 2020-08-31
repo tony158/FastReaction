@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_tap_color_three.btnColor2
 import kotlinx.android.synthetic.main.fragment_tap_color_three.progressBar
 import kotlinx.android.synthetic.main.fragment_tap_color_three.textViewColor
 
-private const val DURATION = 1500L
+private const val DURATION = 1550L
 
 class TapColorFragmentThree : AbstractTapColorFragment(R.layout.fragment_tap_color_three) {
 
