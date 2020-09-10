@@ -100,6 +100,7 @@
     <string name="tap_color_description_spanish">Toque el color correcto</string>
     <string name="find_pair_description_spanish">Toca un par de cosas iguales</string>
     <string name="left_or_right_description_spanish">Misma forma, desliza hacia la misma dirección</string>
+
     <string name="high_score_spanish">Puntuación más alta</string>
     <string name="score_rank_spanish">Ranking</string>
     <string name="score_coin_spanish">Moneda</string>
