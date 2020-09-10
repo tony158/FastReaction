@@ -14,7 +14,7 @@ import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_find_pair_two.*
 import kotlinx.android.synthetic.main.fragment_find_pair_two.progressBar
 
-private const val DURATION = 1950L
+private const val DURATION = 2000L
 
 class FindPairFragmentTwo : AbstractFindPairFragment(R.layout.fragment_find_pair_two) {
 

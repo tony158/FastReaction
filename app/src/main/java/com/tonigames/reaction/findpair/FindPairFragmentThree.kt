@@ -13,7 +13,7 @@ import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_find_pair_three.*
 
-private const val DURATION = 2550L
+private const val DURATION = 2600L
 
 class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pair_three) {
 

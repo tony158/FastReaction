@@ -145,50 +145,50 @@ class BoomMenuHandler(
             tapColorLocked -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
-        with(boomMenu.getBuilder(0) as HamButton.Builder) {
-            this.normalText(tapColorTitle)
-            this.subNormalText(tapColorSubtitle)
-            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableTapColor))
+        with(boomMenu.getBuilder(0) as? HamButton.Builder) {
+            this?.normalText(tapColorTitle)
+            this?.subNormalText(tapColorSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableTapColor))
         }
 
         val drawableFindPair = when {
             findPairLocked -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
-        with(boomMenu.getBuilder(1) as HamButton.Builder) {
-            this.normalText(findPairTitle)
-            this.subNormalText(findPairSubtitle)
-            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableFindPair))
+        with(boomMenu.getBuilder(1) as? HamButton.Builder) {
+            this?.normalText(findPairTitle)
+            this?.subNormalText(findPairSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableFindPair))
         }
 
         val drawableLeftRight = when {
             leftRightLocked -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
-        with(boomMenu.getBuilder(2) as HamButton.Builder) {
-            this.normalText(leftRightTitle)
-            this.subNormalText(leftRightSubtitle)
-            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableLeftRight))
+        with(boomMenu.getBuilder(2) as? HamButton.Builder) {
+            this?.normalText(leftRightTitle)
+            this?.subNormalText(leftRightSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableLeftRight))
         }
 
         val drawableRockPaper = when {
             rockPaperLocked -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
-        with(boomMenu.getBuilder(3) as HamButton.Builder) {
-            this.normalText(rockPaperTitle)
-            this.subNormalText(rockPaperSubtitle)
-            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableRockPaper))
+        with(boomMenu.getBuilder(3) as? HamButton.Builder) {
+            this?.normalText(rockPaperTitle)
+            this?.subNormalText(rockPaperSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableRockPaper))
         }
 
         val drawableAnagram = when {
             anagramLocked -> R.drawable.menu_locked
             else -> R.drawable.menu_unlocked
         }
-        with(boomMenu.getBuilder(4) as HamButton.Builder) {
-            this.normalText(anagramTitle)
-            this.subNormalText(anagramSubtitle)
-            this.normalImageDrawable(ContextCompat.getDrawable(context, drawableAnagram))
+        with(boomMenu.getBuilder(4) as? HamButton.Builder) {
+            this?.normalText(anagramTitle)
+            this?.subNormalText(anagramSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableAnagram))
         }
 
         refreshGameTitle()

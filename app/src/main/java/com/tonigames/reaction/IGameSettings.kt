@@ -48,7 +48,7 @@ interface IGameSettings {
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_german,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_german,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_german,
-            MainMenuCataEnum.ImageAnagram to R.string.anagram_description_german,
+            MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_german,
 
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
@@ -141,10 +141,8 @@ interface IGameSettings {
             language: MyLanguageEnum = MyLanguageEnum.English,
             cata: MainMenuCataEnum
         ): String {
-            return theMap.getOrDefault(language, englishMap).getOrDefault(cata, 0)
-                .run {
-                    res.getString(this)
-                }
+            val languageMap = theMap.getOrDefault(language, englishMap)
+            return languageMap.getOrDefault(cata, 0).run { res.getString(this) }
         }
 
         fun getHighScore(context: Context, highScoreType: String = "") =
