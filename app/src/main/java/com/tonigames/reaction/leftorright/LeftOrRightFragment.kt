@@ -67,13 +67,14 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
         }
 
         listOf(
-            Techniques.RotateInUpRight,
-            Techniques.RotateInUpLeft,
-            Techniques.RotateInDownRight,
-            Techniques.RotateInDownLeft
+            Techniques.FadeIn,
+            Techniques.FadeInLeft,
+            Techniques.FadeInRight,
+            Techniques.FadeInUp,
+            Techniques.FadeInDown
         ).random().also {
             if (mRoundCnt >= 0) {
-                YoYo.with(it).duration(220L).playOn(imageContainer)
+                YoYo.with(it).duration(80L).playOn(imageContainer)
             } else {
                 val endListener = object : DefaultAnimatorListener() {
                     override fun onAnimationEnd(animation: Animator?) {
@@ -81,7 +82,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
                     }
                 }
 
-                YoYo.with(it).duration(360L).withListener(endListener).playOn(imageContainer)
+                YoYo.with(it).duration(300L).withListener(endListener).playOn(imageContainer)
             }
         }
 
@@ -156,7 +157,7 @@ class LeftOrRightFragment : Fragment(R.layout.fragment_left_or_right), ILeftOrRi
 
             mAnimator = imgContainer.animate().also {
                 it.translationX((xMoveBy).toFloat())
-                it.duration = 100L
+                it.duration = 80L
                 it.setListener(listener)
                 it.start()
             }
