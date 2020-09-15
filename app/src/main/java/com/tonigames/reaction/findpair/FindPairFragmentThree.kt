@@ -1,7 +1,6 @@
 package com.tonigames.reaction.findpair
 
 import android.animation.Animator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -57,11 +56,7 @@ class FindPairFragmentThree : AbstractFindPairFragment(R.layout.fragment_find_pa
 
     override fun onResume() {
         super.onResume()
-
-        tvRoundCnt?.run {
-            setTextColor(Color.parseColor("#FFA07A"))
-            text = paramRound.toString()
-        }
+        tvRoundCnt?.run { text = paramRound.toString() }
 
         bindButtonListeners(
             listOf<ToggleButton>(

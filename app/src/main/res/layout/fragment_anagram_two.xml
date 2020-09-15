@@ -26,6 +26,7 @@
             android:fontFamily="casual"
             android:gravity="center"
             android:text=""
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold" />
 

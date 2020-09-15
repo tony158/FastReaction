@@ -1,7 +1,6 @@
 package com.tonigames.reaction.tapcolor
 
 import android.animation.Animator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,10 +32,7 @@ class TapColorFragmentFour : AbstractTapColorFragment(R.layout.fragment_tap_colo
 
     override fun onResume() {
         super.onResume()
-        tvRoundCnt?.run {
-            setTextColor(Color.parseColor("#00574B"))
-            text = paramRound.toString()
-        }
+        tvRoundCnt?.run { text = paramRound.toString() }
 
         setColorsToButtons(mutableListOf(btnColor1, btnColor2, btnColor3, btnColor4))
             .run {

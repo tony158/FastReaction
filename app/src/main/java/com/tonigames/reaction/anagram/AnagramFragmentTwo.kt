@@ -1,7 +1,6 @@
 package com.tonigames.reaction.anagram
 
 import android.animation.Animator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -58,10 +57,7 @@ class AnagramFragmentTwo : AbstractAnagramFragment(R.layout.fragment_anagram_two
 
     override fun onResume() {
         super.onResume()
-        tvRoundCnt?.run {
-            setTextColor(Color.parseColor("#FFA07A"))
-            text = paramRound.toString()
-        }
+        tvRoundCnt?.run { text = paramRound.toString() }
 
         seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, paramRound),

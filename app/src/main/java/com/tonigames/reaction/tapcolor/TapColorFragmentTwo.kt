@@ -1,7 +1,6 @@
 package com.tonigames.reaction.tapcolor
 
 import android.animation.Animator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import android.widget.Button
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_tap_color_two.*
+
 private const val DURATION = 1350L
 
 
@@ -28,10 +28,7 @@ class TapColorFragmentTwo : AbstractTapColorFragment(R.layout.fragment_tap_color
 
     override fun onResume() {
         super.onResume()
-        tvRoundCnt?.run {
-            setTextColor(Color.parseColor("#00574B"))
-            text = paramRound.toString()
-        }
+        tvRoundCnt?.run { text = paramRound.toString() }
 
         setColorsToButtons(mutableListOf(btnColor1, btnColor2))
             .run {
