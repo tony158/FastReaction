@@ -1,4 +1,4 @@
-package com.tonigames.reaction.birdwatch
+package com.tonigames.reaction.findleader
 
 import android.animation.Animator
 import android.os.Bundle
@@ -10,7 +10,7 @@ import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 
-abstract class AbstractBirdWatchFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
+abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
     protected val roundArgument: String = "Round"
     protected val extraArgument: String = "Extra"
 
@@ -22,7 +22,7 @@ abstract class AbstractBirdWatchFragment(contentLayoutId: Int) : Fragment(conten
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         arguments?.let {
             paramRound = it.getString(roundArgument)?.toInt() ?: 0
             paramExtra = it.getString(extraArgument)

@@ -27,12 +27,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_english,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
             MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_english,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_english,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_english,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_english,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_pair_description_english,
 
             MainMenuCataEnum.HighScore to R.string.high_score_english,
             MainMenuCataEnum.Ranking to R.string.score_rank_english,
@@ -45,12 +47,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_german,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_german,
             MainMenuCataEnum.ImageAnagram to R.string.anagram_german,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_german,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_german,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_german,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_german,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_german,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_german,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_pair_description_german,
 
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
@@ -63,12 +67,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_french,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
             MainMenuCataEnum.ImageAnagram to R.string.rock_paper_english,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_english,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_french,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_french,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_french,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_french,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_french,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_french,
 
             MainMenuCataEnum.HighScore to R.string.high_score_french,
             MainMenuCataEnum.Ranking to R.string.score_rank_french,
@@ -81,12 +87,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_chinese,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_chinese,
             MainMenuCataEnum.ImageAnagram to R.string.anagram_chinese,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_chinese,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_chinese,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_chinese,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_chinese,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_chinese,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_chinese,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_french,
 
             MainMenuCataEnum.HighScore to R.string.high_score_chinese,
             MainMenuCataEnum.Ranking to R.string.score_rank_chinese,
@@ -99,12 +107,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_spanish,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
             MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_english,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_spanish,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_spanish,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_spanish,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_spanish,
 
             MainMenuCataEnum.HighScore to R.string.high_score_spanish,
             MainMenuCataEnum.Ranking to R.string.score_rank_spanish,
@@ -117,12 +127,14 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRight to R.string.left_or_right_portu,
             MainMenuCataEnum.RockPaper to R.string.rock_paper_english,
             MainMenuCataEnum.ImageAnagram to R.string.anagram_english,
+            MainMenuCataEnum.FindLeader to R.string.find_leader_english,
 
             MainMenuCataEnum.TapColorSubtitle to R.string.tap_color_description_portu,
             MainMenuCataEnum.FindPairSubtitle to R.string.find_pair_description_portu,
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_portu,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_portu,
 
             MainMenuCataEnum.HighScore to R.string.high_score_portu,
             MainMenuCataEnum.Ranking to R.string.score_rank_portu,
