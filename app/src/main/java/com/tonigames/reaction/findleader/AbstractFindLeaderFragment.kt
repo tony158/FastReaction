@@ -11,8 +11,8 @@ import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
 
 abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
-    protected val roundArgument: String = "Round"
-    protected val extraArgument: String = "Extra"
+    val roundArgument: String = "Round"
+    val extraArgument: String = "Extra"
 
     var paramRound: Int = 0
     var paramExtra: String? = null

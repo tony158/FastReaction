@@ -5,6 +5,7 @@ import android.icu.util.Calendar
 import android.os.AsyncTask
 import android.widget.TextView
 import com.google.firebase.database.*
+import com.tonigames.reaction.Constants.Companion.FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
@@ -72,6 +73,7 @@ class FireBaseAccess(
             LEFT_RIGHT -> LeftRightDTO::class.java.simpleName
             ROCK_PAPER -> RockPaperDTO::class.java.simpleName
             IMAGE_ANAGRAM -> ImageAnagramDTO::class.java.simpleName
+            FIND_LEADER -> FindLeaderDTO::class.java.simpleName
             else -> TapColorDTO::class.java.simpleName
         }
 
@@ -88,6 +90,7 @@ class FireBaseAccess(
             FIND_PAIR -> FindPairDTO(android_id, deviceName, score, Calendar.getInstance().time)
             ROCK_PAPER -> RockPaperDTO(android_id, deviceName, score, Calendar.getInstance().time)
             IMAGE_ANAGRAM -> ImageAnagramDTO(android_id, deviceName, score, Calendar.getInstance().time)
+            FIND_LEADER -> FindLeaderDTO(android_id, deviceName, score, Calendar.getInstance().time)
             else -> LeftRightDTO(android_id, deviceName, score, Calendar.getInstance().time)
         }
 

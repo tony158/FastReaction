@@ -21,6 +21,7 @@ import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.reward.RewardedVideoAd
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.tonigames.reaction.Constants.Companion.FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
 import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
@@ -137,6 +138,7 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
                 LEFT_RIGHT -> LeftRightGameManagerActivity::class.java
                 ROCK_PAPER -> RockPaperGameManagerActivity::class.java
                 IMAGE_ANAGRAM -> ImageAnagramManagerActivity::class.java
+                FIND_LEADER -> FindLeaderGameManagerActivity::class.java
                 else -> TapColorGameManagerActivity::class.java
             }
 
@@ -192,16 +194,15 @@ class MainMenuActivity : AppCompatActivity(), IGameSettings {
                 // There was some problem, continue regardless of the result.
             }
         }
+        
+        val uri1 = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+        val uri2 = Uri.parse("market://details?id=$packageName")
 
-
-//        val uri1 = Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
-//        val uri2 = Uri.parse("market://details?id=$packageName")
-//
-//        try {
-//            startActivity(Intent(Intent.ACTION_VIEW, uri1))
-//        } catch (ex: ActivityNotFoundException) {
-//            startActivity(Intent(Intent.ACTION_VIEW, uri2))
-//        }
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, uri1))
+        } catch (ex: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, uri2))
+        }
     }
 
     private fun getHighScore(highScoreType: String = "") = IGameSettings.getHighScore(this, highScoreType)
