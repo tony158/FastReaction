@@ -3,9 +3,11 @@ package com.tonigames.reaction
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Resources
+import com.tonigames.reaction.Constants.Companion.FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LEFT_RIGHT
+import com.tonigames.reaction.Constants.Companion.LOCKED_FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.LOCKED_IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.LOCKED_FIND_PAIR
 import com.tonigames.reaction.Constants.Companion.LOCKED_LEFT_RIGHT
@@ -163,7 +165,8 @@ interface IGameSettings {
             FIND_PAIR to Constants.HIGH_SCORE_FIND_PAIR,
             LEFT_RIGHT to Constants.HIGH_SCORE_LEFT_RIGHT,
             ROCK_PAPER to Constants.HIGH_SCORE_ROCK_PAPER,
-            IMAGE_ANAGRAM to Constants.HIGH_SCORE_IMAGE_ANAGRAM
+            IMAGE_ANAGRAM to Constants.HIGH_SCORE_IMAGE_ANAGRAM,
+            FIND_LEADER to Constants.HIGH_SCORE_FIND_LEADER
         )
 
         private val gameTypeToLockTypeMap = mapOf<Int, String>(
@@ -171,7 +174,8 @@ interface IGameSettings {
             FIND_PAIR to LOCKED_FIND_PAIR,
             LEFT_RIGHT to LOCKED_LEFT_RIGHT,
             ROCK_PAPER to LOCKED_ROCK_PAPER,
-            IMAGE_ANAGRAM to LOCKED_IMAGE_ANAGRAM
+            IMAGE_ANAGRAM to LOCKED_IMAGE_ANAGRAM,
+            FIND_LEADER to LOCKED_FIND_LEADER
         )
 
         fun unlockGame(context: Context, gameType: Int) {
@@ -216,18 +220,21 @@ class Constants {
         const val HIGH_SCORE_LEFT_RIGHT: String = "HighScoreLeftRight"
         const val HIGH_SCORE_ROCK_PAPER: String = "HighScoreRockPaper"
         const val HIGH_SCORE_IMAGE_ANAGRAM: String = "HighScoreImageAnagram"
+        const val HIGH_SCORE_FIND_LEADER: String = "HighScoreFindLeader"
 
         const val LOCKED_TAP_COLOR: String = "LockedTapColor"
         const val LOCKED_FIND_PAIR: String = "LockedFindPair"
         const val LOCKED_LEFT_RIGHT: String = "LockedLeftRight"
         const val LOCKED_ROCK_PAPER: String = "LockedRockPaper"
         const val LOCKED_IMAGE_ANAGRAM: String = "LockedImageAnagram"
+        const val LOCKED_FIND_LEADER: String = "LockedFindLeader"
 
         const val TAP_COLOR: Int = 0
         const val FIND_PAIR: Int = 1
         const val LEFT_RIGHT: Int = 2
         const val ROCK_PAPER: Int = 3
         const val IMAGE_ANAGRAM: Int = 4
+        const val FIND_LEADER: Int = 5
 
         const val SELECTED_LANGUAGE = "SelectedLanguage"
     }
@@ -239,12 +246,14 @@ enum class MainMenuCataEnum {
     LeftOrRight,
     RockPaper,
     ImageAnagram,
+    FindLeader,
 
     TapColorSubtitle,
     FindPairSubtitle,
     LeftOrRightSubtitle,
     RockPaperSubtitle,
     AnagramSubtitle,
+    FindLeaderSubtitle,
 
     HighScore,
     Ranking,

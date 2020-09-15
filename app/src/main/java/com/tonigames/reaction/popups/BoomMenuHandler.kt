@@ -20,9 +20,12 @@ import com.nightonke.boommenu.BoomButtons.BoomButton
 import com.nightonke.boommenu.BoomButtons.HamButton
 import com.nightonke.boommenu.BoomMenuButton
 import com.nightonke.boommenu.OnBoomListenerAdapter
+import com.tonigames.reaction.Constants.Companion.FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_LEADER
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_FIND_PAIR
+import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_IMAGE_ANAGRAM
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_LEFT_RIGHT
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_ROCK_PAPER
 import com.tonigames.reaction.Constants.Companion.HIGH_SCORE_TAP_COLOR
@@ -56,18 +59,21 @@ class BoomMenuHandler(
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
         val rockPaperTitle = getTranslatedText(MainMenuCataEnum.RockPaper)
         val anagramTitle = getTranslatedText(MainMenuCataEnum.ImageAnagram)
+        val findLeaderTitle = getTranslatedText(MainMenuCataEnum.FindLeader)
 
         val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
         val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
         val anagramSubtitle = getTranslatedText(MainMenuCataEnum.AnagramSubtitle)
+        val findLeaderSubtitle = getTranslatedText(MainMenuCataEnum.FindLeader)
 
         addBuilderBMB(tapColorTitle, tapColorSubtitle, TAP_COLOR)       // 0
         addBuilderBMB(findPairTitle, findPairSubtitle, FIND_PAIR)       // 1
         addBuilderBMB(leftRightTitle, leftRightSubtitle, LEFT_RIGHT)    // 2
         addBuilderBMB(rockPaperTitle, rockPaperSubtitle, ROCK_PAPER)    // 3
         addBuilderBMB(anagramTitle, anagramSubtitle, IMAGE_ANAGRAM)    // 4
+        addBuilderBMB(findLeaderTitle, findLeaderSubtitle, FIND_LEADER)    // 5
 
         boomMenu.onBoomListener = object : OnBoomListenerAdapter() {
             override fun onClicked(index: Int, boomButton: BoomButton?) {
@@ -128,18 +134,21 @@ class BoomMenuHandler(
         val leftRightTitle = getTranslatedText(MainMenuCataEnum.LeftOrRight)
         val rockPaperTitle = getTranslatedText(MainMenuCataEnum.RockPaper)
         val anagramTitle = getTranslatedText(MainMenuCataEnum.ImageAnagram)
+        val findLeaderTitle = getTranslatedText(MainMenuCataEnum.FindLeader)
 
         val tapColorSubtitle = getTranslatedText(MainMenuCataEnum.TapColorSubtitle)
         val findPairSubtitle = getTranslatedText(MainMenuCataEnum.FindPairSubtitle)
         val leftRightSubtitle = getTranslatedText(MainMenuCataEnum.LeftOrRightSubtitle)
         val rockPaperSubtitle = getTranslatedText(MainMenuCataEnum.RockPaperSubtitle)
         val anagramSubtitle = getTranslatedText(MainMenuCataEnum.AnagramSubtitle)
+        val findLeaderSubtitle = getTranslatedText(MainMenuCataEnum.FindLeaderSubtitle)
 
         val tapColorLocked = IGameSettings.isGameLocked(context, TAP_COLOR)
         val findPairLocked = IGameSettings.isGameLocked(context, FIND_PAIR)
         val leftRightLocked = IGameSettings.isGameLocked(context, LEFT_RIGHT)
         val rockPaperLocked = IGameSettings.isGameLocked(context, ROCK_PAPER)
         val anagramLocked = IGameSettings.isGameLocked(context, IMAGE_ANAGRAM)
+        val findLeaderLocked = IGameSettings.isGameLocked(context, FIND_LEADER)
 
         val drawableTapColor = when {
             tapColorLocked -> R.drawable.menu_locked
@@ -191,6 +200,16 @@ class BoomMenuHandler(
             this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableAnagram))
         }
 
+        val drawableFindLeader = when {
+            findLeaderLocked -> R.drawable.menu_locked
+            else -> R.drawable.menu_unlocked
+        }
+        with(boomMenu.getBuilder(5) as? HamButton.Builder) {
+            this?.normalText(findLeaderTitle)
+            this?.subNormalText(findLeaderSubtitle)
+            this?.normalImageDrawable(ContextCompat.getDrawable(context, drawableFindLeader))
+        }
+
         refreshGameTitle()
     }
 
@@ -210,6 +229,7 @@ class BoomMenuHandler(
                     LEFT_RIGHT -> gameTitle.text = getTranslatedText(MainMenuCataEnum.LeftOrRight)
                     ROCK_PAPER -> gameTitle.text = getTranslatedText(MainMenuCataEnum.RockPaper)
                     IMAGE_ANAGRAM -> gameTitle.text = getTranslatedText(MainMenuCataEnum.ImageAnagram)
+                    FIND_LEADER -> gameTitle.text = getTranslatedText(MainMenuCataEnum.FindLeader)
                     else -> gameTitle.text = "???"
                 }
             }
@@ -286,11 +306,13 @@ class BoomMenuHandler(
         val leftRightLocked = IGameSettings.isGameLocked(context, LEFT_RIGHT)
         val rockPaperLocked = IGameSettings.isGameLocked(context, ROCK_PAPER)
         val anagramLocked = IGameSettings.isGameLocked(context, IMAGE_ANAGRAM)
+        val findLeaderLocked = IGameSettings.isGameLocked(context, FIND_LEADER)
 
         val tapColorHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_TAP_COLOR)
         val findPairHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_FIND_PAIR)
         val leftRightHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_LEFT_RIGHT)
         val rockPaperHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_ROCK_PAPER)
+        val imageAnagramHighScore = IGameSettings.getHighScore(context, HIGH_SCORE_IMAGE_ANAGRAM)
 
         var hasGameUnlocked = false
         if (findPairLocked && tapColorHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
@@ -309,6 +331,10 @@ class BoomMenuHandler(
             IGameSettings.unlockGame(context, IMAGE_ANAGRAM)
             hasGameUnlocked = true
         }
+        if (findLeaderLocked && imageAnagramHighScore >= UNLOCK_GAME_SCORE_THRESHOLD) {
+            IGameSettings.unlockGame(context, FIND_LEADER)
+            hasGameUnlocked = true
+        }
 
         if (hasGameUnlocked) refreshBoomMenu()
     }
@@ -320,7 +346,8 @@ class BoomMenuHandler(
                 1 to FIND_PAIR,
                 2 to LEFT_RIGHT,
                 3 to ROCK_PAPER,
-                4 to IMAGE_ANAGRAM
+                4 to IMAGE_ANAGRAM,
+                5 to FIND_LEADER
             )
     }
 }
