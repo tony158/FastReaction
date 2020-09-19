@@ -16,7 +16,6 @@ private const val DURATION = 3000L
 class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_leader_two) {
 
     override var seekBarAnimator: Animator? = null
-
     override var gameOverListener: GameFinishListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
