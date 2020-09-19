@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
+import kotlinx.android.synthetic.main.fragment_find_leader_two.*
+
+private const val DURATION = 3000L
 
 abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
     val roundArgument: String = "Round"
@@ -26,6 +29,18 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
         arguments?.let {
             paramRound = it.getString(roundArgument)?.toInt() ?: 0
             paramExtra = it.getString(extraArgument)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        seekBarAnimator = initSeekBarAnimator(
+            reduceDuration(DURATION, paramRound),
+            progressBar,
+            gameOverListener
+        ).also {
+            it.start()
         }
     }
 
