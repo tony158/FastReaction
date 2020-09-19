@@ -29,11 +29,14 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_abstract, container, false)
+    companion object {
+        val allDrawables: List<Int> = listOf(
+            R.drawable.leftright_circle,
+            R.drawable.leftright_diamond,
+            R.drawable.leftright_heart,
+            R.drawable.leftright_star,
+            R.drawable.leftright_triangle,
+            R.drawable.leftright_square
+        )
     }
 }

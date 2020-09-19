@@ -55,15 +55,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|center_horizontal|center"
-            android:layout_marginStart="0dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout11"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn11"
@@ -89,8 +87,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout12"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn12"
@@ -116,8 +113,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout13"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn13"
@@ -152,8 +148,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout21"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn21"
@@ -179,8 +174,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout22"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn22"
@@ -206,8 +200,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout23"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn23"
@@ -241,8 +234,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout31"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn31"
@@ -268,8 +260,7 @@
             <RelativeLayout
                 android:id="@+id/relativeLayout32"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_height="wrap_content">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn32"
@@ -296,7 +287,11 @@
                 android:id="@+id/relativeLayout33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp">
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp">
 
                 <ToggleButton
                     android:id="@+id/toggleBtn33"
