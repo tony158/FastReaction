@@ -54,7 +54,7 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_german,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_german,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_german,
-            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_pair_description_german,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_german,
 
             MainMenuCataEnum.HighScore to R.string.high_score_german,
             MainMenuCataEnum.Ranking to R.string.score_rank_german,
@@ -94,7 +94,7 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_chinese,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_chinese,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_chinese,
-            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_french,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_chinese,
 
             MainMenuCataEnum.HighScore to R.string.high_score_chinese,
             MainMenuCataEnum.Ranking to R.string.score_rank_chinese,
