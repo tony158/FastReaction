@@ -32,6 +32,10 @@ class FindLeaderFragmentThree : AbstractFindLeaderFragment(R.layout.fragment_fin
         return inflater.inflate(R.layout.fragment_find_leader_three, container, false)
     }
 
+    override fun initImageButtons() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =

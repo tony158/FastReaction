@@ -5,17 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.RelativeLayout
-import android.widget.ToggleButton
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
-import com.tonigames.reaction.findpair.IImageFragment
 import kotlinx.android.synthetic.main.fragment_find_leader_two.*
 
 class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_leader_two) {
-
-    private lateinit var ansToggleToImgMap: Map<ToggleButton, ImageButton>
 
     override var seekBarAnimator: Animator? = null
     override var gameOverListener: GameFinishListener? = null
@@ -32,42 +26,17 @@ class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_
         return inflater.inflate(R.layout.fragment_find_leader_two, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initImageButtons() {
+        val twoImages: List<Int> = allDrawables.shuffled().takeLast(2)
+        val selectedImages = mutableListOf<Int>()
+        for (i in 1..4) selectedImages.add(twoImages[0])
+        for (i in 1..5) selectedImages.add(twoImages[1])
+        selectedImages.shuffle()
 
-        ansToggleToImgMap = mapOf(
-            toggleBtn11 to imageBtn11,
-            toggleBtn12 to imageBtn12,
-            toggleBtn13 to imageBtn13,
-
-            toggleBtn21 to imageBtn21,
-            toggleBtn22 to imageBtn22,
-            toggleBtn23 to imageBtn23,
-
-            toggleBtn31 to imageBtn31,
-            toggleBtn32 to imageBtn32,
-            toggleBtn33 to imageBtn33
-        )
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-
-        ansToggleToImgMap.keys.forEach { it.isChecked = false }   //uncheck all
-
-        initImageButtons()
-        bindToggleListeners()
-    }
-
-    private fun initImageButtons() {
-        val drawables: List<Int> = allDrawables.shuffled()
-
-
-    }
-
-    private fun bindToggleListeners() {
-
+        toggleToImgMap.values.forEachIndexed { idx, imgBtn ->
+            imgBtn.setImageResource(selectedImages[idx])
+            imgBtn.tag = selectedImages[idx]
+        }
     }
 
     companion object {

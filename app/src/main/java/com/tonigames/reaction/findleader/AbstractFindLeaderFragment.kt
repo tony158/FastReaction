@@ -1,14 +1,21 @@
 package com.tonigames.reaction.findleader
 
 import android.animation.Animator
+import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ToggleButton
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
+import com.tonigames.reaction.DefaultAnimatorListener
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
 import com.tonigames.reaction.common.ISeekBar
+import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import kotlinx.android.synthetic.main.fragment_find_leader_two.*
 
 private const val DURATION = 3000L
@@ -23,6 +30,8 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
     abstract var seekBarAnimator: Animator?
     abstract var gameOverListener: GameFinishListener?
 
+    protected lateinit var toggleToImgMap: Map<ToggleButton, ImageButton>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,8 +41,59 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        toggleToImgMap = mapOf(
+            toggleBtn11 to imageBtn11,
+            toggleBtn12 to imageBtn12,
+            toggleBtn13 to imageBtn13,
+            toggleBtn21 to imageBtn21,
+            toggleBtn22 to imageBtn22,
+            toggleBtn23 to imageBtn23,
+            toggleBtn31 to imageBtn31,
+            toggleBtn32 to imageBtn32,
+            toggleBtn33 to imageBtn33
+        )
+    }
+
+    abstract fun initImageButtons()
+
+    fun bindToggleListeners() {
+        toggleToImgMap.keys.forEach { toggle ->
+            toggle.setOnCheckedChangeListener { selected, _ ->
+                YoYo.with(Techniques.Tada).duration(80).withListener(
+                    object : DefaultAnimatorListener() {
+                        override fun onAnimationEnd(animation: Animator?) {
+                            seekBarAnimator?.pause()
+
+                            val selectedImgBtn = toggleToImgMap.getValue((selected as ToggleButton))
+
+                            if (checkAnswer(selectedImgBtn, toggleToImgMap)) {
+                                gameOverListener?.onCorrectAnswer()
+                            } else {
+                                gameOverListener?.onFailedToSolve(WRONG_SELECTION_MSG)
+                            }
+                        }
+                    }).playOn(toggleToImgMap.getValue(toggle))
+            }
+        }
+    }
+
+    private fun checkAnswer(selectedImgBtn: ImageButton, toggleToImgMap: Map<ToggleButton, ImageButton>): Boolean {
+        val countMap = toggleToImgMap.values.groupingBy { it.tag.toString() }.eachCount()
+        val maxOne = countMap.toList().maxBy { (_, value) -> value } ?: Pair("", 0)
+
+        return maxOne.first == selectedImgBtn.tag.toString()
+    }
+
     override fun onResume() {
         super.onResume()
+
+        toggleToImgMap.keys.forEach { it.isChecked = false }   //uncheck all
+
+        initImageButtons()
+        bindToggleListeners()
 
         seekBarAnimator = initSeekBarAnimator(
             reduceDuration(DURATION, paramRound),
