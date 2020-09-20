@@ -1,6 +1,7 @@
 package com.tonigames.reaction.findleader
 
 import android.animation.Animator
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -15,7 +16,7 @@ import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import kotlinx.android.synthetic.main.fragment_find_leader_two.*
 
-private const val DURATION = 3000L
+private const val DURATION = 2400L
 
 abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
     val roundArgument: String = "Round"
@@ -98,6 +99,18 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
             gameOverListener
         ).also {
             it.start()
+        }
+    }
+
+    fun clearAllToggles() {
+        toggleToImgMap.keys.forEach { it.isChecked = false }   //uncheck all
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is GameFinishListener) {
+            gameOverListener = context
         }
     }
 

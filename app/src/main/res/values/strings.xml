@@ -49,14 +49,14 @@
     <string name="gameLocked_msg_english">To unlock this game, you need to get high score 40 in last game</string>
     <string name="reward_load_failed_msg_english">Failed to load ads, please try again later</string>
     <string name="reward_earned_msg_english">Game is unlocked now!</string>
-    <string name="wait_loading_video_english">Wait a few seconds please, loading...</string>
+    <string name="wait_loading_video_english">Wait a few seconds please, loading…</string>
 
     <string name="tap_color_german">Farbe tippen</string>
     <string name="find_pair_german">Paar finden</string>
     <string name="left_or_right_german">Links Rechts</string>
     <string name="rock_paper_german">Schnick Schnack Schnuck</string>
     <string name="anagram_german">Finde die gleichen Bilder</string>
-    <string name="find_leader_german">Test</string>
+    <string name="find_leader_german">Find Leader</string>
 
     <string name="tap_color_description_german">Tippen auf die richtig Farbe</string>
     <string name="find_pair_description_german">Finde die gleichen Dinge</string>
@@ -88,7 +88,7 @@
     <string name="left_or_right_chinese">左或右</string>
     <string name="rock_paper_chinese">石头剪刀布</string>
     <string name="anagram_chinese">图片变位</string>
-    <string name="find_leader_chinese">Test</string>
+    <string name="find_leader_chinese">找领导</string>
 
     <string name="tap_color_description_chinese">点击正确的颜色</string>
     <string name="find_pair_description_chinese">找一对相同的东西</string>
