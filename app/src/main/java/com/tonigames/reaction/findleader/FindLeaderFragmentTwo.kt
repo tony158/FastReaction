@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tonigames.reaction.R
 import com.tonigames.reaction.common.GameFinishListener
-import kotlinx.android.synthetic.main.fragment_find_leader_two.*
+import kotlin.random.Random
 
 class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_leader_two) {
 
@@ -27,10 +27,17 @@ class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_
     }
 
     override fun initImageButtons() {
-        val twoImages: List<Int> = allDrawables.shuffled().takeLast(2)
         val selectedImages = mutableListOf<Int>()
-        for (i in 1..4) selectedImages.add(twoImages[0])
-        for (i in 1..5) selectedImages.add(twoImages[1])
+        if (Random.nextBoolean()) {
+            val threeImages: List<Int> = allDrawables.shuffled().takeLast(3)
+            for (i in 1..2) selectedImages.add(threeImages[0])
+            for (i in 1..3) selectedImages.add(threeImages[1])
+            for (i in 1..4) selectedImages.add(threeImages[2])
+        } else {
+            val twoImages: List<Int> = allDrawables.shuffled().takeLast(2)
+            for (i in 1..4) selectedImages.add(twoImages[0])
+            for (i in 1..5) selectedImages.add(twoImages[1])
+        }
         selectedImages.shuffle()
 
         toggleToImgMap.values.forEachIndexed { idx, imgBtn ->

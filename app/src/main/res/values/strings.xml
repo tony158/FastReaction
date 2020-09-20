@@ -63,7 +63,7 @@
     <string name="left_or_right_description_german">Gleiche Form, wischen in die gleiche Richtung</string>
     <string name="rock_paper_description_german">Wählen Geste zu gewinnen</string>
     <string name="anagram_description_german">Finde die gleichen Bilder</string>
-    <string name="find_leader_description_german">test</string>
+    <string name="find_leader_description_german">Tippe auf das Bild, das am häufigsten angezeigt wird</string>
 
     <string name="high_score_german">Highscore</string>
     <string name="score_rank_german">Rangfolge</string>
@@ -77,7 +77,7 @@
     <string name="left_or_right_description_french">Même forme, glissez dans la même direction</string>
     <string name="rock_paper_description_french">Sélectionnez le geste pour gagner</string>
     <string name="anagram_description_french">Trouver le même ensemble images</string>
-    <string name="find_leader_description_french">Test</string>
+    <string name="find_leader_description_french">Appuyez sur image qui apparaît le plus</string>
 
     <string name="high_score_french">score élevé</string>
     <string name="score_rank_french">classement</string>
@@ -95,7 +95,7 @@
     <string name="left_or_right_description_chinese">相同形状,划向相同方向</string>
     <string name="rock_paper_description_chinese">选择赢家手势</string>
     <string name="anagram_description_chinese">找到相同一组图片</string>
-    <string name="find_leader_description_chinese">Test</string>
+    <string name="find_leader_description_chinese">点击出现次数最多图片</string>
 
     <string name="high_score_chinese">最高分</string>
     <string name="score_rank_chinese">排名</string>
@@ -107,7 +107,7 @@
     <string name="tap_color_description_spanish">Toque el color correcto</string>
     <string name="find_pair_description_spanish">Toca un par de cosas iguales</string>
     <string name="left_or_right_description_spanish">Misma forma, desliza hacia la misma dirección</string>
-    <string name="find_leader_description_spanish">Test</string>
+    <string name="find_leader_description_spanish">Toca la imagen que aparece más</string>
 
     <string name="high_score_spanish">Puntuación más alta</string>
     <string name="score_rank_spanish">Ranking</string>
@@ -119,7 +119,7 @@
     <string name="tap_color_description_portu">Toque na cor correta</string>
     <string name="find_pair_description_portu">Toque em um par das mesmas coisas</string>
     <string name="left_or_right_description_portu">Mesma forma, deslize para a mesma direção</string>
-    <string name="find_leader_description_portu">Mesma forma, deslize para a mesma direção</string>
+    <string name="find_leader_description_portu">Toque na imagem que mais aparece</string>
 
     <string name="high_score_portu">Pontuação máxima</string>
     <string name="score_rank_portu">Ranking</string>

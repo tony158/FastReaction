@@ -34,7 +34,7 @@ interface IGameSettings {
             MainMenuCataEnum.LeftOrRightSubtitle to R.string.left_or_right_description_english,
             MainMenuCataEnum.RockPaperSubtitle to R.string.rock_paper_description_english,
             MainMenuCataEnum.AnagramSubtitle to R.string.anagram_description_english,
-            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_pair_description_english,
+            MainMenuCataEnum.FindLeaderSubtitle to R.string.find_leader_description_english,
 
             MainMenuCataEnum.HighScore to R.string.high_score_english,
             MainMenuCataEnum.Ranking to R.string.score_rank_english,

@@ -1,12 +1,9 @@
 package com.tonigames.reaction.findleader
 
 import android.animation.Animator
-import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ToggleButton
 import com.daimajia.androidanimations.library.Techniques
