@@ -14,11 +14,6 @@ class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_
     override var seekBarAnimator: Animator? = null
     override var gameOverListener: GameFinishListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,6 +23,7 @@ class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_
 
     override fun initImageButtons() {
         val selectedImages = mutableListOf<Int>()
+
         if (Random.nextBoolean()) {
             val threeImages: List<Int> = allDrawables.shuffled().takeLast(3)
             for (i in 1..2) selectedImages.add(threeImages[0])
