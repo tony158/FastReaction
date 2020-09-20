@@ -16,8 +16,6 @@ import com.tonigames.reaction.common.ISeekBar
 import com.tonigames.reaction.findpair.WRONG_SELECTION_MSG
 import kotlinx.android.synthetic.main.fragment_find_leader_two.*
 
-private const val DURATION = 2200L
-
 abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(contentLayoutId), ISeekBar {
     val roundArgument: String = "Round"
     val extraArgument: String = "Extra"
@@ -94,17 +92,6 @@ abstract class AbstractFindLeaderFragment(contentLayoutId: Int) : Fragment(conte
 
         initImageButtons()
         bindToggleListeners()
-
-        val imageKindCount = toggleToImgMap.values.groupingBy { it.tag.toString() }.eachCount().count()
-        val modifiedDuration = if (imageKindCount == 2) DURATION - 300 else DURATION
-
-        seekBarAnimator = initSeekBarAnimator(
-            reduceDuration(modifiedDuration, paramRound),
-            progressBar,
-            gameOverListener
-        ).also {
-            it.start()
-        }
     }
 
     fun clearAllToggles() {
