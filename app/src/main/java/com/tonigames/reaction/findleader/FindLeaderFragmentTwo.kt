@@ -10,7 +10,7 @@ import com.tonigames.reaction.common.GameFinishListener
 import kotlinx.android.synthetic.main.fragment_find_leader_two.*
 import kotlin.random.Random
 
-private const val DURATION = 2800L
+private const val DURATION = 2600L
 
 class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_leader_two) {
 
@@ -60,7 +60,7 @@ class FindLeaderFragmentTwo : AbstractFindLeaderFragment(R.layout.fragment_find_
 
         val modifiedDuration =
             when (toggleToImgMap.values.groupingBy { it.tag.toString() }.eachCount().count()) {
-                2 -> DURATION - 600     // 2 kinds of images
+                2 -> DURATION - 800     // 2 kinds of images
                 3 -> DURATION - 400     // 3 kinds of images
                 4 -> DURATION           // 4 kinds of images
                 else -> DURATION
