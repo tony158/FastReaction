@@ -1,2 +1,2 @@
 # FastReaction
-A little android game written by Kotlin
+An android game written by Kotlin
